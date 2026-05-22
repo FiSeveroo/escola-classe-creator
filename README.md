@@ -121,4 +121,4 @@ Quando crescer — Supabase Pro: ~R$130 | Vercel Pro: ~R$120
 - E-mail de boas-vindas automático (Supabase + Resend)
 - Certificado de conclusão por trilha em PDF
 - Notificação quando instrutor responde comentário
-- Analytics de progresso da turma
+- Analytics de progresso da turma 
