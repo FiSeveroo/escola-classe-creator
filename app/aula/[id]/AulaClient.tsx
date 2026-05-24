@@ -48,17 +48,24 @@ export default function AulaClient({ aula, quiz, progresso: progressoInicial, us
   useEffect(() => {
     async function fetchComentarios() {
       setCarregandoComentarios(true)
+      // Busca comentários sem join para evitar problema de RLS
       const { data, error } = await supabase
         .from('comentarios')
-        .select('*, perfis(id, nome)')
+        .select('*')
         .eq('aula_id', aula.id)
         .is('pai_id', null)
         .order('criado_em', { ascending: true })
 
-      console.log('COMENTARIOS DATA:', data)
-      console.log('COMENTARIOS ERROR:', error)
-
       if (!error && data) {
+        // Busca perfis separadamente
+        const userIds = [...new Set(data.map((c: any) => c.usuario_id))]
+        const { data: perfis } = await supabase
+          .from('perfis')
+          .select('id, nome')
+          .in('id', userIds)
+
+        const perfisMap = Object.fromEntries((perfis || []).map(p => [p.id, p]))
+
         // Busca likes do usuário
         const { data: likes } = await supabase
           .from('comentario_likes')
@@ -66,7 +73,11 @@ export default function AulaClient({ aula, quiz, progresso: progressoInicial, us
           .eq('usuario_id', userId)
 
         const likedIds = new Set((likes || []).map(l => l.comentario_id))
-        setComentarios(data.map((c: any) => ({ ...c, user_liked: likedIds.has(c.id) })))
+        setComentarios(data.map((c: any) => ({
+          ...c,
+          perfis: perfisMap[c.usuario_id] || { id: c.usuario_id, nome: 'Usuário' },
+          user_liked: likedIds.has(c.id)
+        })))
       }
       setCarregandoComentarios(false)
     }
