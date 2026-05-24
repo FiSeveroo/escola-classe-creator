@@ -55,6 +55,9 @@ export default function AulaClient({ aula, quiz, progresso: progressoInicial, us
         .is('pai_id', null)
         .order('criado_em', { ascending: true })
 
+      console.log('COMENTARIOS DATA:', data)
+      console.log('COMENTARIOS ERROR:', error)
+
       if (!error && data) {
         // Busca likes do usuário
         const { data: likes } = await supabase
