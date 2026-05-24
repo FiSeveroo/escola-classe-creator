@@ -73,18 +73,29 @@ export default function AulaClient({ aula, quiz, progresso: progressoInicial, co
     if (!texto || enviando) return
     setEnviando(true)
 
-    const { data, error } = await supabase
+    const { error: insertError } = await supabase
       .from('comentarios')
       .insert({ aula_id: aula.id, usuario_id: userId, texto })
-      .select('*, perfis(id, nome)')
-      .single()
 
-    if (!error && data) {
-      setComentarios(prev => [...prev, { ...data, user_liked: false }])
-      setNovoComentario('')
-    } else {
-      console.error('Erro ao comentar:', error)
+    if (insertError) {
+      console.error('Erro ao comentar:', insertError)
+      setEnviando(false)
+      return
     }
+
+    const novoItem = {
+      id: crypto.randomUUID(),
+      aula_id: aula.id,
+      usuario_id: userId,
+      texto,
+      pai_id: null,
+      likes: 0,
+      criado_em: new Date().toISOString(),
+      perfis: { id: userId, nome: 'Você' },
+      user_liked: false,
+    }
+    setComentarios(prev => [...prev, novoItem as any])
+    setNovoComentario('')
     setEnviando(false)
   }
 
