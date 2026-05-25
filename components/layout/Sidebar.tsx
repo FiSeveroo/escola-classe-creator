@@ -12,6 +12,7 @@ const navItems = [
   { label: 'INÍCIO', href: '/dashboard', icon: '⌂' },
   { label: 'TRILHAS', href: '/trilhas', icon: '◎', matchHref: '/trilha' },
   { label: 'PERFIL', href: '/perfil', icon: '○' },
+  { label: 'SOBRE', href: '/sobre', icon: '◇' },
 ]
 
 export default function Sidebar({ perfil }: SidebarProps) {
