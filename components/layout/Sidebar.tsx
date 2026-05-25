@@ -83,11 +83,12 @@ export default function Sidebar({ perfil }: SidebarProps) {
 
         <div className="p-2 border-t" style={{ borderColor: 'var(--cc-gray2)' }}>
           <div className="flex items-center gap-3 px-3 py-2 mb-1">
-            <div
-              className="w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center font-display text-xs"
-              style={{ background: 'var(--cc-purple)', color: '#fff' }}
-            >
-              {initials}
+            <div className="w-7 h-7 rounded-full flex-shrink-0 overflow-hidden"
+              style={{ background: 'var(--cc-purple)' }}>
+              {perfil?.avatar_url
+                ? <img src={perfil.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
+                : <div className="w-full h-full flex items-center justify-center font-display text-xs" style={{ color: '#fff' }}>{initials}</div>
+              }
             </div>
             <span className="font-mono text-xs hidden lg:block truncate" style={{ color: 'var(--cc-muted)' }}>
               {perfil?.nome || 'Usuário'}
