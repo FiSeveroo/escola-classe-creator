@@ -27,7 +27,7 @@ interface Props {
   trilhaId: string | null
 }
 
-export default function AulaClient({ aula, quiz, progresso: progressoInicial, userId, userName, trilhaId }: Props) {
+export default function AulaClient({ aula, quiz, progresso: progressoInicial, userId, userName, userAvatar, trilhaId }: Props) {
   const router = useRouter()
   const supabase = createClient()
 
