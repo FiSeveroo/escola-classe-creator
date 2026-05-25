@@ -66,6 +66,7 @@ export default async function AulaPage({
             progresso={progresso || null}
             userId={user.id}
             userName={perfil?.nome || user.email?.split('@')[0] || 'Usuário'}
+            userAvatar={perfil?.avatar_url || null}
             trilhaId={trilhaId || null}
           />
         </div>
