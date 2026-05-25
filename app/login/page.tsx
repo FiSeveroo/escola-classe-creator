@@ -158,7 +158,17 @@ export default function LoginPage() {
             </button>
           )}
           {modo !== 'esqueci' && (
-            <p className="text-xs" style={{ color: 'var(--cc-muted)' }}>100% gratuito. Sem pegadinhas.</p>
+            <>
+              <p className="text-xs" style={{ color: 'var(--cc-muted)' }}>100% gratuito. Sem pegadinhas.</p>
+              {modo === 'cadastro' && (
+                <p className="text-center mt-1" style={{ fontSize: '10px', color: 'var(--cc-muted)' }}>
+                  Ao criar conta você concorda com os{' '}
+                  <a href="/termos" style={{ color: 'var(--cc-purple)' }}>Termos de Uso</a>
+                  {' '}e a{' '}
+                  <a href="/privacidade" style={{ color: 'var(--cc-purple)' }}>Política de Privacidade</a>
+                </p>
+              )}
+            </>
           )}
         </div>
       </div>
