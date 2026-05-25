@@ -42,6 +42,8 @@ export default function PerfilClient({ perfil, email, trilhas, totalConcluidas, 
   const [showCertModal, setShowCertModal] = useState<string | null>(null)
   const [urgente, setUrgente] = useState(false)
   const [motivoUrgencia, setMotivoUrgencia] = useState('')
+  const [nomeCompleto, setNomeCompleto] = useState(perfil?.nome || '')
+  const [emailCert, setEmailCert] = useState('')
   const [enviandoCert, setEnviandoCert] = useState(false)
 
   const initials = nome
@@ -79,12 +81,15 @@ export default function PerfilClient({ perfil, email, trilhas, totalConcluidas, 
   }
 
   async function solicitarCertificado(trilhaId: string) {
+    if (!nomeCompleto.trim() || !emailCert.trim()) return
     setEnviandoCert(true)
     const { error } = await supabase.from('certificado_solicitacoes').insert({
       usuario_id: perfil?.id,
       trilha_id: trilhaId,
       urgente,
       motivo_urgencia: urgente ? motivoUrgencia : null,
+      nome_completo: nomeCompleto.trim(),
+      email_certificado: emailCert.trim(),
     })
     if (!error) {
       setShowCertModal(null)
@@ -115,6 +120,30 @@ export default function PerfilClient({ perfil, email, trilhas, totalConcluidas, 
             <h3 className="font-display text-xl tracking-widest mb-1" style={{ color: 'var(--cc-white)' }}>SOLICITAR CERTIFICADO</h3>
             <p className="text-xs mb-4" style={{ color: 'var(--cc-muted)' }}>Prazo de emissão: até 15 dias úteis.</p>
 
+            {/* Nome completo */}
+            <div className="mb-3">
+              <label className="font-mono text-xs tracking-widest block mb-1.5" style={{ color: 'var(--cc-muted)' }}>NOME COMPLETO</label>
+              <input type="text" value={nomeCompleto} onChange={e => setNomeCompleto(e.target.value)}
+                placeholder="Como deve aparecer no certificado"
+                className="w-full rounded-lg px-3 py-2 text-sm outline-none"
+                style={{ background: 'var(--cc-bg)', border: '1px solid var(--cc-gray3)', color: 'var(--cc-white)' }}
+                onFocus={e => e.target.style.borderColor = 'var(--cc-green)'}
+                onBlur={e => e.target.style.borderColor = 'var(--cc-gray3)'}
+              />
+            </div>
+
+            {/* E-mail para receber */}
+            <div className="mb-4">
+              <label className="font-mono text-xs tracking-widest block mb-1.5" style={{ color: 'var(--cc-muted)' }}>E-MAIL PARA RECEBER</label>
+              <input type="email" value={emailCert} onChange={e => setEmailCert(e.target.value)}
+                placeholder="seu@email.com"
+                className="w-full rounded-lg px-3 py-2 text-sm outline-none"
+                style={{ background: 'var(--cc-bg)', border: '1px solid var(--cc-gray3)', color: 'var(--cc-white)' }}
+                onFocus={e => e.target.style.borderColor = 'var(--cc-green)'}
+                onBlur={e => e.target.style.borderColor = 'var(--cc-gray3)'}
+              />
+            </div>
+
             <div className="rounded-lg p-3 mb-4" style={{ background: 'var(--cc-bg)' }}>
               <label className="flex items-center gap-3 cursor-pointer">
                 <input type="checkbox" checked={urgente} onChange={e => setUrgente(e.target.checked)} className="w-4 h-4" />
@@ -143,7 +172,7 @@ export default function PerfilClient({ perfil, email, trilhas, totalConcluidas, 
                 CANCELAR
               </button>
               <button onClick={() => solicitarCertificado(showCertModal)}
-                disabled={enviandoCert || (urgente && !motivoUrgencia.trim())}
+                disabled={enviandoCert || !nomeCompleto.trim() || !emailCert.trim() || (urgente && !motivoUrgencia.trim())}
                 className="flex-1 py-2.5 rounded-lg font-display text-lg tracking-widest disabled:opacity-40"
                 style={{ background: 'var(--cc-green)', color: 'var(--cc-bg)' }}>
                 {enviandoCert ? '...' : 'SOLICITAR'}
