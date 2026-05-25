@@ -13,7 +13,7 @@ interface ComentarioLocal {
   pai_id: string | null
   likes: number
   criado_em: string
-  perfis: { id: string; nome: string } | null
+  perfis: { id: string; nome: string; avatar_url?: string | null } | null
   user_liked: boolean
 }
 
@@ -23,6 +23,7 @@ interface Props {
   progresso: ProgressoAula | null
   userId: string
   userName: string
+  userAvatar: string | null
   trilhaId: string | null
 }
 
@@ -61,7 +62,7 @@ export default function AulaClient({ aula, quiz, progresso: progressoInicial, us
         const userIds = [...new Set(data.map((c: any) => c.usuario_id))]
         const { data: perfis } = await supabase
           .from('perfis')
-          .select('id, nome')
+          .select('id, nome, avatar_url')
           .in('id', userIds)
 
         const perfisMap = Object.fromEntries((perfis || []).map(p => [p.id, p]))
@@ -139,7 +140,7 @@ export default function AulaClient({ aula, quiz, progresso: progressoInicial, us
         pai_id: null,
         likes: 0,
         criado_em: new Date().toISOString(),
-        perfis: { id: userId, nome: userName },
+        perfis: { id: userId, nome: userName, avatar_url: userAvatar },
         user_liked: false,
       }
       setComentarios(prev => [...prev, novoItem])
@@ -294,8 +295,12 @@ export default function AulaClient({ aula, quiz, progresso: progressoInicial, us
         </div>
 
         <div className="flex gap-3 mb-4">
-          <div className="w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center font-display text-xs mt-0.5"
-            style={{ background: 'var(--cc-purple)', color: '#fff' }}>{initials}</div>
+          <div className="w-7 h-7 rounded-full flex-shrink-0 overflow-hidden mt-0.5" style={{ background: 'var(--cc-purple)' }}>
+            {userAvatar
+              ? <img src={userAvatar} alt="Avatar" className="w-full h-full object-cover" />
+              : <div className="w-full h-full flex items-center justify-center font-display text-xs" style={{ color: '#fff' }}>{initials}</div>
+            }
+          </div>
           <div className="flex-1">
             <textarea ref={comentarioRef} value={novoComentario} onChange={e => setNovoComentario(e.target.value)}
               placeholder="Deixe sua dúvida ou comentário sobre esta aula..." rows={2}
@@ -328,8 +333,12 @@ export default function AulaClient({ aula, quiz, progresso: progressoInicial, us
                   const cor = cores[nome.charCodeAt(0) % cores.length]
                   return (
                     <div key={c.id} className="flex gap-3">
-                      <div className="w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center font-display text-xs"
-                        style={{ background: cor, color: '#fff' }}>{iniciais}</div>
+                      <div className="w-7 h-7 rounded-full flex-shrink-0 overflow-hidden" style={{ background: cor }}>
+                        {c.perfis?.avatar_url
+                          ? <img src={c.perfis.avatar_url} alt={nome} className="w-full h-full object-cover" />
+                          : <div className="w-full h-full flex items-center justify-center font-display text-xs" style={{ color: '#fff' }}>{iniciais}</div>
+                        }
+                      </div>
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1 flex-wrap">
                           <span className="text-sm font-medium" style={{ color: 'var(--cc-white)' }}>{nome}</span>
