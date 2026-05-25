@@ -10,21 +10,15 @@ export default async function PerfilPage() {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const [{ data: perfil }, { data: progresso }, { data: trilhas }] = await Promise.all([
+  const [{ data: perfil }, { data: progresso }, { data: trilhas }, { data: solicitacoes }] = await Promise.all([
     supabase.from('perfis').select('*').eq('id', user.id).single(),
-    supabase.from('progresso_aulas')
-      .select('aula_id, concluida')
-      .eq('usuario_id', user.id)
-      .eq('concluida', true),
-    supabase.from('trilhas')
-      .select('*, trilha_aulas(aula_id)')
-      .eq('ativa', true)
-      .order('ordem'),
+    supabase.from('progresso_aulas').select('aula_id, concluida').eq('usuario_id', user.id).eq('concluida', true),
+    supabase.from('trilhas').select('*, trilha_aulas(aula_id)').eq('ativa', true).order('ordem'),
+    supabase.from('certificado_solicitacoes').select('*').eq('usuario_id', user.id),
   ])
 
   const aulasConcluidas = new Set((progresso || []).map(p => p.aula_id))
 
-  // Calcula progresso por trilha
   const trilhasComProgresso = (trilhas || []).map(t => {
     const total = t.trilha_aulas?.length || 0
     const done = t.trilha_aulas?.filter((ta: { aula_id: string }) => aulasConcluidas.has(ta.aula_id)).length || 0
@@ -40,6 +34,7 @@ export default async function PerfilPage() {
           email={user.email || ''}
           trilhas={trilhasComProgresso}
           totalConcluidas={aulasConcluidas.size}
+          solicitacoes={solicitacoes || []}
         />
       </div>
     </div>
