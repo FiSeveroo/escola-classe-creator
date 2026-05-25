@@ -10,7 +10,7 @@ interface SidebarProps {
 
 const navItems = [
   { label: 'INÍCIO', href: '/dashboard', icon: '⌂' },
-  { label: 'TRILHAS', href: '/dashboard#trilhas', icon: '◎', matchHref: '/trilha' },
+  { label: 'TRILHAS', href: '/trilhas', icon: '◎', matchHref: '/trilha' },
   { label: 'PERFIL', href: '/perfil', icon: '○' },
 ]
 
@@ -35,14 +35,7 @@ export default function Sidebar({ perfil }: SidebarProps) {
   }
 
   function handleNav(item: typeof navItems[0]) {
-    if (item.href === '/dashboard#trilhas') {
-      router.push('/dashboard')
-      setTimeout(() => {
-        document.getElementById('trilhas-section')?.scrollIntoView({ behavior: 'smooth' })
-      }, 100)
-    } else {
-      router.push(item.href)
-    }
+    router.push(item.href)
   }
 
   return (
