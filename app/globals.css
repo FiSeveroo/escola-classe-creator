@@ -32,3 +32,30 @@ body {
 ::-webkit-scrollbar-track { background: var(--cc-gray); }
 ::-webkit-scrollbar-thumb { background: var(--cc-gray3); border-radius: 2px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--cc-muted); }
+
+body {
+  background-color: #0a0a0a;
+  background-image: url('/textura-cc.png');
+  background-repeat: repeat;
+  background-size: 600px 600px;
+  background-attachment: fixed;
+  opacity-layer: 0.06;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url('/textura-cc.png');
+  background-repeat: repeat;
+  background-size: 600px 600px;
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Garante que todo conteúdo fica acima da textura */
+body > * {
+  position: relative;
+  z-index: 1;
+}
