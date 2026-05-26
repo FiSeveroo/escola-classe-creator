@@ -66,7 +66,7 @@ export default function DashboardClient({ trilhas, aulasConcluidas, perfil, mura
   ]
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-6">
+    <div className="w-full px-4 sm:px-6 lg:px-10 py-6">
 
       {/* POP-UP PRIMEIRO ACESSO */}
       {showPopup && (
