@@ -26,7 +26,7 @@ export default async function PerfilPage() {
   })
 
   return (
-    <div className="flex min-h-screen" style={{ background: 'transparent' }}>
+    <div className="flex min-h-screen" style={{ background: 'var(--cc-bg)' }}>
       <Sidebar perfil={perfil} />
       <div className="flex-1 overflow-y-auto pb-20 md:pb-0">
         <PerfilClient
