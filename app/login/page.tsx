@@ -55,13 +55,14 @@ export default function LoginPage() {
         })
 
         if (error) {
-          setErro('Erro ao criar conta. Tente novamente.')
+          if (error.message?.toLowerCase().includes('already') || error.status === 422) {
+            setErro('Este e-mail já tem uma conta cadastrada. Use a opção "Esqueci minha senha" abaixo se precisar acessar.')
+          } else {
+            setErro('Erro ao criar conta. Tente novamente.')
+          }
+        } else if (data?.user?.identities?.length === 0) {
+          setErro('Este e-mail já tem uma conta cadastrada. Use a opção "Esqueci minha senha" abaixo se precisar acessar.')
         } else if (!data?.user) {
-          setErro('Erro ao criar conta. Tente novamente.')
-        } else if (
-          data.user.identities?.length === 0 ||
-          (data.user.email === email && data.user.created_at !== data.user.updated_at)
-        ) {
           setErro('Este e-mail já tem uma conta cadastrada. Use a opção "Esqueci minha senha" abaixo se precisar acessar.')
         } else if (data.session) {
           router.push('/dashboard')
