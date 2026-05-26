@@ -174,7 +174,7 @@ export default function AulaClient({ aula, quiz, progresso: progressoInicial, us
     : userId.slice(0, 2).toUpperCase()
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-6">
+    <div className="max-w-5xl mx-auto px-6 py-6">
 
       <div className="mb-4">
         <p className="font-mono text-xs tracking-widest mb-1" style={{ color: 'var(--cc-orange)' }}>AULA</p>
