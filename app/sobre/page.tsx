@@ -18,7 +18,7 @@ export default async function SobrePage() {
   const { data: perfil } = await supabase.from('perfis').select('*').eq('id', user.id).single()
 
   return (
-    <div className="flex min-h-screen" style={{ background: 'var(--cc-bg)' }}>
+    <div className="flex min-h-screen" style={{ background: 'transparent' }}>
       <Sidebar perfil={perfil} />
       <div className="flex-1 overflow-y-auto pb-20 md:pb-0">
         <SobreClient />
