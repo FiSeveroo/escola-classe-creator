@@ -18,44 +18,26 @@
 
 * { box-sizing: border-box; }
 
-body {
-  background-color: var(--cc-bg);
-  color: var(--cc-white);
-  font-family: 'DM Sans', sans-serif;
-  -webkit-font-smoothing: antialiased;
-}
-
-.font-display { font-family: 'Bebas Neue', sans-serif; }
-.font-mono    { font-family: 'Space Mono', monospace; }
-
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--cc-gray); }
-::-webkit-scrollbar-thumb { background: var(--cc-gray3); border-radius: 2px; }
-::-webkit-scrollbar-thumb:hover { background: var(--cc-muted); }
-
-body {
+html {
   background-color: #0a0a0a;
   background-image: url('/textura-cc.png');
   background-repeat: repeat;
-  background-size: 600px 600px;
+  background-size: 500px 500px;
   background-attachment: fixed;
-  opacity-layer: 0.06;
 }
 
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url('/textura-cc.png');
-  background-repeat: repeat;
-  background-size: 600px 600px;
-  opacity: 0.06;
-  pointer-events: none;
-  z-index: 0;
+body {
+  background: transparent;
+  color: var(--cc-white);
+  font-family: 'DM Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
 }
 
-/* Garante que todo conteúdo fica acima da textura */
-body > * {
-  position: relative;
-  z-index: 1;
-}
+.font-display { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.05em; }
+.font-mono    { font-family: 'Space Mono', monospace; }
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #111; }
+::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #444; }
