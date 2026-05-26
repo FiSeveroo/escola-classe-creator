@@ -53,15 +53,20 @@ export default function LoginPage() {
           email, password: senha,
           options: { data: { nome } }
         })
+
         if (error) {
           setErro('Erro ao criar conta. Tente novamente.')
-        } else if (data?.user?.identities?.length === 0) {
-          // Supabase retorna identities vazio quando e-mail já está cadastrado
+        } else if (!data?.user) {
+          setErro('Erro ao criar conta. Tente novamente.')
+        } else if (
+          data.user.identities?.length === 0 ||
+          (data.user.email === email && data.user.created_at !== data.user.updated_at)
+        ) {
           setErro('Este e-mail já tem uma conta cadastrada. Use a opção "Esqueci minha senha" abaixo se precisar acessar.')
-        } else if (data?.user && !data?.session) {
-          setSucesso('Cadastro realizado! Verifique sua caixa de entrada e confirme o e-mail antes de fazer login.')
-        } else {
+        } else if (data.session) {
           router.push('/dashboard')
+        } else {
+          setSucesso('Cadastro realizado! Verifique sua caixa de entrada e confirme o e-mail antes de fazer login.')
         }
 
       } else if (modo === 'esqueci') {
