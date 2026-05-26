@@ -44,7 +44,7 @@ export default function Sidebar({ perfil }: SidebarProps) {
       {/* DESKTOP SIDEBAR */}
       <aside
         className="hidden md:flex flex-col justify-between h-screen w-16 lg:w-52 flex-shrink-0 sticky top-0 border-r"
-        style={{ background: 'var(--cc-gray)', borderColor: 'var(--cc-gray2)' }}
+        style={{ background: 'rgba(10,10,10,0.85)', backdropFilter: 'blur(8px)', borderColor: '#1a1a1a' }}
       >
         <div>
           <div
