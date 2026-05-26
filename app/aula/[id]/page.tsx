@@ -56,7 +56,7 @@ export default async function AulaPage({
   }
 
   return (
-    <div className="flex min-h-screen" style={{ background: 'var(--cc-bg)' }}>
+    <div className="flex min-h-screen" style={{ background: 'transparent' }}>
       <Sidebar perfil={perfil} />
       <div className="flex-1 flex overflow-hidden">
         <div className="flex-1 overflow-y-auto pb-20 md:pb-0">
