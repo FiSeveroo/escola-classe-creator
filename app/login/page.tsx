@@ -54,11 +54,10 @@ export default function LoginPage() {
           options: { data: { nome } }
         })
         if (error) {
-          if (error.message?.includes('already registered') || error.message?.includes('already exists') || error.message?.includes('User already registered')) {
-            setErro('Este e-mail já tem uma conta cadastrada. Use a opção "Esqueci minha senha" abaixo se precisar acessar.')
-          } else {
-            setErro('Erro ao criar conta. Tente novamente.')
-          }
+          setErro('Erro ao criar conta. Tente novamente.')
+        } else if (data?.user?.identities?.length === 0) {
+          // Supabase retorna identities vazio quando e-mail já está cadastrado
+          setErro('Este e-mail já tem uma conta cadastrada. Use a opção "Esqueci minha senha" abaixo se precisar acessar.')
         } else if (data?.user && !data?.session) {
           setSucesso('Cadastro realizado! Verifique sua caixa de entrada e confirme o e-mail antes de fazer login.')
         } else {
