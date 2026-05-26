@@ -166,7 +166,7 @@ export default function SobreClient() {
         </p>
 
         {/* QR Code + PIX */}
-        <div className="rounded-xl p-5 text-center mb-4" style={{ background: 'var(--cc-bg)' }}>
+        <div className="rounded-xl p-5 text-center mb-4" style={{ background: 'transparent' }}>
           <p className="font-mono text-xs tracking-widest mb-4" style={{ color: 'var(--cc-muted)' }}>
             PIX — ESCANEIE OU COPIE A CHAVE
           </p>
