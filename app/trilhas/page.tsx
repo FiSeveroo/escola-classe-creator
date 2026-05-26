@@ -34,7 +34,7 @@ export default async function TrilhasPage() {
   })
 
   return (
-    <div className="flex min-h-screen" style={{ background: 'var(--cc-bg)' }}>
+    <div className="flex min-h-screen" style={{ background: 'transparent' }}>
       <Sidebar perfil={perfil} />
       <div className="flex-1 overflow-y-auto pb-20 md:pb-0">
         <TrilhasClient trilhas={trilhasComProgresso} nucleoCompleto={nucleoCompleto} />
