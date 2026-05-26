@@ -14,7 +14,7 @@ export default function SobreClient() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-6">
+    <div className="max-w-4xl mx-auto px-4 py-6">
 
       {/* Header */}
       <div className="mb-8">
@@ -165,24 +165,33 @@ export default function SobreClient() {
           Mas nunca faça nada além das suas possibilidades. O conteúdo continuará gratuito independente disso.
         </p>
 
-        {/* QR Code placeholder + PIX */}
+        {/* QR Code + PIX */}
         <div className="rounded-xl p-5 text-center mb-4" style={{ background: 'var(--cc-bg)' }}>
           <p className="font-mono text-xs tracking-widest mb-4" style={{ color: 'var(--cc-muted)' }}>
-            PIX — CHAVE E-MAIL
+            PIX — ESCANEIE OU COPIE A CHAVE
           </p>
+
+          {/* QR Code */}
+          <div className="flex justify-center mb-4">
+            <div className="p-3 rounded-xl" style={{ background: '#fff', display: 'inline-block' }}>
+              <img src="/pix-qrcode.png" alt="QR Code PIX" width={160} height={160} />
+            </div>
+          </div>
+
+          {/* Chave PIX copiável */}
           <div
-            className="inline-flex items-center gap-2 px-4 py-3 rounded-lg border cursor-pointer transition-colors mb-3"
-            style={{ borderColor: 'var(--cc-gray3)', background: 'var(--cc-gray)' }}
+            className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg border cursor-pointer transition-colors mx-auto"
+            style={{ borderColor: 'var(--cc-gray3)', background: 'var(--cc-gray)', maxWidth: '100%' }}
             onClick={copiarPix}
             onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--cc-green)'}
             onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--cc-gray3)'}
           >
-            <span className="font-mono text-sm" style={{ color: 'var(--cc-white)' }}>{pixEmail}</span>
-            <span className="font-mono text-xs" style={{ color: pixCopiado ? 'var(--cc-green)' : 'var(--cc-muted)' }}>
-              {pixCopiado ? '✓ copiado' : '⎘ copiar'}
+            <span className="font-mono text-sm" style={{ color: 'var(--cc-white)', wordBreak: 'break-all', flex: 1, textAlign: 'center' }}>{pixEmail}</span>
+            <span className="font-mono text-xs flex-shrink-0" style={{ color: pixCopiado ? 'var(--cc-green)' : 'var(--cc-muted)' }}>
+              {pixCopiado ? '✓' : '⎘'}
             </span>
           </div>
-          <p className="font-mono text-xs" style={{ color: 'var(--cc-muted)' }}>
+          <p className="font-mono text-xs mt-2" style={{ color: 'var(--cc-muted)' }}>
             Clique para copiar a chave PIX
           </p>
         </div>
