@@ -82,7 +82,7 @@ export default function DashboardClient({ trilhas, aulasConcluidas, perfil, mura
   ]
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-6">
+    <div className="max-w-4xl mx-auto px-4 py-6">
 
       {/* POP-UP PRIMEIRO ACESSO */}
       {showPopup && (
@@ -173,32 +173,11 @@ export default function DashboardClient({ trilhas, aulasConcluidas, perfil, mura
         <p className="font-mono text-xs mt-2" style={{ color: 'var(--cc-muted)' }}>{concluidasGeral} de {totalGeral} aulas concluídas</p>
       </div>
 
-      {/* Mural */}
-      {mural.length > 0 && (
-        <div className="mb-5">
-          <h3 className="font-display text-xl tracking-widest mb-3">
-            MURAL <span style={{ color: 'var(--cc-orange)' }}>DE AVISOS</span>
-          </h3>
-          <div className="flex flex-col gap-2">
-            {mural.map(item => (
-              <div key={item.id} className="rounded-xl p-4 border" style={{
-                background: 'var(--cc-gray)',
-                borderColor: item.fixado ? 'var(--cc-orange)' : 'var(--cc-gray2)',
-              }}>
-                <div className="flex items-start justify-between gap-2 mb-1">
-                  <div className="flex items-center gap-2">
-                    {item.fixado && <span className="font-mono text-xs" style={{ color: 'var(--cc-orange)' }}>📌</span>}
-                    <h4 className="font-display text-base tracking-wider" style={{ color: 'var(--cc-white)' }}>{item.titulo}</h4>
-                  </div>
-                  <span className="font-mono text-xs flex-shrink-0" style={{ color: 'var(--cc-muted)' }}>{formatarData(item.criado_em)}</span>
-                </div>
-                <p className="text-sm leading-relaxed" style={{ color: 'var(--cc-muted)' }}>{item.texto}</p>
-                <p className="font-mono text-xs mt-2" style={{ color: 'var(--cc-purple)' }}>— {item.autor}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+      {/* Layout 2 colunas no desktop */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+
+        {/* Coluna esquerda — Núcleo + Trilhas */}
+        <div className="lg:col-span-2">
 
       {/* Núcleo */}
       {nucleo && (
@@ -230,6 +209,39 @@ export default function DashboardClient({ trilhas, aulasConcluidas, perfil, mura
           </div>
         </>
       )}
+
+        </div>{/* fim coluna esquerda */}
+
+        {/* Coluna direita — Mural */}
+        <div className="lg:col-span-1">
+          {mural.length > 0 && (
+            <div>
+              <h3 className="font-display text-xl tracking-widest mb-3">
+                MURAL <span style={{ color: 'var(--cc-orange)' }}>DE AVISOS</span>
+              </h3>
+              <div className="flex flex-col gap-2">
+                {mural.map(item => (
+                  <div key={item.id} className="rounded-xl p-4 border" style={{
+                    background: 'var(--cc-gray)',
+                    borderColor: item.fixado ? 'var(--cc-orange)' : 'var(--cc-gray2)',
+                  }}>
+                    <div className="flex items-start justify-between gap-2 mb-1">
+                      <div className="flex items-center gap-2">
+                        {item.fixado && <span className="font-mono text-xs" style={{ color: 'var(--cc-orange)' }}>📌</span>}
+                        <h4 className="font-display text-base tracking-wider" style={{ color: 'var(--cc-white)' }}>{item.titulo}</h4>
+                      </div>
+                      <span className="font-mono text-xs flex-shrink-0" style={{ color: 'var(--cc-muted)' }}>{formatarData(item.criado_em)}</span>
+                    </div>
+                    <p className="text-sm leading-relaxed" style={{ color: 'var(--cc-muted)' }}>{item.texto}</p>
+                    <p className="font-mono text-xs mt-2" style={{ color: 'var(--cc-purple)' }}>— {item.autor}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>{/* fim coluna direita */}
+
+      </div>{/* fim grid */}
 
       {/* Trilhas específicas */}
       <div id="trilhas-section">
