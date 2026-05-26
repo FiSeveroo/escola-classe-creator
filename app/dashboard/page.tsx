@@ -38,7 +38,7 @@ export default async function DashboardPage() {
   const primeiraAula = nucleo?.trilha_aulas?.sort((a: any, b: any) => a.ordem - b.ordem)[0]?.aula_id || null
 
   return (
-    <div className="flex min-h-screen" style={{ background: 'transparent' }}>
+    <div className="flex min-h-screen" style={{ background: 'var(--cc-bg)' }}>
       <Sidebar perfil={perfil} />
       <div className="flex-1 overflow-y-auto pb-20 md:pb-0">
         <DashboardClient
