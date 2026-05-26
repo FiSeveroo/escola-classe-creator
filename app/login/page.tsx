@@ -49,12 +49,21 @@ export default function LoginPage() {
         else router.push('/dashboard')
 
       } else if (modo === 'cadastro') {
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
           email, password: senha,
           options: { data: { nome } }
         })
-        if (error) setErro('Erro ao criar conta. Tente outro e-mail.')
-        else setSucesso('Cadastro realizado! Verifique sua caixa de entrada e confirme o e-mail antes de fazer login.')
+        if (error) {
+          if (error.message?.includes('already registered') || error.message?.includes('already exists') || error.message?.includes('User already registered')) {
+            setErro('Este e-mail já tem uma conta cadastrada. Use a opção "Esqueci minha senha" abaixo se precisar acessar.')
+          } else {
+            setErro('Erro ao criar conta. Tente novamente.')
+          }
+        } else if (data?.user && !data?.session) {
+          setSucesso('Cadastro realizado! Verifique sua caixa de entrada e confirme o e-mail antes de fazer login.')
+        } else {
+          router.push('/dashboard')
+        }
 
       } else if (modo === 'esqueci') {
         const { error } = await supabase.auth.resetPasswordForEmail(email, {
