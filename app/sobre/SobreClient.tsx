@@ -18,7 +18,7 @@ export default function SobreClient() {
 
       {/* Header */}
       <div className="mb-8">
-        <p className="font-mono text-xs tracking-widest mb-1" style={{ color: 'var(--cc-muted)' }}>O PROJETO</p>
+        <p className="font-mono text-xs tracking-widest mb-1" style={{ color: '#aaa' }}>O PROJETO</p>
         <h1 className="font-display text-3xl tracking-widest" style={{ color: 'var(--cc-white)' }}>SOBRE</h1>
       </div>
 
@@ -27,12 +27,12 @@ export default function SobreClient() {
         <p className="font-display text-xl tracking-widest mb-3" style={{ color: 'var(--cc-green)' }}>
           CONHECIMENTO SEM PEDÁGIO
         </p>
-        <p className="text-sm leading-relaxed mb-3" style={{ color: 'var(--cc-muted)' }}>
+        <p className="text-base leading-relaxed mb-3" style={{ color: '#aaa' }}>
           A Escola Classe Creator existe porque acreditamos que entender o jogo das plataformas digitais
           não pode ser privilégio de quem pode pagar. Criadores, editores, designers e gestores de comunidade
           merecem acesso à mesma profundidade de análise que pesquisadores e grandes agências têm.
         </p>
-        <p className="text-sm leading-relaxed" style={{ color: 'var(--cc-muted)' }}>
+        <p className="text-base leading-relaxed" style={{ color: '#aaa' }}>
           Tudo aqui é gratuito — os vídeos, os materiais, os quizzes, os certificados.
           Sempre foi, sempre será.
         </p>
@@ -57,7 +57,7 @@ export default function SobreClient() {
             </p>
           </div>
         </div>
-        <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--cc-muted)' }}>
+        <p className="text-base leading-relaxed mb-5" style={{ color: '#aaa' }}>
           Sou Filipe Severo — pesquisador, estrategista de conteúdo e criador há mais de 10 anos.
           Estudei plataformas digitais no mestrado e aprendi uma coisa que ninguém te conta: o jogo é mais
           complexo do que parece, e quem não entende as regras trabalha para quem entende. Criei a Escola
@@ -74,7 +74,7 @@ export default function SobreClient() {
               target="_blank"
               rel="noopener noreferrer"
               className="font-mono text-xs px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-colors"
-              style={{ background: 'var(--cc-gray2)', color: 'var(--cc-muted)' }}
+              style={{ background: 'var(--cc-gray2)', color: '#aaa' }}
               onMouseEnter={e => { e.currentTarget.style.color = 'var(--cc-white)' }}
               onMouseLeave={e => { e.currentTarget.style.color = 'var(--cc-muted)' }}
             >
@@ -94,12 +94,12 @@ export default function SobreClient() {
             className="h-12 object-contain"
           />
         </div>
-        <p className="text-sm leading-relaxed mb-3" style={{ color: 'var(--cc-muted)' }}>
+        <p className="text-base leading-relaxed mb-3" style={{ color: '#aaa' }}>
           A Classe Creator é um movimento que reúne criadores, editores, roteiristas, designers e gestores
           de comunidade que querem trabalhar com liberdade e entender o sistema por dentro. Não é só um curso —
           é um espaço de pesquisa, análise crítica e articulação coletiva.
         </p>
-        <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--cc-muted)' }}>
+        <p className="text-base leading-relaxed mb-5" style={{ color: '#aaa' }}>
           A revolução não cabe no feed.
         </p>
         <div className="flex flex-wrap gap-2 mb-4">
@@ -114,7 +114,7 @@ export default function SobreClient() {
               target="_blank"
               rel="noopener noreferrer"
               className="font-mono text-xs px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-colors"
-              style={{ background: 'var(--cc-gray2)', color: 'var(--cc-muted)' }}
+              style={{ background: 'var(--cc-gray2)', color: '#aaa' }}
               onMouseEnter={e => { e.currentTarget.style.color = 'var(--cc-white)' }}
               onMouseLeave={e => { e.currentTarget.style.color = 'var(--cc-muted)' }}
             >
@@ -130,12 +130,12 @@ export default function SobreClient() {
         <h3 className="font-display text-xl tracking-widest mb-2" style={{ color: 'var(--cc-white)' }}>
           RAIO-X CLASSE CREATOR
         </h3>
-        <p className="text-sm leading-relaxed mb-3" style={{ color: 'var(--cc-muted)' }}>
+        <p className="text-base leading-relaxed mb-3" style={{ color: '#aaa' }}>
           Ferramenta de auditoria algorítmica e pesquisa acadêmica do trabalho plataformizado no YouTube.
           Classifica artefatos segundo uma tipologia dupla — quem produz × que gênero de trabalho é produzido —
           ancorada em pesquisa acadêmica e operacionalizada por inteligência artificial.
         </p>
-        <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--cc-muted)' }}>
+        <p className="text-base leading-relaxed mb-5" style={{ color: '#aaa' }}>
           Mais do que um utilitário de análise, o Raio-X é uma proposta metodológica: tratar o YouTube
           não como vitrine de "criadores independentes", mas como regime de produção plataformizada.
           <span style={{ color: 'var(--cc-white)', fontStyle: 'italic' }}> "Criar é trabalho."</span>
@@ -159,7 +159,7 @@ export default function SobreClient() {
         <h3 className="font-display text-xl tracking-widest mb-3" style={{ color: 'var(--cc-white)' }}>
           SE PUDER, AJUDE
         </h3>
-        <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--cc-muted)' }}>
+        <p className="text-base leading-relaxed mb-5" style={{ color: '#aaa' }}>
           Manter a plataforma tem custo — servidores, domínio, tempo de desenvolvimento.
           Se este conteúdo te ajudou e você quiser contribuir, qualquer valor é bem-vindo.
           Mas nunca faça nada além das suas possibilidades. O conteúdo continuará gratuito independente disso.
@@ -167,7 +167,7 @@ export default function SobreClient() {
 
         {/* QR Code + PIX */}
         <div className="rounded-xl p-5 text-center mb-4" style={{ background: 'transparent' }}>
-          <p className="font-mono text-xs tracking-widest mb-4" style={{ color: 'var(--cc-muted)' }}>
+          <p className="font-mono text-xs tracking-widest mb-4" style={{ color: '#aaa' }}>
             PIX — ESCANEIE OU COPIE A CHAVE
           </p>
 
@@ -191,12 +191,12 @@ export default function SobreClient() {
               {pixCopiado ? '✓' : '⎘'}
             </span>
           </div>
-          <p className="font-mono text-xs mt-2" style={{ color: 'var(--cc-muted)' }}>
+          <p className="font-mono text-xs mt-2" style={{ color: '#aaa' }}>
             Clique para copiar a chave PIX
           </p>
         </div>
 
-        <p className="text-xs text-center" style={{ color: 'var(--cc-muted)' }}>
+        <p className="text-xs text-center" style={{ color: '#aaa' }}>
           Obrigado por fazer parte dessa corrente.
         </p>
       </div>
@@ -211,7 +211,7 @@ export default function SobreClient() {
             key={link.label}
             href={link.url}
             className="font-mono text-xs"
-            style={{ color: 'var(--cc-muted)' }}
+            style={{ color: '#aaa' }}
             onMouseEnter={e => e.currentTarget.style.color = 'var(--cc-white)'}
             onMouseLeave={e => e.currentTarget.style.color = 'var(--cc-muted)'}
           >
