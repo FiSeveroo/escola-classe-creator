@@ -146,7 +146,7 @@ export default function AulaClient({ aula, quiz, progresso: progressoInicial, us
   ]
 
   return (
-    <div className="w-full px-4 sm:px-6 lg:px-10 py-6">
+    <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 py-6">
 
       {/* HEADER DA AULA */}
       <div className="mb-5">
