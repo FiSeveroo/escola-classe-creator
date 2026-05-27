@@ -119,7 +119,7 @@ export default function DashboardClient({ trilhas, aulasConcluidas, perfil, mura
       {/* HERO */}
       <div className="rounded-2xl p-6 mb-5 border" style={{ background: 'rgba(255,255,255,0.02)', borderColor: '#1a1a1a' }}>
         <p className="font-mono text-xs tracking-widest mb-1" style={{ color: '#444' }}>BEM-VINDO DE VOLTA</p>
-        <h1 className="font-display tracking-widest mb-1" style={{ fontSize: '48px', color: 'var(--cc-green)', lineHeight: 1 }}>
+        <h1 className="font-display tracking-widest mb-1" style={{ fontSize: '64px', color: 'var(--cc-green)', lineHeight: 1 }}>
           {nome.toUpperCase()}
         </h1>
         <p className="font-mono text-xs tracking-widest" style={{ color: '#333' }}>A REVOLUÇÃO NÃO CABE NO FEED</p>
@@ -135,7 +135,7 @@ export default function DashboardClient({ trilhas, aulasConcluidas, perfil, mura
           </div>
           <p className="font-mono text-xs" style={{ color: '#444' }}>{concluidasGeral} de {totalGeral} aulas concluídas</p>
         </div>
-        <p className="font-display" style={{ fontSize: '56px', color: 'var(--cc-green)', lineHeight: 1 }}>{pctGeral}%</p>
+        <p className="font-display" style={{ fontSize: '64px', color: 'var(--cc-green)', lineHeight: 1 }}>{pctGeral}%</p>
       </div>
 
       {/* GRID: NÚCLEO + MURAL */}
@@ -156,11 +156,11 @@ export default function DashboardClient({ trilhas, aulasConcluidas, perfil, mura
                   <p className="font-mono text-xs tracking-widest mb-1" style={{ color: nucleoCompleto ? 'var(--cc-green)' : 'var(--cc-purple)' }}>
                     BASE PARA TODAS AS TRILHAS
                   </p>
-                  <h2 className="font-display tracking-widest" style={{ fontSize: '28px', color: 'var(--cc-white)' }}>
+                  <h2 className="font-display tracking-widest" style={{ fontSize: '44px', color: 'var(--cc-white)' }}>
                     {nucleo?.titulo.toUpperCase()}
                   </h2>
                 </div>
-                <span style={{ fontSize: '28px', color: nucleoCompleto ? 'var(--cc-green)' : 'var(--cc-purple)' }}>
+                <span style={{ fontSize: '44px', color: nucleoCompleto ? 'var(--cc-green)' : 'var(--cc-purple)' }}>
                   {nucleoCompleto ? '✓' : '▶'}
                 </span>
               </div>
@@ -238,7 +238,7 @@ export default function DashboardClient({ trilhas, aulasConcluidas, perfil, mura
                   <p className="font-mono mb-1" style={{ fontSize: '9px', letterSpacing: '2px', color: desbloqueada ? corAccent : '#333' }}>
                     TRILHA {String(i + 1).padStart(2, '0')}
                   </p>
-                  <h3 className="font-display tracking-wider mb-1 leading-tight" style={{ fontSize: '20px', color: desbloqueada ? 'var(--cc-white)' : '#333' }}>
+                  <h3 className="font-display tracking-wider mb-1 leading-tight" style={{ fontSize: '26px', color: desbloqueada ? 'var(--cc-white)' : '#333' }}>
                     {t.titulo.toUpperCase()}
                   </h3>
 
@@ -263,7 +263,7 @@ export default function DashboardClient({ trilhas, aulasConcluidas, perfil, mura
                   {!desbloqueada && !emBreve && (
                     <div className="rounded-lg p-2 mt-2" style={{ background: 'rgba(123,47,255,0.08)', border: '1px solid #2a1f4a' }}>
                       <p className="font-mono mb-0.5" style={{ fontSize: '8px', letterSpacing: '1px', color: 'var(--cc-purple)' }}>PARA DESBLOQUEAR</p>
-                      <p className="text-xs" style={{ color: '#444', lineHeight: 1.4 }}>
+                      <p className="text-sm" style={{ color: '#444', lineHeight: 1.4 }}>
                         Conclua o <span style={{ color: 'var(--cc-purple)' }}>Núcleo Obrigatório</span>
                       </p>
                     </div>
