@@ -8,5 +8,14 @@ export function createClient() {
     throw new Error('Supabase não configurado. Edite .env.local com suas chaves.')
   }
 
-  return createBrowserClient(url, key)
+  return createBrowserClient(url, key, {
+    auth: {
+      autoRefreshToken: true,
+      persistSession: true,
+      detectSessionInUrl: true,
+    },
+    cookieOptions: {
+      maxAge: 60 * 60 * 24 * 7, // 7 dias
+    },
+  })
 }
