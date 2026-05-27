@@ -88,13 +88,13 @@ export default function DashboardClient({ trilhas, aulasConcluidas, perfil, mura
                 <h3 className="font-display text-xl tracking-wider mb-2" style={{ color: 'var(--cc-white)' }}>
                   {popupCards[popupStep].titulo.toUpperCase()}
                 </h3>
-                <p className="text-sm leading-relaxed" style={{ color: '#666' }}>{popupCards[popupStep].texto}</p>
+                <p className="text-sm leading-relaxed" style={{ color: '#aaa' }}>{popupCards[popupStep].texto}</p>
               </div>
               <div className="flex gap-2">
                 {popupStep > 0 && (
                   <button onClick={() => setPopupStep(s => s - 1)}
                     className="flex-1 py-2.5 rounded-lg font-mono text-xs tracking-widest border"
-                    style={{ borderColor: '#333', color: '#666' }}>ANTERIOR</button>
+                    style={{ borderColor: '#333', color: '#aaa' }}>ANTERIOR</button>
                 )}
                 {popupStep < popupCards.length - 1 ? (
                   <button onClick={() => setPopupStep(s => s + 1)}
@@ -108,7 +108,7 @@ export default function DashboardClient({ trilhas, aulasConcluidas, perfil, mura
               </div>
               <button onClick={() => setShowPopup(false)}
                 className="w-full mt-2 font-mono text-xs text-center py-1"
-                style={{ color: '#444', background: 'none', border: 'none', cursor: 'pointer' }}>
+                style={{ color: '#aaa', background: 'none', border: 'none', cursor: 'pointer' }}>
                 pular introdução
               </button>
             </div>
@@ -118,7 +118,7 @@ export default function DashboardClient({ trilhas, aulasConcluidas, perfil, mura
 
       {/* HERO */}
       <div className="rounded-2xl p-6 mb-5 border" style={{ background: 'rgba(255,255,255,0.02)', borderColor: '#1a1a1a' }}>
-        <p className="font-mono text-xs tracking-widest mb-1" style={{ color: '#444' }}>BEM-VINDO DE VOLTA</p>
+        <p className="font-mono text-xs tracking-widest mb-1" style={{ color: '#aaa' }}>BEM-VINDO DE VOLTA</p>
         <h1 className="font-display tracking-widest mb-1" style={{ fontSize: '64px', color: 'var(--cc-green)', lineHeight: 1 }}>
           {nome.toUpperCase()}
         </h1>
@@ -128,12 +128,12 @@ export default function DashboardClient({ trilhas, aulasConcluidas, perfil, mura
       {/* PROGRESSO GERAL */}
       <div className="rounded-xl p-5 border mb-5 flex items-center gap-5" style={{ background: 'rgba(255,255,255,0.02)', borderColor: '#1a1a1a' }}>
         <div className="flex-1">
-          <p className="font-mono text-xs tracking-widest mb-2" style={{ color: '#444' }}>PROGRESSÃO GERAL</p>
+          <p className="font-mono text-xs tracking-widest mb-2" style={{ color: '#aaa' }}>PROGRESSÃO GERAL</p>
           <div className="h-2 rounded-full overflow-hidden mb-2" style={{ background: '#1a1a1a' }}>
             <div className="h-full rounded-full transition-all duration-700"
               style={{ width: `${pctGeral}%`, background: 'var(--cc-green)' }} />
           </div>
-          <p className="font-mono text-xs" style={{ color: '#444' }}>{concluidasGeral} de {totalGeral} aulas concluídas</p>
+          <p className="font-mono text-xs" style={{ color: '#aaa' }}>{concluidasGeral} de {totalGeral} aulas concluídas</p>
         </div>
         <p className="font-display" style={{ fontSize: '64px', color: 'var(--cc-green)', lineHeight: 1 }}>{pctGeral}%</p>
       </div>
@@ -143,7 +143,7 @@ export default function DashboardClient({ trilhas, aulasConcluidas, perfil, mura
 
         {/* Núcleo */}
         <div className="lg:col-span-2">
-          <p className="font-mono text-xs tracking-widest mb-3" style={{ color: 'var(--cc-purple)' }}>NÚCLEO OBRIGATÓRIO</p>
+          <p className="font-mono text-sm tracking-widest mb-3" style={{ color: 'var(--cc-purple)' }}>NÚCLEO OBRIGATÓRIO</p>
           <div className="rounded-xl border overflow-hidden cursor-pointer transition-all"
             style={{ background: 'rgba(123,47,255,0.06)', borderColor: nucleoCompleto ? '#1a3a28' : '#3a2f6e' }}
             onClick={() => router.push(`/trilha/${nucleo?.id}`)}
@@ -164,9 +164,9 @@ export default function DashboardClient({ trilhas, aulasConcluidas, perfil, mura
                   {nucleoCompleto ? '✓' : '▶'}
                 </span>
               </div>
-              <p className="text-sm mb-4" style={{ color: '#555' }}>{nucleo?.descricao}</p>
+              <p className="text-sm mb-4" style={{ color: '#999' }}>{nucleo?.descricao}</p>
               <div className="flex justify-between items-center mb-1.5">
-                <span className="font-mono text-xs" style={{ color: '#444' }}>{nucleoConcluidas}/{nucleoTotal} aulas</span>
+                <span className="font-mono text-xs" style={{ color: '#aaa' }}>{nucleoConcluidas}/{nucleoTotal} aulas</span>
                 <span className="font-mono text-xs" style={{ color: nucleoCompleto ? 'var(--cc-green)' : 'var(--cc-purple)' }}>{nucleoPct}%</span>
               </div>
               <div className="h-1.5 rounded-full overflow-hidden" style={{ background: '#1a1a1a' }}>
@@ -196,9 +196,9 @@ export default function DashboardClient({ trilhas, aulasConcluidas, perfil, mura
                     <h4 className="font-display text-base tracking-wider" style={{ color: 'var(--cc-white)' }}>
                       {item.fixado && <span style={{ color: 'var(--cc-orange)' }}>📌 </span>}{item.titulo}
                     </h4>
-                    <span className="font-mono text-xs flex-shrink-0" style={{ color: '#444' }}>{formatarData(item.criado_em)}</span>
+                    <span className="font-mono text-xs flex-shrink-0" style={{ color: '#aaa' }}>{formatarData(item.criado_em)}</span>
                   </div>
-                  <p className="text-xs leading-relaxed mb-2" style={{ color: '#555' }}>{item.texto}</p>
+                  <p className="text-xs leading-relaxed mb-2" style={{ color: '#999' }}>{item.texto}</p>
                   <p className="font-mono" style={{ fontSize: '9px', color: 'var(--cc-orange)' }}>— {item.autor}</p>
                 </div>
               </div>
@@ -210,8 +210,8 @@ export default function DashboardClient({ trilhas, aulasConcluidas, perfil, mura
       {/* TRILHAS ESPECÍFICAS */}
       <div id="trilhas-section">
         <div className="flex items-baseline justify-between mb-4">
-          <p className="font-mono text-xs tracking-widest" style={{ color: '#444' }}>TRILHAS ESPECÍFICAS</p>
-          {!nucleoCompleto && <span className="font-mono text-xs" style={{ color: '#333' }}>conclua o núcleo para acessar</span>}
+          <p className="font-mono text-sm tracking-widest" style={{ color: '#aaa' }}>TRILHAS ESPECÍFICAS</p>
+          {!nucleoCompleto && <span className="font-mono text-sm" style={{ color: '#999' }}>conclua o núcleo para acessar</span>}
         </div>
         <div className="grid grid-cols-2 gap-3">
           {especificas.map((t, i) => {
@@ -248,7 +248,7 @@ export default function DashboardClient({ trilhas, aulasConcluidas, perfil, mura
                         <div className="h-full rounded-full" style={{ width: `${pct}%`, background: corAccent }} />
                       </div>
                       <div className="flex justify-between">
-                        <span className="font-mono" style={{ fontSize: '9px', color: '#444' }}>{done}/{total} aulas</span>
+                        <span className="font-mono" style={{ fontSize: '9px', color: '#aaa' }}>{done}/{total} aulas</span>
                         <span className="font-mono" style={{ fontSize: '9px', color: corAccent }}>
                           {tConcluida ? '✓ Concluída' : '▶ Disponível'}
                         </span>
@@ -263,7 +263,7 @@ export default function DashboardClient({ trilhas, aulasConcluidas, perfil, mura
                   {!desbloqueada && !emBreve && (
                     <div className="rounded-lg p-2 mt-2" style={{ background: 'rgba(123,47,255,0.08)', border: '1px solid #2a1f4a' }}>
                       <p className="font-mono mb-0.5" style={{ fontSize: '8px', letterSpacing: '1px', color: 'var(--cc-purple)' }}>PARA DESBLOQUEAR</p>
-                      <p className="text-sm" style={{ color: '#444', lineHeight: 1.4 }}>
+                      <p className="text-sm" style={{ color: '#aaa', lineHeight: 1.4 }}>
                         Conclua o <span style={{ color: 'var(--cc-purple)' }}>Núcleo Obrigatório</span>
                       </p>
                     </div>
