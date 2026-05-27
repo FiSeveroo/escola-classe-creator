@@ -154,7 +154,7 @@ export default function AulaClient({ aula, quiz, progresso: progressoInicial, us
         <h1 className="font-display tracking-widest leading-tight mb-2" style={{ fontSize: '44px', color: 'var(--cc-white)' }}>
           {aula.titulo.toUpperCase()}
         </h1>
-        {aula.descricao && <p className="text-sm leading-relaxed" style={{ color: '#555' }}>{aula.descricao}</p>}
+        {aula.descricao && <p className="text-sm leading-relaxed" style={{ color: '#999' }}>{aula.descricao}</p>}
       </div>
 
       {/* ETAPAS */}
@@ -201,14 +201,14 @@ export default function AulaClient({ aula, quiz, progresso: progressoInicial, us
           background: pdfBaixado ? 'rgba(0,232,122,0.05)' : videoAssistido ? 'rgba(255,92,26,0.05)' : 'rgba(255,255,255,0.02)',
           borderColor: pdfBaixado ? '#1a3a28' : videoAssistido ? '#2a1800' : '#1a1a1a'
         }}>
-          <p className="font-mono text-xs tracking-widest mb-3" style={{ color: '#444' }}>⬇ MATERIAL DE APOIO</p>
+          <p className="font-mono text-xs tracking-widest mb-3" style={{ color: '#aaa' }}>⬇ MATERIAL DE APOIO</p>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg flex items-center justify-center text-lg"
                 style={{ background: '#1a0d0d', color: 'var(--cc-orange)' }}>📄</div>
               <div>
                 <p className="text-sm font-medium" style={{ color: 'var(--cc-white)' }}>{aula.titulo}.pdf</p>
-                <p className="font-mono text-xs" style={{ color: '#444' }}>{pdfBaixado ? 'baixado ✓' : 'material da aula'}</p>
+                <p className="font-mono text-xs" style={{ color: '#aaa' }}>{pdfBaixado ? 'baixado ✓' : 'material da aula'}</p>
               </div>
             </div>
             {pdfBaixado
@@ -229,11 +229,11 @@ export default function AulaClient({ aula, quiz, progresso: progressoInicial, us
           background: quizAprovado ? 'rgba(0,232,122,0.05)' : pdfBaixado ? 'rgba(123,47,255,0.05)' : 'rgba(255,255,255,0.02)',
           borderColor: quizAprovado ? '#1a3a28' : pdfBaixado ? '#3a2f6e' : '#1a1a1a'
         }}>
-          <p className="font-mono text-xs tracking-widest mb-3" style={{ color: '#444' }}>? QUIZ</p>
+          <p className="font-mono text-xs tracking-widest mb-3" style={{ color: '#aaa' }}>? QUIZ</p>
           {!pdfBaixado
             ? <div className="flex flex-col items-center justify-center py-4 gap-2">
                 <span style={{ fontSize: '24px' }}>🔒</span>
-                <p className="font-mono text-xs" style={{ color: '#444' }}>baixe o PDF para liberar</p>
+                <p className="font-mono text-xs" style={{ color: '#aaa' }}>baixe o PDF para liberar</p>
               </div>
             : quizAprovado
             ? <p className="font-mono text-sm text-center py-4" style={{ color: 'var(--cc-green)' }}>✓ respondido corretamente</p>
@@ -259,7 +259,7 @@ export default function AulaClient({ aula, quiz, progresso: progressoInicial, us
                   })}
                 </div>
               </div>
-            : <p className="font-mono text-xs text-center py-4" style={{ color: '#444' }}>Quiz em breve</p>
+            : <p className="font-mono text-xs text-center py-4" style={{ color: '#aaa' }}>Quiz em breve</p>
           }
         </div>
       </div>
@@ -279,7 +279,7 @@ export default function AulaClient({ aula, quiz, progresso: progressoInicial, us
       {mostrarBanner && (
         <div className="rounded-2xl p-6 mb-5 border text-center" style={{ background: 'rgba(0,232,122,0.08)', borderColor: '#1a3a28' }}>
           <p className="font-display tracking-widest mb-1" style={{ fontSize: '32px', color: 'var(--cc-green)' }}>AULA CONCLUÍDA</p>
-          <p className="text-sm mb-4" style={{ color: '#555' }}>Progresso salvo. Continue pela lista de aulas ao lado.</p>
+          <p className="text-sm mb-4" style={{ color: '#999' }}>Progresso salvo. Continue pela lista de aulas ao lado.</p>
           <button onClick={() => router.push(trilhaId ? `/trilha/${trilhaId}` : '/dashboard')}
             className="font-display text-xl tracking-widest px-8 py-3 rounded-xl"
             style={{ background: 'var(--cc-green)', color: '#0a0a0a' }}>
@@ -292,7 +292,7 @@ export default function AulaClient({ aula, quiz, progresso: progressoInicial, us
       <div className="rounded-2xl border overflow-hidden" style={{ background: 'rgba(255,255,255,0.02)', borderColor: '#1a1a1a' }}>
         <div className="px-5 py-4 border-b flex justify-between items-center" style={{ borderColor: '#1a1a1a' }}>
           <h2 className="font-display text-xl tracking-widest" style={{ color: 'var(--cc-white)' }}>COMENTÁRIOS</h2>
-          <span className="font-mono text-xs" style={{ color: '#444' }}>
+          <span className="font-mono text-xs" style={{ color: '#aaa' }}>
             {carregandoComentarios ? '...' : `${comentarios.length} ${comentarios.length === 1 ? 'comentário' : 'comentários'}`}
           </span>
         </div>
@@ -327,7 +327,7 @@ export default function AulaClient({ aula, quiz, progresso: progressoInicial, us
 
           {/* Lista */}
           {carregandoComentarios
-            ? <p className="font-mono text-xs text-center py-4" style={{ color: '#444' }}>Carregando...</p>
+            ? <p className="font-mono text-xs text-center py-4" style={{ color: '#aaa' }}>Carregando...</p>
             : comentarios.length === 0
             ? <p className="font-mono text-xs text-center py-6" style={{ color: '#333' }}>Seja o primeiro a comentar nesta aula</p>
             : <div className="flex flex-col gap-4">
@@ -350,9 +350,9 @@ export default function AulaClient({ aula, quiz, progresso: progressoInicial, us
                           {c.usuario_id === userId && (
                             <span className="font-mono text-xs px-1.5 py-0.5 rounded" style={{ background: '#1f1a2e', color: 'var(--cc-purple)' }}>você</span>
                           )}
-                          <span className="font-mono text-xs" style={{ color: '#444' }}>{formatarTempo(c.criado_em)}</span>
+                          <span className="font-mono text-xs" style={{ color: '#aaa' }}>{formatarTempo(c.criado_em)}</span>
                         </div>
-                        <p className="text-sm leading-relaxed mb-2" style={{ color: '#888' }}>{c.texto}</p>
+                        <p className="text-sm leading-relaxed mb-2" style={{ color: '#aaa' }}>{c.texto}</p>
                         <div className="flex gap-3">
                           <button onClick={() => toggleLike(c.id)} className="font-mono text-xs flex items-center gap-1"
                             style={{ color: c.user_liked ? 'var(--cc-green)' : '#444', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
@@ -360,7 +360,7 @@ export default function AulaClient({ aula, quiz, progresso: progressoInicial, us
                           </button>
                           <button onClick={() => { comentarioRef.current?.focus(); comentarioRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }) }}
                             className="font-mono text-xs"
-                            style={{ color: '#444', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+                            style={{ color: '#aaa', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
                             onMouseEnter={e => (e.currentTarget.style.color = 'var(--cc-green)')}
                             onMouseLeave={e => (e.currentTarget.style.color = '#444')}>
                             ↩ responder
