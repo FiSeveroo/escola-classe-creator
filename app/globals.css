@@ -1,9 +1,45 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================================
+   FONTES LOCAIS — Classe Creator
+   ============================================================ */
+@font-face {
+  font-family: 'Gunterz';
+  src: url('/Gunterz-Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Gunterz';
+  src: url('/Gunterz-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Gunterz';
+  src: url('/Gunterz-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'CookConthic';
+  src: url('/CookConthic.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Space Mono para labels/mono — continua do Google */
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+
+/* ============================================================
+   VARIÁVEIS
+   ============================================================ */
 :root {
   --cc-bg: #0a0a0a;
   --cc-gray: #1a1a1a;
@@ -13,7 +49,7 @@
   --cc-purple: #7B2FFF;
   --cc-orange: #FF5C1A;
   --cc-white: #F5F0E8;
-  --cc-muted: #666666;
+  --cc-muted: #aaaaaa;
 }
 
 * { box-sizing: border-box; }
@@ -21,14 +57,24 @@
 html, body {
   background-color: #0a0a0a;
   color: var(--cc-white);
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'CookConthic', 'DM Sans', sans-serif;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
 }
 
-.font-display { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.05em; }
-.font-mono    { font-family: 'Space Mono', monospace; }
+/* Gunterz para todos os títulos display */
+.font-display {
+  font-family: 'Gunterz', 'Bebas Neue', sans-serif;
+  letter-spacing: 0.05em;
+  font-weight: 900;
+}
+
+/* Space Mono para labels técnicos */
+.font-mono { font-family: 'Space Mono', monospace; }
+
+/* CookConthic como corpo */
+.font-body { font-family: 'CookConthic', sans-serif; }
 
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: #111; }
