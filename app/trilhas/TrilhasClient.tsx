@@ -37,9 +37,9 @@ export default function TrilhasClient({ trilhas, nucleoCompleto }: Props) {
     <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 py-6">
 
       <div className="mb-6">
-        <p className="font-mono text-xs tracking-widest mb-1" style={{ color: 'var(--cc-muted)' }}>FORMAÇÃO</p>
+        <p className="font-mono text-xs tracking-widest mb-1" style={{ color: '#aaa' }}>FORMAÇÃO</p>
         <h1 className="font-display text-3xl tracking-widest" style={{ color: 'var(--cc-white)' }}>TRILHAS</h1>
-        <p className="text-sm mt-2" style={{ color: 'var(--cc-muted)' }}>
+        <p className="text-sm mt-2" style={{ color: '#aaa' }}>
           Conclua o Núcleo obrigatório para desbloquear as trilhas específicas.
         </p>
       </div>
@@ -47,7 +47,7 @@ export default function TrilhasClient({ trilhas, nucleoCompleto }: Props) {
       {/* Núcleo */}
       {nucleo && (
         <div className="mb-8">
-          <p className="font-mono text-xs tracking-widest mb-3" style={{ color: 'var(--cc-purple)' }}>NÚCLEO OBRIGATÓRIO</p>
+          <p className="font-mono text-sm tracking-widest mb-3" style={{ color: 'var(--cc-purple)' }}>NÚCLEO OBRIGATÓRIO</p>
           <div
             className="rounded-xl border overflow-hidden cursor-pointer transition-all"
             style={{ background: 'var(--cc-gray)', borderColor: nucleo.concluida ? '#1a3a28' : 'var(--cc-purple)' }}
@@ -65,7 +65,7 @@ export default function TrilhasClient({ trilhas, nucleoCompleto }: Props) {
                       {nucleo.titulo.toUpperCase()}
                     </h2>
                   </div>
-                  <p className="text-sm leading-relaxed" style={{ color: 'var(--cc-muted)' }}>{nucleo.descricao}</p>
+                  <p className="text-base leading-relaxed" style={{ color: '#aaa' }}>{nucleo.descricao}</p>
                 </div>
                 {nucleo.concluida && <span className="text-2xl" style={{ color: 'var(--cc-green)' }}>✓</span>}
               </div>
@@ -77,7 +77,7 @@ export default function TrilhasClient({ trilhas, nucleoCompleto }: Props) {
                   { label: 'Gratuito', icon: '○' },
                 ].map(tag => (
                   <span key={tag.label} className="font-mono text-xs px-2.5 py-1 rounded-full"
-                    style={{ background: 'var(--cc-gray2)', color: 'var(--cc-muted)' }}>
+                    style={{ background: 'var(--cc-gray2)', color: '#aaa' }}>
                     {tag.icon} {tag.label}
                   </span>
                 ))}
@@ -85,7 +85,7 @@ export default function TrilhasClient({ trilhas, nucleoCompleto }: Props) {
 
               <div>
                 <div className="flex justify-between items-center mb-1.5">
-                  <span className="font-mono text-xs" style={{ color: 'var(--cc-muted)' }}>{nucleo.done}/{nucleo.total} aulas concluídas</span>
+                  <span className="font-mono text-xs" style={{ color: '#aaa' }}>{nucleo.done}/{nucleo.total} aulas concluídas</span>
                   <span className="font-mono text-xs" style={{ color: nucleo.concluida ? 'var(--cc-green)' : 'var(--cc-purple)' }}>
                     {Math.round((nucleo.done / Math.max(nucleo.total, 1)) * 100)}%
                   </span>
@@ -110,7 +110,7 @@ export default function TrilhasClient({ trilhas, nucleoCompleto }: Props) {
         <div className="flex items-center justify-between mb-3">
           <p className="font-mono text-xs tracking-widest" style={{ color: 'var(--cc-orange)' }}>TRILHAS ESPECÍFICAS</p>
           {!nucleoCompleto && (
-            <span className="font-mono text-xs" style={{ color: 'var(--cc-muted)' }}>conclua o núcleo para acessar</span>
+            <span className="font-mono text-xs" style={{ color: '#aaa' }}>conclua o núcleo para acessar</span>
           )}
         </div>
         <div className="flex flex-col gap-3">
@@ -143,24 +143,24 @@ export default function TrilhasClient({ trilhas, nucleoCompleto }: Props) {
                           {t.titulo.toUpperCase()}
                         </h3>
                         {emBreve && (
-                          <span className="font-mono text-xs px-2 py-0.5 rounded" style={{ background: 'var(--cc-gray2)', color: 'var(--cc-muted)' }}>
+                          <span className="font-mono text-xs px-2 py-0.5 rounded" style={{ background: 'var(--cc-gray2)', color: '#aaa' }}>
                             EM BREVE
                           </span>
                         )}
                       </div>
-                      <p className="text-sm mb-3" style={{ color: 'var(--cc-muted)' }}>{t.descricao}</p>
+                      <p className="text-base mb-3" style={{ color: '#aaa' }}>{t.descricao}</p>
                       <div className="flex flex-wrap gap-2">
                         {info && [
                           { label: info.publico, icon: '◎' },
                           { label: info.duracao, icon: '◷' },
                         ].map(tag => (
                           <span key={tag.label} className="font-mono text-xs px-2 py-0.5 rounded"
-                            style={{ background: 'var(--cc-gray2)', color: 'var(--cc-muted)' }}>
+                            style={{ background: 'var(--cc-gray2)', color: '#aaa' }}>
                             {tag.icon} {tag.label}
                           </span>
                         ))}
                         {!t.desbloqueada && (
-                          <span className="font-mono text-xs px-2 py-0.5 rounded" style={{ background: '#1a1a1a', color: '#555' }}>
+                          <span className="font-mono text-xs px-2 py-0.5 rounded" style={{ background: '#1a1a1a', color: '#999' }}>
                             🔒 Bloqueada
                           </span>
                         )}
@@ -172,7 +172,7 @@ export default function TrilhasClient({ trilhas, nucleoCompleto }: Props) {
                   {t.desbloqueada && !emBreve && t.total > 0 && (
                     <div className="mt-3">
                       <div className="flex justify-between items-center mb-1">
-                        <span className="font-mono text-xs" style={{ color: 'var(--cc-muted)' }}>{t.done}/{t.total} aulas</span>
+                        <span className="font-mono text-xs" style={{ color: '#aaa' }}>{t.done}/{t.total} aulas</span>
                         <span className="font-mono text-xs" style={{ color: t.concluida ? 'var(--cc-green)' : 'var(--cc-orange)' }}>{pct}%</span>
                       </div>
                       <div className="h-1 rounded-full overflow-hidden" style={{ background: 'var(--cc-gray2)' }}>
