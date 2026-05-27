@@ -102,12 +102,12 @@ export default function PerfilClient({ perfil, email, trilhas, totalConcluidas, 
 
   function statusCert(status: string) {
     const map: Record<string, { label: string; color: string }> = {
-      pendente: { label: 'Aguardando análise', color: 'var(--cc-muted)' },
+      pendente: { label: 'Aguardando análise', color: '#aaa' },
       em_analise: { label: 'Em análise', color: 'var(--cc-orange)' },
       aprovado: { label: 'Aprovado ✓', color: 'var(--cc-green)' },
       rejeitado: { label: 'Rejeitado', color: 'var(--cc-orange)' },
     }
-    return map[status] || { label: status, color: 'var(--cc-muted)' }
+    return map[status] || { label: status, color: '#aaa' }
   }
 
   return (
@@ -118,11 +118,11 @@ export default function PerfilClient({ perfil, email, trilhas, totalConcluidas, 
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: 'rgba(0,0,0,0.85)' }}>
           <div className="w-full max-w-sm rounded-2xl border p-6" style={{ background: 'var(--cc-gray)', borderColor: 'var(--cc-gray2)' }}>
             <h3 className="font-display text-xl tracking-widest mb-1" style={{ color: 'var(--cc-white)' }}>SOLICITAR CERTIFICADO</h3>
-            <p className="text-xs mb-4" style={{ color: 'var(--cc-muted)' }}>Prazo de emissão: até 15 dias úteis.</p>
+            <p className="text-xs mb-4" style={{ color: '#aaa' }}>Prazo de emissão: até 15 dias úteis.</p>
 
             {/* Nome completo */}
             <div className="mb-3">
-              <label className="font-mono text-xs tracking-widest block mb-1.5" style={{ color: 'var(--cc-muted)' }}>NOME COMPLETO</label>
+              <label className="font-mono text-xs tracking-widest block mb-1.5" style={{ color: '#aaa' }}>NOME COMPLETO</label>
               <input type="text" value={nomeCompleto} onChange={e => setNomeCompleto(e.target.value)}
                 placeholder="Como deve aparecer no certificado"
                 className="w-full rounded-lg px-3 py-2 text-sm outline-none"
@@ -134,7 +134,7 @@ export default function PerfilClient({ perfil, email, trilhas, totalConcluidas, 
 
             {/* E-mail para receber */}
             <div className="mb-4">
-              <label className="font-mono text-xs tracking-widest block mb-1.5" style={{ color: 'var(--cc-muted)' }}>E-MAIL PARA RECEBER</label>
+              <label className="font-mono text-xs tracking-widest block mb-1.5" style={{ color: '#aaa' }}>E-MAIL PARA RECEBER</label>
               <input type="email" value={emailCert} onChange={e => setEmailCert(e.target.value)}
                 placeholder="seu@email.com"
                 className="w-full rounded-lg px-3 py-2 text-sm outline-none"
@@ -149,14 +149,14 @@ export default function PerfilClient({ perfil, email, trilhas, totalConcluidas, 
                 <input type="checkbox" checked={urgente} onChange={e => setUrgente(e.target.checked)} className="w-4 h-4" />
                 <div>
                   <p className="text-sm font-medium" style={{ color: 'var(--cc-white)' }}>Preciso com urgência</p>
-                  <p className="text-sm" style={{ color: 'var(--cc-muted)' }}>Para processo seletivo ou outra necessidade</p>
+                  <p className="text-sm" style={{ color: '#aaa' }}>Para processo seletivo ou outra necessidade</p>
                 </div>
               </label>
             </div>
 
             {urgente && (
               <div className="mb-4">
-                <label className="font-mono text-xs tracking-widest block mb-1.5" style={{ color: 'var(--cc-muted)' }}>MOTIVO</label>
+                <label className="font-mono text-xs tracking-widest block mb-1.5" style={{ color: '#aaa' }}>MOTIVO</label>
                 <textarea value={motivoUrgencia} onChange={e => setMotivoUrgencia(e.target.value)}
                   placeholder="Ex: processo seletivo em 10/06..."
                   rows={2} className="w-full rounded-lg px-3 py-2 text-sm outline-none resize-none"
@@ -168,7 +168,7 @@ export default function PerfilClient({ perfil, email, trilhas, totalConcluidas, 
             <div className="flex gap-2">
               <button onClick={() => setShowCertModal(null)}
                 className="flex-1 py-2.5 rounded-lg font-mono text-xs border"
-                style={{ borderColor: 'var(--cc-gray3)', color: 'var(--cc-muted)' }}>
+                style={{ borderColor: 'var(--cc-gray3)', color: '#aaa' }}>
                 CANCELAR
               </button>
               <button onClick={() => solicitarCertificado(showCertModal)}
@@ -183,7 +183,7 @@ export default function PerfilClient({ perfil, email, trilhas, totalConcluidas, 
       )}
 
       <div className="mb-6">
-        <p className="font-mono text-xs tracking-widest mb-1" style={{ color: 'var(--cc-muted)' }}>MINHA CONTA</p>
+        <p className="font-mono text-xs tracking-widest mb-1" style={{ color: '#aaa' }}>MINHA CONTA</p>
         <h1 className="font-display text-3xl tracking-widest" style={{ color: 'var(--cc-white)' }}>PERFIL</h1>
       </div>
 
@@ -205,12 +205,12 @@ export default function PerfilClient({ perfil, email, trilhas, totalConcluidas, 
           </div>
           <div>
             <p className="font-display text-xl tracking-widest" style={{ color: 'var(--cc-white)' }}>{nome || 'Sem nome'}</p>
-            <p className="font-mono text-xs mt-1" style={{ color: 'var(--cc-muted)' }}>{email}</p>
+            <p className="font-mono text-xs mt-1" style={{ color: '#aaa' }}>{email}</p>
           </div>
         </div>
 
         <div>
-          <label className="font-mono text-xs tracking-widest block mb-1.5" style={{ color: 'var(--cc-muted)' }}>NOME</label>
+          <label className="font-mono text-xs tracking-widest block mb-1.5" style={{ color: '#aaa' }}>NOME</label>
           <div className="flex gap-2">
             <input type="text" value={nome} onChange={e => setNome(e.target.value)} placeholder="Seu nome completo"
               className="flex-1 rounded-lg px-3 py-2.5 text-sm outline-none"
@@ -236,7 +236,7 @@ export default function PerfilClient({ perfil, email, trilhas, totalConcluidas, 
         ].map(stat => (
           <div key={stat.label} className="rounded-xl p-4 border text-center" style={{ background: 'var(--cc-gray)', borderColor: 'var(--cc-gray2)' }}>
             <p className="font-display text-3xl mb-1" style={{ color: 'var(--cc-green)' }}>{stat.value}</p>
-            <p className="font-mono leading-tight" style={{ color: 'var(--cc-muted)', fontSize: '9px', letterSpacing: '1px' }}>{stat.label}</p>
+            <p className="font-mono leading-tight" style={{ color: '#aaa', fontSize: '9px', letterSpacing: '1px' }}>{stat.label}</p>
           </div>
         ))}
       </div>
@@ -271,13 +271,13 @@ export default function PerfilClient({ perfil, email, trilhas, totalConcluidas, 
       {/* Certificados */}
       <div className="rounded-xl p-5 border" style={{ background: 'var(--cc-gray)', borderColor: 'var(--cc-gray2)' }}>
         <h2 className="font-display text-lg tracking-widest mb-1" style={{ color: 'var(--cc-white)' }}>CERTIFICADOS</h2>
-        <p className="text-xs mb-4" style={{ color: 'var(--cc-muted)' }}>
+        <p className="text-xs mb-4" style={{ color: '#aaa' }}>
           Disponível ao concluir uma trilha específica. Emissão em até 15 dias após solicitação.
         </p>
 
         {trilhasConcluidas.length === 0 ? (
           <div className="text-center py-6 rounded-lg" style={{ background: 'transparent' }}>
-            <p className="font-mono text-xs" style={{ color: 'var(--cc-muted)' }}>Conclua uma trilha específica para solicitar seu certificado</p>
+            <p className="font-mono text-xs" style={{ color: '#aaa' }}>Conclua uma trilha específica para solicitar seu certificado</p>
           </div>
         ) : (
           <div className="flex flex-col gap-3">
@@ -304,7 +304,7 @@ export default function PerfilClient({ perfil, email, trilhas, totalConcluidas, 
                     </button>
                   ) : (
                     <span className="font-mono text-xs px-3 py-1.5 rounded border"
-                      style={{ borderColor: 'var(--cc-gray3)', color: 'var(--cc-muted)' }}>
+                      style={{ borderColor: 'var(--cc-gray3)', color: '#aaa' }}>
                       SOLICITADO
                     </span>
                   )}
