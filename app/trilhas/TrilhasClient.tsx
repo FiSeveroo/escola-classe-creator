@@ -34,7 +34,7 @@ export default function TrilhasClient({ trilhas, nucleoCompleto }: Props) {
   const especificas = trilhas.filter(t => !t.obrigatoria)
 
   return (
-    <div className="w-full px-4 sm:px-6 lg:px-10 py-6">
+    <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 py-6">
 
       <div className="mb-6">
         <p className="font-mono text-xs tracking-widest mb-1" style={{ color: 'var(--cc-muted)' }}>FORMAÇÃO</p>
