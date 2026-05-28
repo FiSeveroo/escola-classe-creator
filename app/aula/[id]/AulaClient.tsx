@@ -151,7 +151,7 @@ export default function AulaClient({ aula, quiz, progresso: progressoInicial, us
       {/* HEADER DA AULA */}
       <div className="mb-5">
         <p className="font-mono text-xs tracking-widest mb-1" style={{ color: 'var(--cc-orange)' }}>AULA</p>
-        <h1 className="font-display tracking-widest leading-tight mb-2" style={{ fontSize: '44px', color: 'var(--cc-white)' }}>
+        <h1 className="font-display tracking-widest leading-tight mb-2" style={{ fontSize: 'clamp(28px, 6vw, 52px)', color: 'var(--cc-white)' }}>
           {aula.titulo.toUpperCase()}
         </h1>
         {aula.descricao && <p className="text-sm leading-relaxed" style={{ color: '#999' }}>{aula.descricao}</p>}
