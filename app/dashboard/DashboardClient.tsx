@@ -143,7 +143,7 @@ export default function DashboardClient({ trilhas, aulasConcluidas, perfil, mura
 
         {/* Núcleo */}
         <div className="lg:col-span-2">
-          <p className="font-mono text-sm tracking-widest mb-3" style={{ color: 'var(--cc-purple)' }}>NÚCLEO OBRIGATÓRIO</p>
+          <p className="font-mono tracking-widest mb-3" style={{ color: 'var(--cc-purple)', fontSize: 'clamp(10px, 2vw, 14px)' }}>NÚCLEO OBRIGATÓRIO</p>
           <div className="rounded-xl border overflow-hidden cursor-pointer transition-all"
             style={{ background: 'rgba(123,47,255,0.06)', borderColor: nucleoCompleto ? '#1a3a28' : '#3a2f6e' }}
             onClick={() => router.push(`/trilha/${nucleo?.id}`)}
@@ -210,7 +210,7 @@ export default function DashboardClient({ trilhas, aulasConcluidas, perfil, mura
       {/* TRILHAS ESPECÍFICAS */}
       <div id="trilhas-section">
         <div className="flex items-baseline justify-between mb-4">
-          <p className="font-mono text-sm tracking-widest" style={{ color: '#aaa' }}>TRILHAS ESPECÍFICAS</p>
+          <p className="font-mono tracking-widest" style={{ color: '#aaa', fontSize: 'clamp(10px, 2vw, 14px)' }}>TRILHAS ESPECÍFICAS</p>
           {!nucleoCompleto && <span className="font-mono text-sm" style={{ color: '#999' }}>conclua o núcleo para acessar</span>}
         </div>
         <div className="grid grid-cols-2 gap-3">
@@ -238,7 +238,7 @@ export default function DashboardClient({ trilhas, aulasConcluidas, perfil, mura
                   <p className="font-mono mb-1" style={{ fontSize: '9px', letterSpacing: '2px', color: desbloqueada ? corAccent : '#333' }}>
                     TRILHA {String(i + 1).padStart(2, '0')}
                   </p>
-                  <h3 className="font-display tracking-wider mb-1 leading-tight" style={{ fontSize: '26px', color: desbloqueada ? 'var(--cc-white)' : '#333' }}>
+                  <h3 className="font-display tracking-wider mb-1 leading-tight" style={{ fontSize: 'clamp(16px, 4vw, 26px)', color: desbloqueada ? 'var(--cc-white)' : '#333' }}>
                     {t.titulo.toUpperCase()}
                   </h3>
 
