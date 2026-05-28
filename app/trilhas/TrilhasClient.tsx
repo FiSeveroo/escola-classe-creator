@@ -61,7 +61,7 @@ export default function TrilhasClient({ trilhas, nucleoCompleto }: Props) {
                 <div>
                   <div className="flex items-center gap-2 mb-1">
                     <span className="text-2xl">{TRILHA_INFO[nucleo.id]?.icone || '⬡'}</span>
-                    <h2 className="font-display text-2xl tracking-widest" style={{ color: 'var(--cc-white)' }}>
+                    <h2 className="font-display tracking-widest" style={{ fontSize: 'clamp(20px, 4vw, 28px)', color: 'var(--cc-white)' }}>
                       {nucleo.titulo.toUpperCase()}
                     </h2>
                   </div>
@@ -139,7 +139,7 @@ export default function TrilhasClient({ trilhas, nucleoCompleto }: Props) {
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
                         <span className="text-xl">{info?.icone || '◎'}</span>
-                        <h3 className="font-display text-xl tracking-wider" style={{ color: 'var(--cc-white)' }}>
+                        <h3 className="font-display tracking-wider" style={{ fontSize: 'clamp(18px, 3vw, 22px)', color: 'var(--cc-white)' }}>
                           {t.titulo.toUpperCase()}
                         </h3>
                         {emBreve && (
