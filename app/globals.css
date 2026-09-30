@@ -1,6 +1,8 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
 
 /* ============================================================
    FONTES LOCAIS — Classe Creator
@@ -34,47 +36,105 @@
   font-display: swap;
 }
 
-/* Space Mono para labels/mono — continua do Google */
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
-
 /* ============================================================
-   VARIÁVEIS
+   PALETA CLASSE CREATOR
+   A escola é dark-only: os tokens shadcn apontam direto pra paleta.
    ============================================================ */
 :root {
   --cc-bg: #0a0a0a;
   --cc-gray: #1a1a1a;
   --cc-gray2: #222222;
   --cc-gray3: #2a2a2a;
-  --cc-green: #00E87A;
-  --cc-purple: #7B2FFF;
-  --cc-orange: #FF5C1A;
-  --cc-white: #F5F0E8;
+  --cc-green: #00e87a;
+  --cc-purple: #7b2fff;
+  --cc-orange: #ff5c1a;
+  --cc-white: #f5f0e8;
   --cc-muted: #aaaaaa;
+
+  --radius: 0.75rem;
+
+  --background: var(--cc-bg);
+  --foreground: var(--cc-white);
+  --card: var(--cc-gray);
+  --card-foreground: var(--cc-white);
+  --popover: #111111;
+  --popover-foreground: var(--cc-white);
+  --primary: var(--cc-green);
+  --primary-foreground: var(--cc-bg);
+  --secondary: var(--cc-purple);
+  --secondary-foreground: #ffffff;
+  --muted: var(--cc-gray2);
+  --muted-foreground: var(--cc-muted);
+  --accent: var(--cc-gray2);
+  --accent-foreground: var(--cc-white);
+  --destructive: var(--cc-orange);
+  --destructive-foreground: #ffffff;
+  --border: var(--cc-gray2);
+  --input: var(--cc-gray3);
+  --ring: var(--cc-green);
 }
 
-* { box-sizing: border-box; }
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
 
-html, body {
-  background-color: #0a0a0a;
-  color: var(--cc-white);
-  font-family: 'CookConthic', 'DM Sans', sans-serif;
-  font-size: 16px;
-  -webkit-font-smoothing: antialiased;
-  min-height: 100vh;
+  /* Cores da marca como utilitários: bg-cc-green, text-cc-purple... */
+  --color-cc-bg: var(--cc-bg);
+  --color-cc-gray: var(--cc-gray);
+  --color-cc-gray2: var(--cc-gray2);
+  --color-cc-gray3: var(--cc-gray3);
+  --color-cc-green: var(--cc-green);
+  --color-cc-purple: var(--cc-purple);
+  --color-cc-orange: var(--cc-orange);
+  --color-cc-white: var(--cc-white);
+  --color-cc-muted: var(--cc-muted);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --font-mono: 'Space Mono', monospace;
+  --font-sans: 'CookConthic', 'DM Sans', sans-serif;
 }
 
-/* Gunterz para todos os títulos display */
-.font-display {
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html,
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    min-height: 100vh;
+  }
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+@utility font-display {
   font-family: 'Gunterz', 'Bebas Neue', sans-serif;
   letter-spacing: 0.05em;
   font-weight: 900;
 }
-
-/* Space Mono para labels técnicos */
-.font-mono { font-family: 'Space Mono', monospace; }
-
-/* CookConthic como corpo */
-.font-body { font-family: 'CookConthic', sans-serif; }
 
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: #111; }
