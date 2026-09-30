@@ -49,7 +49,7 @@ export function Landing({ lang, t, logado }: Props) {
     <div className="min-h-screen">
       {/* CABEÇALHO */}
       <header className="sticky top-0 z-40 border-b border-cc-line/70 bg-cc-bg/85 backdrop-blur">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6">
           <Link href={href('/')} className="flex items-center gap-2">
             <Logo className="h-9" priority />
             <span className="hidden sm:inline label-caps mt-3 text-muted-foreground">{t.comum.escola}</span>
@@ -76,9 +76,9 @@ export function Landing({ lang, t, logado }: Props) {
 
       <main>
         {/* HERO */}
-        <section className="mx-auto max-w-6xl px-4 pt-6 sm:px-6 sm:pt-10">
-          <BrandBlock className="px-5 py-10 sm:px-10 sm:py-16 lg:px-14 lg:py-20">
-            <div className="grid items-center gap-12 lg:grid-cols-[1.25fr_1fr] [&>*]:min-w-0">
+        <section>
+          <BrandBlock className="rounded-none px-5 py-12 sm:px-10 sm:py-20 lg:py-28">
+            <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.25fr_1fr] [&>*]:min-w-0">
               <div>
                 <Eyebrow className="text-white/75">{L.hero.eyebrow}</Eyebrow>
                 <h1 className="mt-4 font-display text-[1.875rem] leading-[0.95] break-words sm:text-5xl lg:text-[3.25rem]">
@@ -157,7 +157,7 @@ export function Landing({ lang, t, logado }: Props) {
         </section>
 
         {/* COMO FUNCIONA */}
-        <section id="como-funciona" className="scroll-mt-20 mx-auto max-w-6xl px-4 sm:px-6">
+        <section id="como-funciona" className="scroll-mt-20 mx-auto max-w-7xl px-4 sm:px-6">
           <SectionTitle eyebrow={L.como.eyebrow} className="mb-8">
             {L.como.titulo}
           </SectionTitle>
@@ -203,7 +203,7 @@ export function Landing({ lang, t, logado }: Props) {
         </section>
 
         {/* TRILHAS */}
-        <section id="trilhas" className="scroll-mt-20 mx-auto mt-24 max-w-6xl px-4 sm:px-6">
+        <section id="trilhas" className="scroll-mt-20 mx-auto mt-24 max-w-7xl px-4 sm:px-6">
           <SectionTitle eyebrow={L.trilhas.eyebrow} className="mb-8">
             {L.trilhas.titulo}
           </SectionTitle>
@@ -256,7 +256,7 @@ export function Landing({ lang, t, logado }: Props) {
         </section>
 
         {/* PARA QUEM */}
-        <section className="mx-auto mt-24 max-w-6xl px-4 sm:px-6">
+        <section className="mx-auto mt-24 max-w-7xl px-4 sm:px-6">
           <SectionTitle eyebrow={L.paraQuem.eyebrow} className="mb-3">
             {L.paraQuem.titulo}
           </SectionTitle>
@@ -271,7 +271,7 @@ export function Landing({ lang, t, logado }: Props) {
         </section>
 
         {/* QUEM FAZ */}
-        <section id="quem-faz" className="scroll-mt-20 mx-auto mt-24 max-w-6xl px-4 sm:px-6">
+        <section id="quem-faz" className="scroll-mt-20 mx-auto mt-24 max-w-7xl px-4 sm:px-6">
           <div className="grid gap-8 rounded-2xl border border-cc-line bg-cc-surface p-6 sm:p-10 lg:grid-cols-[auto_1fr] lg:items-center">
             <Image
               src="/brand/filipe.webp"
@@ -320,8 +320,8 @@ export function Landing({ lang, t, logado }: Props) {
         </section>
 
         {/* CHAMADA FINAL */}
-        <section className="mx-auto mt-24 max-w-6xl px-4 pb-20 sm:px-6">
-          <BrandBlock className="px-6 py-14 text-center sm:px-10 sm:py-20">
+        <section className="mt-24">
+          <BrandBlock className="rounded-none px-6 py-16 text-center sm:px-10 sm:py-24">
             <Eyebrow className="text-white/75">{L.final.eyebrow}</Eyebrow>
             <h2 className="mt-3 font-display text-4xl leading-none sm:text-6xl">{L.final.titulo}</h2>
             <p className="mx-auto mt-5 max-w-xl text-lg text-white/85">{L.final.texto}</p>
@@ -337,7 +337,7 @@ export function Landing({ lang, t, logado }: Props) {
 
       {/* RODAPÉ */}
       <footer className="border-t border-cc-line">
-        <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-10 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+        <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-10 sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <div className="flex items-center gap-3">
             <Logo className="h-9" />
             <span className="text-sm text-muted-foreground">{t.sobre.slogan}</span>
