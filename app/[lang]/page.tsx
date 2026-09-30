@@ -1,12 +1,34 @@
-import { redirect } from 'next/navigation'
+import type { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
-import { localePath } from '@/i18n/config'
 import { getI18n } from '@/i18n/server'
+import { intlLocale, locales, ogLocale } from '@/i18n/config'
+import { Landing } from '@/components/landing/Landing'
 
 export const dynamic = 'force-dynamic'
 
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang, t } = await getI18n(params)
+  const imagem = { url: `/brand/og-${lang}.jpg`, width: 1200, height: 630, alt: t.landing.metaTitulo }
+  return {
+    title: t.landing.metaTitulo,
+    description: t.landing.metaDescricao,
+    alternates: { canonical: `/${lang}`, languages: Object.fromEntries(locales.map(l => [intlLocale[l], `/${l}`])) },
+    openGraph: {
+      title: t.landing.metaTitulo,
+      description: t.landing.metaDescricao,
+      url: `/${lang}`,
+      siteName: 'Escola Classe Creator',
+      locale: ogLocale[lang],
+      type: 'website',
+      images: [imagem],
+    },
+    twitter: { card: 'summary_large_image', title: t.landing.metaTitulo, description: t.landing.metaDescricao, images: [imagem.url] },
+  }
+}
+
+/** Home pública: landing de conversão. Quem já está logado vê o CTA "ir para minhas aulas". */
 export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
-  const { lang } = await getI18n(params)
+  const { lang, t } = await getI18n(params)
 
   let logado = false
   try {
@@ -15,7 +37,9 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
       data: { user },
     } = await supabase.auth.getUser()
     logado = !!user
-  } catch {}
+  } catch {
+    // Supabase indisponível: mostra a landing como visitante.
+  }
 
-  redirect(localePath(lang, logado ? '/dashboard' : '/login'))
+  return <Landing lang={lang} t={t} logado={logado} />
 }

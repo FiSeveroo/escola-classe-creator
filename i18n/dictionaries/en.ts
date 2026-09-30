@@ -379,6 +379,113 @@ const en: Dictionary = {
       ],
     },
   },
+  landing: {
+    metaTitulo: 'Classe Creator School — Free training for content creators',
+    metaDescricao:
+      'Understand how algorithms and platforms decide the reach of your work. Free tracks with video, PDF material, quizzes and a certificate.',
+    nav: { comoFunciona: 'How it works', trilhas: 'Tracks', quem: "Who's behind it", faq: 'FAQ' },
+    entrar: 'Log in',
+    comecar: 'Start for free',
+    irParaAulas: 'Go to my lessons',
+    hero: {
+      eyebrow: 'Classe Creator School · 100% free',
+      titulo: 'Understand how platforms really work. From the inside out.',
+      texto:
+        'Free training for creators, editors, designers and community managers to understand how algorithms, attention and business interests decide the reach of their work.',
+      cta: 'START FOR FREE',
+      ctaSecundario: "See what you'll learn",
+      provas: ['No cost, no catch', 'Free certificate', 'At your own pace'],
+      previaRotulo: 'First track',
+      previaMeta: '5 lessons · Core track',
+    },
+    manifesto: {
+      frase: 'Creating is work.',
+      texto:
+        "Whoever doesn't understand the rules of the platforms works for those who do. The school exists to give that knowledge back to the people who create — with no toll.",
+    },
+    como: {
+      eyebrow: 'How it works',
+      titulo: 'Three steps to your certificate',
+      passos: [
+        {
+          titulo: 'Core track',
+          texto: '5 lessons on platform logic, algorithms and attention. It is the foundation for everything — and unlocks the rest.',
+        },
+        {
+          titulo: 'Tracks by area',
+          texto: 'After the Core, pick your specialty: YouTube, TikTok, Design and, soon, Video editing.',
+        },
+        {
+          titulo: 'Free certificate',
+          texto: 'Finished a specialized track? Request your certificate from your profile, free of charge.',
+        },
+      ],
+      aulaTitulo: 'Every lesson has three steps',
+      aulaTexto: "The next lesson only unlocks when you finish all three. No shortcuts — that's how it sticks.",
+      etapas: [
+        { titulo: 'Video', texto: 'A straight-to-the-point lesson to watch whenever you want.' },
+        { titulo: 'PDF material', texto: 'A summary to look up and review later.' },
+        { titulo: 'Quiz', texto: "A question to lock in the lesson's key concept." },
+      ],
+    },
+    trilhas: {
+      eyebrow: "What you'll learn",
+      titulo: 'School tracks',
+      nucleoRotulo: 'Start here',
+      nucleoTitulo: 'Understand the Game',
+      nucleoTexto: 'The critical and strategic foundation every creator needs before any other track.',
+      nucleoAulas: [
+        'The logic of platforms',
+        'What an algorithm is',
+        'Attention as a scarce resource',
+        'Platformized labor',
+        'The interests behind product decisions',
+      ],
+      depois: 'After the Core, choose your area',
+      lista: [
+        { id: 'yt', titulo: 'YouTube Creator', texto: 'From the algorithm to the formats that hold an audience.', emBreve: false },
+        { id: 'tt', titulo: 'TikTok Creator', texto: 'Distribution logic and creating for the vertical feed.', emBreve: false },
+        { id: 'ds', titulo: 'Content Designer', texto: 'Visual fundamentals applied to digital creation.', emBreve: false },
+        { id: 'ed', titulo: 'Video Editor', texto: 'A track dedicated to editors.', emBreve: true },
+      ],
+    },
+    paraQuem: {
+      eyebrow: "Who it's for",
+      titulo: 'Made for people who create for a living',
+      itens: ['Content creators', 'Video editors', 'Designers', 'Scriptwriters', 'Community managers', 'People just getting started'],
+    },
+    quem: {
+      eyebrow: "Who's behind it",
+      titulo: "Real research, in a creator's language",
+      texto:
+        "The school is created by Filipe Severo — a researcher, content strategist and creator for over 10 years, with a master's degree in Communication from PUCRS (Brazil) on platformized labor on YouTube.",
+      movimento:
+        'It is part of Classe Creator, a movement that brings together people who create to understand the system from the inside, and of the Observatory behind Raio-X, an algorithmic auditing tool.',
+    },
+    faq: {
+      eyebrow: 'FAQ',
+      titulo: 'Frequently asked questions',
+      itens: [
+        { p: 'Is it really free?', r: 'Yes. Videos, materials, quizzes and certificates are free. It always was, and always will be.' },
+        {
+          p: 'Do I have to pay for the certificate?',
+          r: 'No. When you finish a specialized track, you request the certificate from your profile. It is issued within 15 days.',
+        },
+        {
+          p: "Is the certificate accredited by Brazil's Ministry of Education (MEC)?",
+          r: 'No. It is a certificate of completion of a training track issued by Classe Creator.',
+        },
+        { p: 'How long does it take?', r: 'You go at your own pace. Your progress is saved and you pick up where you left off.' },
+        { p: 'What language are the lessons in?', r: 'The lessons are in Portuguese. The platform can be used in Portuguese, English or Spanish.' },
+        { p: 'Do I need to be a creator already?', r: 'No. The school works both for people just starting out and for those already working with content.' },
+      ],
+    },
+    final: {
+      titulo: "Start now. It's free.",
+      texto: 'Create your account in under a minute and start with the Core.',
+      cta: 'CREATE MY ACCOUNT',
+    },
+  },
   erros: {
     ops: 'oops',
     algoErrado: 'SOMETHING WENT WRONG',

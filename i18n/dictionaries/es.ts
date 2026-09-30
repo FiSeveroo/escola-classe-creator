@@ -379,6 +379,113 @@ const es: Dictionary = {
       ],
     },
   },
+  landing: {
+    metaTitulo: 'Escuela Classe Creator — Formación gratuita para creadores de contenido',
+    metaDescricao:
+      'Entiende cómo los algoritmos y las plataformas deciden el alcance de tu trabajo. Rutas gratuitas con video, material en PDF, quiz y certificado.',
+    nav: { comoFunciona: 'Cómo funciona', trilhas: 'Rutas', quem: 'Quién la hace', faq: 'Dudas' },
+    entrar: 'Entrar',
+    comecar: 'Empezar gratis',
+    irParaAulas: 'Ir a mis clases',
+    hero: {
+      eyebrow: 'Escuela Classe Creator · 100% gratuita',
+      titulo: 'Entiende el juego de las plataformas. De adentro hacia afuera.',
+      texto:
+        'Una formación gratuita para que creadores, editores, diseñadores y gestores de comunidad entiendan cómo los algoritmos, la atención y los intereses comerciales deciden el alcance de su trabajo.',
+      cta: 'EMPEZAR GRATIS',
+      ctaSecundario: 'Ver lo que vas a aprender',
+      provas: ['Sin costo, sin trampas', 'Certificado gratuito', 'A tu ritmo'],
+      previaRotulo: 'Primera ruta',
+      previaMeta: '5 clases · Núcleo obligatorio',
+    },
+    manifesto: {
+      frase: 'Crear es trabajo.',
+      texto:
+        'Quien no entiende las reglas de las plataformas trabaja para quien sí las entiende. La escuela existe para devolver ese conocimiento a quien produce — sin peaje.',
+    },
+    como: {
+      eyebrow: 'Cómo funciona',
+      titulo: 'Tres pasos hasta el certificado',
+      passos: [
+        {
+          titulo: 'Núcleo obligatorio',
+          texto: '5 clases sobre la lógica de las plataformas, los algoritmos y la atención. Es la base de todo — y desbloquea el resto.',
+        },
+        {
+          titulo: 'Rutas por área',
+          texto: 'Después del Núcleo, elige tu especialidad: YouTube, TikTok, Diseño y, pronto, Edición de video.',
+        },
+        {
+          titulo: 'Certificado gratuito',
+          texto: '¿Completaste una ruta específica? Solicita tu certificado desde tu perfil, sin pagar nada.',
+        },
+      ],
+      aulaTitulo: 'Cada clase tiene tres etapas',
+      aulaTexto: 'La siguiente clase solo se libera cuando completas las tres. Sin atajos — así el contenido se queda.',
+      etapas: [
+        { titulo: 'Video', texto: 'Una clase directa al punto, para ver cuando quieras.' },
+        { titulo: 'Material en PDF', texto: 'Un resumen para consultar y repasar después.' },
+        { titulo: 'Quiz', texto: 'Una pregunta para fijar el concepto central de la clase.' },
+      ],
+    },
+    trilhas: {
+      eyebrow: 'Lo que vas a aprender',
+      titulo: 'Rutas de la escuela',
+      nucleoRotulo: 'Empieza aquí',
+      nucleoTitulo: 'Entiende el Juego',
+      nucleoTexto: 'La base crítica y estratégica que todo creador necesita antes de cualquier ruta.',
+      nucleoAulas: [
+        'La lógica de las plataformas',
+        'Qué es un algoritmo',
+        'La atención como recurso escaso',
+        'Trabajo plataformizado',
+        'Los intereses detrás de las decisiones de producto',
+      ],
+      depois: 'Después del Núcleo, elige tu área',
+      lista: [
+        { id: 'yt', titulo: 'Creador en YouTube', texto: 'Del algoritmo a los formatos que retienen audiencia.', emBreve: false },
+        { id: 'tt', titulo: 'Creador en TikTok', texto: 'Lógica de distribución y creación para el feed vertical.', emBreve: false },
+        { id: 'ds', titulo: 'Diseñador de Contenido', texto: 'Fundamentos visuales aplicados a la creación digital.', emBreve: false },
+        { id: 'ed', titulo: 'Editor de Video', texto: 'Una ruta dedicada a quien edita.', emBreve: true },
+      ],
+    },
+    paraQuem: {
+      eyebrow: 'Para quién es',
+      titulo: 'Hecha para quien vive de crear',
+      itens: ['Creadores de contenido', 'Editores de video', 'Diseñadores', 'Guionistas', 'Gestores de comunidad', 'Quien está empezando'],
+    },
+    quem: {
+      eyebrow: 'Quién la hace',
+      titulo: 'Investigación real, lenguaje de creador',
+      texto:
+        'La escuela es creada por Filipe Severo — investigador, estratega de contenido y creador desde hace más de 10 años, con maestría en Comunicación por la PUCRS (Brasil) sobre el trabajo plataformizado en YouTube.',
+      movimento:
+        'Forma parte de Classe Creator, un movimiento que reúne a quien crea para entender el sistema por dentro, y del Observatorio que mantiene Raio-X, una herramienta de auditoría algorítmica.',
+    },
+    faq: {
+      eyebrow: 'Dudas',
+      titulo: 'Preguntas frecuentes',
+      itens: [
+        { p: '¿Es gratis de verdad?', r: 'Sí. Videos, materiales, quizzes y certificados son gratuitos. Siempre lo fue y siempre lo será.' },
+        {
+          p: '¿Tengo que pagar por el certificado?',
+          r: 'No. Al completar una ruta específica, solicitas el certificado desde tu perfil. Se emite en hasta 15 días.',
+        },
+        {
+          p: '¿El certificado está reconocido por el Ministerio de Educación de Brasil (MEC)?',
+          r: 'No. Es un certificado de finalización de una ruta formativa emitido por Classe Creator.',
+        },
+        { p: '¿Cuánto tiempo lleva?', r: 'Vas a tu ritmo. Tu progreso se guarda y continúas donde lo dejaste.' },
+        { p: '¿En qué idioma son las clases?', r: 'Las clases son en portugués. La plataforma puede usarse en portugués, inglés o español.' },
+        { p: '¿Necesito ser creador?', r: 'No. La escuela sirve tanto para quien está empezando como para quien ya trabaja con contenido.' },
+      ],
+    },
+    final: {
+      titulo: 'Empieza ahora. Es gratis.',
+      texto: 'Crea tu cuenta en menos de un minuto y empieza por el Núcleo.',
+      cta: 'CREAR MI CUENTA',
+    },
+  },
   erros: {
     ops: 'ups',
     algoErrado: 'ALGO SALIÓ MAL',
