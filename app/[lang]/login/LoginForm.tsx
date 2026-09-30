@@ -27,12 +27,12 @@ function GoogleIcon() {
   )
 }
 
-export default function LoginForm({ erroInicial }: { erroInicial: string }) {
+export default function LoginForm({ erroInicial, modoInicial = 'login' }: { erroInicial: string; modoInicial?: Modo }) {
   const router = useRouter()
   const { lang, t, href } = useI18n()
   const turnstileRef = useRef<TurnstileInstance>(null)
 
-  const [modo, setModo] = useState<Modo>('login')
+  const [modo, setModo] = useState<Modo>(modoInicial)
   const [email, setEmail] = useState('')
   const [senha, setSenha] = useState('')
   const [nome, setNome] = useState('')

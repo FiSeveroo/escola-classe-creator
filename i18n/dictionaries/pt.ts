@@ -381,6 +381,114 @@ const pt = {
       ],
     },
   },
+  landing: {
+    metaTitulo: 'Escola Classe Creator — Formação gratuita para criadores de conteúdo',
+    metaDescricao:
+      'Entenda como algoritmos e plataformas decidem o alcance do seu trabalho. Trilhas gratuitas com vídeo, material em PDF, quiz e certificado.',
+    nav: { comoFunciona: 'Como funciona', trilhas: 'Trilhas', quem: 'Quem faz', faq: 'Dúvidas' },
+    entrar: 'Entrar',
+    comecar: 'Começar grátis',
+    irParaAulas: 'Ir para minhas aulas',
+    hero: {
+      eyebrow: 'Escola da Classe Creator · formação gratuita',
+      titulo: 'A indústria ensina você a performar.',
+      titulo2: 'A Escola ensina você a entender.',
+      texto:
+        'Formação gratuita sobre o ecossistema das plataformas: como os algoritmos funcionam, como as plataformas ganham dinheiro e como o seu trabalho se encaixa nisso tudo.',
+      cta: 'COMEÇAR GRÁTIS',
+      ctaSecundario: 'Ver o que você vai aprender',
+      provas: ['100% gratuita', 'Certificado sem custo', 'No seu ritmo'],
+      previaRotulo: 'Primeira trilha',
+      previaMeta: '5 aulas · Núcleo obrigatório',
+    },
+    manifesto: {
+      frase: 'Não é curso pra viralizar.',
+      frase2: 'É lugar pra pensar.',
+      texto:
+        'A Escola é a frente de formação da Classe Creator: conhecimento gratuito sobre como as plataformas funcionam de verdade, pra quem quer entender a máquina antes de trabalhar pra ela.',
+    },
+    como: {
+      eyebrow: 'Como funciona',
+      titulo: 'Três passos até o certificado',
+      passos: [
+        {
+          titulo: 'Núcleo obrigatório',
+          texto: '5 aulas sobre a lógica das plataformas, algoritmos e atenção. É a base de tudo — e libera o resto.',
+        },
+        {
+          titulo: 'Trilhas por área',
+          texto: 'Depois do Núcleo, escolha sua especialidade: YouTube, TikTok, Design e, em breve, Edição de vídeo.',
+        },
+        {
+          titulo: 'Certificado gratuito',
+          texto: 'Concluiu uma trilha específica? Solicite seu certificado pelo perfil, sem pagar nada.',
+        },
+      ],
+      aulaTitulo: 'Cada aula tem três etapas',
+      aulaTexto: 'A próxima aula só libera quando você conclui as três. Sem atalhos — é assim que o conteúdo fica.',
+      etapas: [
+        { titulo: 'Vídeo', texto: 'Aula direta ao ponto, para assistir quando quiser.' },
+        { titulo: 'Material em PDF', texto: 'Resumo para consultar e revisar depois.' },
+        { titulo: 'Quiz', texto: 'Uma pergunta para fixar o conceito central da aula.' },
+      ],
+    },
+    trilhas: {
+      eyebrow: 'O que você vai aprender',
+      titulo: 'Trilhas da escola',
+      nucleoRotulo: 'Comece por aqui',
+      nucleoTitulo: 'Entenda o Jogo',
+      nucleoTexto: 'A base crítica e estratégica que todo criador precisa antes de qualquer trilha.',
+      nucleoAulas: [
+        'A lógica das plataformas',
+        'O que é um algoritmo',
+        'Atenção como recurso escasso',
+        'Trabalho plataformizado',
+        'Interesse por trás das decisões de produto',
+      ],
+      depois: 'Depois do Núcleo, escolha sua área',
+      lista: [
+        { id: 'yt', titulo: 'Criador no YouTube', texto: 'Do algoritmo aos formatos que retêm audiência.', emBreve: false },
+        { id: 'tt', titulo: 'Criador no TikTok', texto: 'Lógica de distribuição e criação para o feed vertical.', emBreve: false },
+        { id: 'ds', titulo: 'Designer de Conteúdo', texto: 'Fundamentos visuais aplicados à criação digital.', emBreve: false },
+        { id: 'ed', titulo: 'Editor de Vídeo', texto: 'Trilha dedicada a quem edita.', emBreve: true },
+      ],
+    },
+    paraQuem: {
+      eyebrow: 'Para quem é',
+      titulo: 'Pra quem cria e pra quem pensa as plataformas',
+      texto: 'Trabalhadores culturais plataformizados e todo mundo que pesquisa e vive esse universo.',
+      itens: ['Criadores de conteúdo', 'Editores', 'Roteiristas', 'Designers', 'Gestores de comunidade', 'Pesquisadores', 'Jornalistas', 'Estudantes'],
+    },
+    quem: {
+      eyebrow: 'Quem faz',
+      titulo: 'Pesquisa de verdade, linguagem de criador',
+      texto:
+        'A escola é criada por Filipe Severo — pesquisador, estrategista de conteúdo e criador há mais de 10 anos, com mestrado em Comunicação pela PUCRS sobre o trabalho plataformizado no YouTube.',
+      movimento:
+        'A Escola é uma das três frentes da Classe Creator — pesquisa, formação e comunidade —, um espaço pra quem quer entender o sistema onde cria, não só performar dentro dele. A pesquisa vem do Observatório, que mantém o Raio-X.',
+    },
+    faq: {
+      eyebrow: 'Dúvidas',
+      titulo: 'Perguntas frequentes',
+      itens: [
+        { p: 'É gratuito mesmo?', r: 'Sim. Vídeos, materiais, quizzes e certificados são gratuitos. Sempre foi, sempre será.' },
+        {
+          p: 'Preciso pagar pelo certificado?',
+          r: 'Não. Ao concluir uma trilha específica, você solicita o certificado pelo seu perfil. A emissão leva até 15 dias.',
+        },
+        { p: 'O certificado é reconhecido pelo MEC?', r: 'Não. É um certificado de conclusão de trilha formativa emitido pela Classe Creator.' },
+        { p: 'Quanto tempo leva?', r: 'Você faz no seu ritmo. Seu progresso fica salvo e você continua de onde parou.' },
+        { p: 'Em que idioma são as aulas?', r: 'As aulas são em português. A plataforma pode ser usada em português, inglês ou espanhol.' },
+        { p: 'Preciso já ser criador?', r: 'Não. A Escola é pra quem cria, edita, escreve, pesquisa ou simplesmente quer entender melhor o sistema onde trabalha.' },
+      ],
+    },
+    final: {
+      eyebrow: 'A Classe só existe com você',
+      titulo: 'Comece agora. É grátis.',
+      texto: 'Crie sua conta em menos de um minuto e comece pelo Núcleo.',
+      cta: 'CRIAR MINHA CONTA',
+    },
+  },
   erros: {
     ops: 'ops',
     algoErrado: 'ALGO DEU ERRADO',

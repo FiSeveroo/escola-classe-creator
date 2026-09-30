@@ -15,10 +15,10 @@ export default async function LoginPage({
   searchParams,
 }: {
   params: Promise<{ lang: string }>
-  searchParams: Promise<{ error?: string }>
+  searchParams: Promise<{ error?: string; modo?: string }>
 }) {
   const { lang, t } = await getI18n(params)
-  const { error } = await searchParams
+  const { error, modo } = await searchParams
 
   // Quem já está logado vai direto pro dashboard.
   let logado = false
@@ -33,5 +33,5 @@ export default async function LoginPage({
   }
   if (logado) redirect(localePath(lang, '/dashboard'))
 
-  return <LoginForm erroInicial={error === 'oauth' ? t.login.erroOauth : ''} />
+  return <LoginForm erroInicial={error === 'oauth' ? t.login.erroOauth : ''} modoInicial={modo === 'cadastro' ? 'cadastro' : 'login'} />
 }

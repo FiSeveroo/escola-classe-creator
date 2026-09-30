@@ -16,10 +16,10 @@ export function LegalPage({ lang, t, titulo, secoes }: Props) {
     <div className="min-h-screen">
       <header className="border-b border-cc-line">
         <div className="mx-auto flex h-16 max-w-3xl items-center justify-between px-6">
-          <Link href={localePath(lang, '/dashboard')}>
+          <Link href={localePath(lang, '/')}>
             <Logo className="h-9" />
           </Link>
-          <Link href={localePath(lang, '/dashboard')} className="text-sm font-semibold text-muted-foreground hover:text-foreground">
+          <Link href={localePath(lang, '/')} className="text-sm font-semibold text-muted-foreground hover:text-foreground">
             ← {t.comum.voltar}
           </Link>
         </div>

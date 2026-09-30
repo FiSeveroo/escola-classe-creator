@@ -379,6 +379,117 @@ const es: Dictionary = {
       ],
     },
   },
+  landing: {
+    metaTitulo: 'Escuela Classe Creator — Formación gratuita para creadores de contenido',
+    metaDescricao:
+      'Entiende cómo los algoritmos y las plataformas deciden el alcance de tu trabajo. Rutas gratuitas con video, material en PDF, quiz y certificado.',
+    nav: { comoFunciona: 'Cómo funciona', trilhas: 'Rutas', quem: 'Quién la hace', faq: 'Dudas' },
+    entrar: 'Entrar',
+    comecar: 'Empezar gratis',
+    irParaAulas: 'Ir a mis clases',
+    hero: {
+      eyebrow: 'Escuela de Classe Creator · formación gratuita',
+      titulo: 'La industria te enseña a rendir.',
+      titulo2: 'La Escuela te enseña a entender.',
+      texto:
+        'Formación gratuita sobre el ecosistema de las plataformas: cómo funcionan los algoritmos, cómo ganan dinero las plataformas y cómo encaja tu trabajo en todo eso.',
+      cta: 'EMPEZAR GRATIS',
+      ctaSecundario: 'Ver lo que vas a aprender',
+      provas: ['100% gratuita', 'Certificado sin costo', 'A tu ritmo'],
+      previaRotulo: 'Primera ruta',
+      previaMeta: '5 clases · Núcleo obligatorio',
+    },
+    manifesto: {
+      frase: 'No es un curso para hacerse viral.',
+      frase2: 'Es un lugar para pensar.',
+      texto:
+        'La Escuela es el frente de formación de Classe Creator: conocimiento gratuito sobre cómo funcionan de verdad las plataformas, para quien quiere entender la máquina antes de trabajar para ella.',
+    },
+    como: {
+      eyebrow: 'Cómo funciona',
+      titulo: 'Tres pasos hasta el certificado',
+      passos: [
+        {
+          titulo: 'Núcleo obligatorio',
+          texto: '5 clases sobre la lógica de las plataformas, los algoritmos y la atención. Es la base de todo — y desbloquea el resto.',
+        },
+        {
+          titulo: 'Rutas por área',
+          texto: 'Después del Núcleo, elige tu especialidad: YouTube, TikTok, Diseño y, pronto, Edición de video.',
+        },
+        {
+          titulo: 'Certificado gratuito',
+          texto: '¿Completaste una ruta específica? Solicita tu certificado desde tu perfil, sin pagar nada.',
+        },
+      ],
+      aulaTitulo: 'Cada clase tiene tres etapas',
+      aulaTexto: 'La siguiente clase solo se libera cuando completas las tres. Sin atajos — así el contenido se queda.',
+      etapas: [
+        { titulo: 'Video', texto: 'Una clase directa al punto, para ver cuando quieras.' },
+        { titulo: 'Material en PDF', texto: 'Un resumen para consultar y repasar después.' },
+        { titulo: 'Quiz', texto: 'Una pregunta para fijar el concepto central de la clase.' },
+      ],
+    },
+    trilhas: {
+      eyebrow: 'Lo que vas a aprender',
+      titulo: 'Rutas de la escuela',
+      nucleoRotulo: 'Empieza aquí',
+      nucleoTitulo: 'Entiende el Juego',
+      nucleoTexto: 'La base crítica y estratégica que todo creador necesita antes de cualquier ruta.',
+      nucleoAulas: [
+        'La lógica de las plataformas',
+        'Qué es un algoritmo',
+        'La atención como recurso escaso',
+        'Trabajo plataformizado',
+        'Los intereses detrás de las decisiones de producto',
+      ],
+      depois: 'Después del Núcleo, elige tu área',
+      lista: [
+        { id: 'yt', titulo: 'Creador en YouTube', texto: 'Del algoritmo a los formatos que retienen audiencia.', emBreve: false },
+        { id: 'tt', titulo: 'Creador en TikTok', texto: 'Lógica de distribución y creación para el feed vertical.', emBreve: false },
+        { id: 'ds', titulo: 'Diseñador de Contenido', texto: 'Fundamentos visuales aplicados a la creación digital.', emBreve: false },
+        { id: 'ed', titulo: 'Editor de Video', texto: 'Una ruta dedicada a quien edita.', emBreve: true },
+      ],
+    },
+    paraQuem: {
+      eyebrow: 'Para quién es',
+      titulo: 'Para quien crea y para quien piensa las plataformas',
+      texto: 'Trabajadores culturales plataformizados y todas las personas que investigan y viven este universo.',
+      itens: ['Creadores de contenido', 'Editores', 'Guionistas', 'Diseñadores', 'Gestores de comunidad', 'Investigadores', 'Periodistas', 'Estudiantes'],
+    },
+    quem: {
+      eyebrow: 'Quién la hace',
+      titulo: 'Investigación real, lenguaje de creador',
+      texto:
+        'La escuela es creada por Filipe Severo — investigador, estratega de contenido y creador desde hace más de 10 años, con maestría en Comunicación por la PUCRS (Brasil) sobre el trabajo plataformizado en YouTube.',
+      movimento:
+        'La Escuela es uno de los tres frentes de Classe Creator — investigación, formación y comunidad —, un espacio para quien quiere entender el sistema donde crea, no solo rendir dentro de él. La investigación viene del Observatorio, que mantiene Raio-X.',
+    },
+    faq: {
+      eyebrow: 'Dudas',
+      titulo: 'Preguntas frecuentes',
+      itens: [
+        { p: '¿Es gratis de verdad?', r: 'Sí. Videos, materiales, quizzes y certificados son gratuitos. Siempre lo fue y siempre lo será.' },
+        {
+          p: '¿Tengo que pagar por el certificado?',
+          r: 'No. Al completar una ruta específica, solicitas el certificado desde tu perfil. Se emite en hasta 15 días.',
+        },
+        {
+          p: '¿El certificado está reconocido por el Ministerio de Educación de Brasil (MEC)?',
+          r: 'No. Es un certificado de finalización de una ruta formativa emitido por Classe Creator.',
+        },
+        { p: '¿Cuánto tiempo lleva?', r: 'Vas a tu ritmo. Tu progreso se guarda y continúas donde lo dejaste.' },
+        { p: '¿En qué idioma son las clases?', r: 'Las clases son en portugués. La plataforma puede usarse en portugués, inglés o español.' },
+        { p: '¿Necesito ser creador?', r: 'No. La Escuela es para quien crea, edita, escribe, investiga o simplemente quiere entender mejor el sistema donde trabaja.' },
+      ],
+    },
+    final: {
+      eyebrow: 'Classe solo existe contigo',
+      titulo: 'Empieza ahora. Es gratis.',
+      texto: 'Crea tu cuenta en menos de un minuto y empieza por el Núcleo.',
+      cta: 'CREAR MI CUENTA',
+    },
+  },
   erros: {
     ops: 'ups',
     algoErrado: 'ALGO SALIÓ MAL',
