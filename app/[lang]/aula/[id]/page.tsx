@@ -76,6 +76,9 @@ export default async function AulaPage({
     }
   }
 
+  const indiceAtual = trilhaAulas.findIndex(a => a.id === id)
+  const proximaAulaId = indiceAtual >= 0 ? (trilhaAulas[indiceAtual + 1]?.id ?? null) : null
+
   return (
     <AppShell
       perfil={perfil}
@@ -100,6 +103,9 @@ export default async function AulaPage({
         userName={perfil?.nome || user.email?.split('@')[0] || t.comum.usuario}
         userAvatar={perfil?.avatar_url || null}
         trilhaId={trilhaId || null}
+        trilhaTitulo={trilhaTitulo || null}
+        numero={indiceAtual >= 0 ? indiceAtual + 1 : null}
+        proximaAulaId={proximaAulaId}
       />
     </AppShell>
   )

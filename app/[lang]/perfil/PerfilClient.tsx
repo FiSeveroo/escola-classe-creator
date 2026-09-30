@@ -6,7 +6,7 @@ import { createClient } from '@/lib/supabase/client'
 import { useI18n } from '@/i18n/I18nProvider'
 import { cn, iniciais } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
+import { Card } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -22,7 +22,9 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { PageContainer, PageHeader } from '@/components/layout/AppShell'
-import { LanguageSwitcher } from '@/components/LanguageSwitcher'
+import { BrandBlock, SectionTitle } from '@/components/brand/Brand'
+import { Badge } from '@/components/ui/badge'
+import { AwardIcon, CameraIcon, CheckIcon } from 'lucide-react'
 import { atualizarPerfil, solicitarCertificado } from './actions'
 
 interface TrilhaProgresso {
@@ -52,7 +54,7 @@ interface Props {
 
 const COR_STATUS: Record<string, string> = {
   pendente: 'text-muted-foreground',
-  em_analise: 'text-cc-orange',
+  em_analise: 'text-cc-purple-text',
   aprovado: 'text-cc-green',
   rejeitado: 'text-cc-orange',
 }
@@ -155,209 +157,176 @@ export default function PerfilClient({ perfil, email, trilhas, totalConcluidas, 
       <Dialog open={!!certTrilhaId} onOpenChange={aberto => !aberto && fecharModal()}>
         <DialogContent closeLabel={t.comum.fechar}>
           <DialogHeader>
-            <DialogTitle>{t.perfil.modal.titulo}</DialogTitle>
+            <DialogTitle className="text-cc-green">{t.perfil.modal.titulo}</DialogTitle>
             <DialogDescription>{t.perfil.modal.prazo}</DialogDescription>
           </DialogHeader>
 
-          <div className="grid gap-1.5">
+          <div className="grid gap-2">
             <Label htmlFor="cert-nome">{t.perfil.modal.nomeCompleto}</Label>
-            <Input
-              id="cert-nome"
-              value={nomeCompleto}
-              onChange={e => setNomeCompleto(e.target.value)}
-              placeholder={t.perfil.modal.nomeCompletoPlaceholder}
-            />
+            <Input id="cert-nome" value={nomeCompleto} onChange={e => setNomeCompleto(e.target.value)} placeholder={t.perfil.modal.nomeCompletoPlaceholder} />
           </div>
 
-          <div className="grid gap-1.5">
+          <div className="grid gap-2">
             <Label htmlFor="cert-email">{t.perfil.modal.emailReceber}</Label>
-            <Input
-              id="cert-email"
-              type="email"
-              value={emailCert}
-              onChange={e => setEmailCert(e.target.value)}
-              placeholder={t.login.emailPlaceholder}
-            />
+            <Input id="cert-email" type="email" value={emailCert} onChange={e => setEmailCert(e.target.value)} placeholder={t.login.emailPlaceholder} />
           </div>
 
-          <div className="flex items-start gap-3">
+          <label htmlFor="cert-urgente" className="flex cursor-pointer items-start gap-3 rounded-xl border border-cc-line p-3">
             <Checkbox id="cert-urgente" checked={urgente} onCheckedChange={v => setUrgente(v === true)} className="mt-0.5" />
-            <label htmlFor="cert-urgente" className="cursor-pointer">
-              <p className="text-sm font-medium">{t.perfil.modal.urgente}</p>
-              <p className="text-sm text-muted-foreground">{t.perfil.modal.urgenteDescricao}</p>
-            </label>
-          </div>
+            <span>
+              <span className="block text-sm font-semibold">{t.perfil.modal.urgente}</span>
+              <span className="block text-sm text-muted-foreground">{t.perfil.modal.urgenteDescricao}</span>
+            </span>
+          </label>
 
           {urgente && (
-            <div className="grid gap-1.5">
+            <div className="grid gap-2">
               <Label htmlFor="cert-motivo">{t.perfil.modal.motivo}</Label>
-              <Textarea
-                id="cert-motivo"
-                value={motivoUrgencia}
-                onChange={e => setMotivoUrgencia(e.target.value)}
-                placeholder={t.perfil.modal.motivoPlaceholder}
-                rows={2}
-                className="resize-none"
-              />
+              <Textarea id="cert-motivo" value={motivoUrgencia} onChange={e => setMotivoUrgencia(e.target.value)} placeholder={t.perfil.modal.motivoPlaceholder} rows={2} className="resize-none" />
             </div>
           )}
 
           {erroCert && (
-            <p role="alert" className="font-mono text-xs text-cc-orange">
+            <p role="alert" className="rounded-lg border border-cc-orange/40 bg-cc-orange/10 px-3 py-2.5 text-sm text-cc-orange">
               {erroCert}
             </p>
           )}
 
           <DialogFooter>
-            <Button variant="outline" font="mono" className="flex-1" onClick={fecharModal}>
+            <Button variant="outline" className="flex-1" onClick={fecharModal}>
               {t.comum.cancelar}
             </Button>
-            <Button font="display" className="flex-1" onClick={enviarCertificado} disabled={!podeEnviarCert}>
+            <Button variant="cta" font="display" className="flex-1" onClick={enviarCertificado} disabled={!podeEnviarCert}>
               {enviandoCert ? '...' : t.perfil.solicitar}
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
 
-      <div className="flex items-start justify-between gap-4">
-        <PageHeader eyebrow={t.perfil.minhaConta} title={t.perfil.titulo} />
-        {/* No mobile o sidebar vira barra inferior, então o seletor de idioma fica aqui também. */}
-        <LanguageSwitcher className="md:hidden" />
-      </div>
+      <PageHeader eyebrow={t.perfil.minhaConta} title={t.perfil.titulo} />
 
-      {/* Avatar + nome */}
-      <Card className="mb-4">
-        <CardContent>
-          <div className="flex items-center gap-4 mb-5">
-            <div className="relative">
-              <Avatar className="size-16">
+      {/* Identidade + números */}
+      <BrandBlock className="p-6 sm:p-8">
+        <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+          <div className="flex items-center gap-4 min-w-0">
+            <div className="relative shrink-0">
+              <Avatar className="size-20 ring-4 ring-white/20">
                 {avatarUrl && <AvatarImage src={avatarUrl} alt={nome} />}
-                <AvatarFallback className="text-2xl">{iniciais(nome, email[0]?.toUpperCase())}</AvatarFallback>
+                <AvatarFallback className="bg-black/30 text-2xl">{iniciais(nome, email[0]?.toUpperCase())}</AvatarFallback>
               </Avatar>
               <button
                 onClick={() => fileRef.current?.click()}
                 aria-label={t.perfil.trocarFoto}
-                className="absolute -bottom-1 -right-1 size-6 rounded-full flex items-center justify-center text-xs border-2 bg-cc-green text-cc-bg border-card"
+                title={t.perfil.trocarFoto}
+                className="absolute -bottom-1 -right-1 grid size-8 place-items-center rounded-full border-2 border-cc-purple bg-cc-green text-primary-foreground transition-transform hover:scale-105"
               >
-                {uploadando ? '…' : '+'}
+                {uploadando ? <span className="text-xs">…</span> : <CameraIcon className="size-4" />}
               </button>
               <input ref={fileRef} type="file" accept="image/*" onChange={uploadAvatar} className="hidden" />
             </div>
             <div className="min-w-0">
-              <p className="font-display text-xl tracking-widest truncate">{nome || t.perfil.semNome}</p>
-              <p className="font-mono text-xs mt-1 text-muted-foreground truncate">{email}</p>
-              {erroUpload && <p className="font-mono text-xs mt-1 text-cc-orange">{erroUpload}</p>}
+              <p className="font-display text-2xl sm:text-3xl leading-none truncate">{nome || t.perfil.semNome}</p>
+              <p className="mt-1.5 truncate text-white/75">{email}</p>
+              {erroUpload && <p className="mt-1 text-sm text-cc-orange">{erroUpload}</p>}
             </div>
           </div>
 
-          <div className="grid gap-1.5">
-            <Label htmlFor="perfil-nome">{t.perfil.nome}</Label>
-            <div className="flex gap-2">
-              <Input
-                id="perfil-nome"
-                value={nome}
-                onChange={e => setNome(e.target.value)}
-                placeholder={t.perfil.nomePlaceholder}
-                autoComplete="name"
-                className="flex-1"
-              />
-              <Button
-                variant={salvo ? 'default' : 'secondary'}
-                font="display"
-                className="text-sm px-4"
-                onClick={salvarNome}
-                disabled={salvando || !nome.trim()}
-              >
-                {salvando ? '...' : salvo ? '✓' : t.comum.salvar}
-              </Button>
-            </div>
+          <dl className="grid grid-cols-3 gap-2 md:w-[420px]">
+            {stats.map(stat => (
+              <div key={stat.label} className="rounded-xl bg-black/25 p-3 text-center ring-1 ring-white/10">
+                <dd className="font-display text-3xl text-cc-green">{stat.value}</dd>
+                <dt className="mt-1 text-[10px] font-bold uppercase leading-tight tracking-wider text-white/70">{stat.label}</dt>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </BrandBlock>
+
+      <div className="mt-8 grid gap-6 lg:grid-cols-5">
+        {/* Nome */}
+        <Card className="p-6 lg:col-span-2 h-fit">
+          <SectionTitle as="h2" className="mb-5">{t.perfil.nome}</SectionTitle>
+          <Label htmlFor="perfil-nome" className="sr-only">{t.perfil.nome}</Label>
+          <div className="flex gap-2">
+            <Input id="perfil-nome" value={nome} onChange={e => setNome(e.target.value)} placeholder={t.perfil.nomePlaceholder} autoComplete="name" className="flex-1" />
+            <Button onClick={salvarNome} disabled={salvando || !nome.trim()} className="h-11 min-w-24">
+              {salvando ? '...' : salvo ? <CheckIcon /> : t.comum.salvar}
+            </Button>
           </div>
-        </CardContent>
-      </Card>
+        </Card>
 
-      {/* Stats */}
-      <div className="grid grid-cols-3 gap-3 mb-4">
-        {stats.map(stat => (
-          <Card key={stat.label} className="p-4 text-center">
-            <p className="font-display text-3xl mb-1 text-cc-green">{stat.value}</p>
-            <p className="font-mono leading-tight text-muted-foreground text-[9px] tracking-[1px]">{stat.label}</p>
-          </Card>
-        ))}
-      </div>
-
-      {/* Progresso por trilha */}
-      <Card className="mb-4">
-        <CardContent>
-          <h2 className="font-display text-lg tracking-widest mb-4">
-            {t.perfil.progresso} <span className="text-cc-green">{t.perfil.nasTrilhas}</span>
-          </h2>
-          <div className="flex flex-col gap-3">
+        {/* Progresso por trilha */}
+        <Card className="p-6 lg:col-span-3">
+          <SectionTitle as="h2" className="mb-5">
+            {t.perfil.progresso} {t.perfil.nasTrilhas}
+          </SectionTitle>
+          <ul className="flex flex-col gap-4">
             {trilhas.map(tr => {
               const pct = tr.total > 0 ? Math.round((tr.done / tr.total) * 100) : 0
               return (
-                <div key={tr.id}>
-                  <div className="flex justify-between items-center mb-1 gap-2">
-                    <span className={cn('text-base', tr.concluida && 'text-cc-green')}>
-                      {tr.concluida ? '✓ ' : ''}
+                <li key={tr.id}>
+                  <div className="mb-2 flex items-center justify-between gap-2">
+                    <span className="flex items-center gap-2 text-sm font-semibold">
+                      {tr.concluida && <CheckIcon className="size-4 text-cc-green" />}
                       {tr.titulo}
-                      {tr.obrigatoria && <span className="font-mono ml-2 text-cc-purple text-[9px]">{t.perfil.nucleo}</span>}
+                      {tr.obrigatoria && <Badge variant="secondary">{t.perfil.nucleo}</Badge>}
                     </span>
-                    <span className={cn('font-mono text-xs', tr.concluida ? 'text-cc-green' : 'text-muted-foreground')}>
+                    <span className="text-xs text-muted-foreground">
                       {tr.done}/{tr.total}
                     </span>
                   </div>
-                  <Progress
-                    value={pct}
-                    className="bg-cc-gray2"
-                    indicatorClassName={tr.concluida ? 'bg-cc-green' : tr.obrigatoria ? 'bg-cc-purple' : 'bg-cc-orange'}
-                  />
+                  <Progress value={pct} />
+                </li>
+              )
+            })}
+          </ul>
+        </Card>
+      </div>
+
+      {/* Certificados */}
+      <section className="mt-10">
+        <SectionTitle>{t.perfil.certificados}</SectionTitle>
+        <p className="-mt-2 mb-5 text-sm text-muted-foreground">{t.perfil.certInfo}</p>
+
+        {trilhasConcluidas.length === 0 ? (
+          <div className="flex items-center gap-4 rounded-2xl border border-dashed border-cc-line p-6">
+            <AwardIcon className="size-8 shrink-0 text-muted-foreground" />
+            <p className="text-sm text-muted-foreground">{t.perfil.certVazio}</p>
+          </div>
+        ) : (
+          <div className="grid gap-3 sm:grid-cols-2">
+            {trilhasConcluidas.map(tr => {
+              const solicitacao = solicitacaoPorTrilha.get(tr.id)
+              return (
+                <div key={tr.id} className="flex items-center justify-between gap-4 rounded-2xl border border-cc-green/40 bg-cc-surface p-5">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-cc-green/12 text-cc-green">
+                      <AwardIcon className="size-5" />
+                    </span>
+                    <div className="min-w-0">
+                      <p className="font-semibold truncate">{tr.titulo}</p>
+                      {solicitacao ? (
+                        <p className={cn('text-sm', COR_STATUS[solicitacao.status] || 'text-muted-foreground')}>
+                          {t.perfil.status[solicitacao.status] || solicitacao.status}
+                        </p>
+                      ) : (
+                        <p className="text-sm text-cc-green">{t.perfil.trilhaConcluida}</p>
+                      )}
+                    </div>
+                  </div>
+                  {solicitacao ? (
+                    <Badge variant="outline">{t.perfil.solicitado}</Badge>
+                  ) : (
+                    <Button variant="cta" size="sm" font="display" onClick={() => setCertTrilhaId(tr.id)}>
+                      {t.perfil.solicitar}
+                    </Button>
+                  )}
                 </div>
               )
             })}
           </div>
-        </CardContent>
-      </Card>
-
-      {/* Certificados */}
-      <Card>
-        <CardContent>
-          <h2 className="font-display text-lg tracking-widest mb-1">{t.perfil.certificados}</h2>
-          <p className="text-xs mb-4 text-muted-foreground">{t.perfil.certInfo}</p>
-
-          {trilhasConcluidas.length === 0 ? (
-            <p className="font-mono text-xs text-center py-6 text-muted-foreground">{t.perfil.certVazio}</p>
-          ) : (
-            <div className="flex flex-col gap-3">
-              {trilhasConcluidas.map(tr => {
-                const solicitacao = solicitacaoPorTrilha.get(tr.id)
-                return (
-                  <div key={tr.id} className="flex items-center justify-between gap-3 p-4 rounded-lg border border-[#1a3a28] bg-background">
-                    <div>
-                      <p className="text-sm font-medium">{tr.titulo}</p>
-                      {solicitacao ? (
-                        <p className={cn('font-mono text-xs mt-0.5', COR_STATUS[solicitacao.status] || 'text-muted-foreground')}>
-                          {t.perfil.status[solicitacao.status] || solicitacao.status}
-                        </p>
-                      ) : (
-                        <p className="font-mono text-xs mt-0.5 text-cc-green">✓ {t.perfil.trilhaConcluida}</p>
-                      )}
-                    </div>
-                    {solicitacao ? (
-                      <span className="font-mono text-xs px-3 py-1.5 rounded border border-cc-gray3 text-muted-foreground">
-                        {t.perfil.solicitado}
-                      </span>
-                    ) : (
-                      <Button font="display" size="sm" className="text-sm px-4" onClick={() => setCertTrilhaId(tr.id)}>
-                        {t.perfil.solicitar}
-                      </Button>
-                    )}
-                  </div>
-                )
-              })}
-            </div>
-          )}
-        </CardContent>
-      </Card>
+        )}
+      </section>
     </PageContainer>
   )
 }

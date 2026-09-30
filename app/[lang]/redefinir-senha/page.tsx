@@ -6,10 +6,9 @@ import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { useI18n } from '@/i18n/I18nProvider'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Logo } from '@/components/brand/Logo'
+import { AuthLayout } from '@/components/auth/AuthLayout'
 
 export default function RedefinirSenhaPage() {
   const router = useRouter()
@@ -48,65 +47,44 @@ export default function RedefinirSenhaPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6">
-      <Card className="w-full max-w-sm">
-        <CardContent className="p-8">
-          <Logo className="text-[26px] mb-6" subtitle={t.redefinir.titulo} />
+    <AuthLayout>
+      <header className="mb-8">
+        <h1 className="font-display text-3xl text-cc-green">{t.redefinir.titulo}</h1>
+        <p className="mt-2 text-muted-foreground">{t.redefinir.instrucao}</p>
+      </header>
 
-          {sucesso ? (
-            <div role="status" className="rounded-lg p-4 text-center bg-[#0d2b1a] border border-[#1a3a28]">
-              <p className="font-display text-xl tracking-widest mb-2 text-cc-green">{t.redefinir.sucessoTitulo}</p>
-              <p className="text-sm text-muted-foreground">{t.redefinir.sucessoTexto}</p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-              <p className="text-sm text-muted-foreground">{t.redefinir.instrucao}</p>
+      {sucesso ? (
+        <div role="status" className="rounded-xl border border-cc-green/40 bg-cc-green/10 p-5">
+          <p className="font-display text-xl text-cc-green">{t.redefinir.sucessoTitulo}</p>
+          <p className="mt-1 text-sm text-muted-foreground">{t.redefinir.sucessoTexto}</p>
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <div className="grid gap-2">
+            <Label htmlFor="senha">{t.redefinir.novaSenha}</Label>
+            <Input id="senha" type="password" value={senha} onChange={e => setSenha(e.target.value)} placeholder="••••••••" autoComplete="new-password" required minLength={6} />
+          </div>
 
-              <div className="grid gap-1.5">
-                <Label htmlFor="senha">{t.redefinir.novaSenha}</Label>
-                <Input
-                  id="senha"
-                  type="password"
-                  value={senha}
-                  onChange={e => setSenha(e.target.value)}
-                  placeholder="••••••••"
-                  autoComplete="new-password"
-                  required
-                  minLength={6}
-                />
-              </div>
+          <div className="grid gap-2">
+            <Label htmlFor="confirmar">{t.redefinir.confirmar}</Label>
+            <Input id="confirmar" type="password" value={confirmar} onChange={e => setConfirmar(e.target.value)} placeholder="••••••••" autoComplete="new-password" required minLength={6} />
+          </div>
 
-              <div className="grid gap-1.5">
-                <Label htmlFor="confirmar">{t.redefinir.confirmar}</Label>
-                <Input
-                  id="confirmar"
-                  type="password"
-                  value={confirmar}
-                  onChange={e => setConfirmar(e.target.value)}
-                  placeholder="••••••••"
-                  autoComplete="new-password"
-                  required
-                  minLength={6}
-                />
-              </div>
-
-              {erro && (
-                <p role="alert" className="font-mono text-xs text-center text-cc-orange">
-                  {erro}
-                </p>
-              )}
-
-              <Button type="submit" size="lg" font="display" disabled={loading} className="w-full text-xl">
-                {loading ? t.comum.aguarde : t.redefinir.salvar}
-              </Button>
-
-              <Link href={href('/login')} className="font-mono text-xs text-center text-muted-foreground hover:text-foreground">
-                {t.login.voltarLogin}
-              </Link>
-            </form>
+          {erro && (
+            <p role="alert" className="rounded-lg border border-cc-orange/40 bg-cc-orange/10 px-3 py-2.5 text-sm text-cc-orange">
+              {erro}
+            </p>
           )}
-        </CardContent>
-      </Card>
-    </div>
+
+          <Button type="submit" size="lg" font="display" disabled={loading} className="w-full mt-1">
+            {loading ? t.comum.aguarde : t.redefinir.salvar}
+          </Button>
+
+          <Link href={href('/login')} className="text-sm text-center text-muted-foreground hover:text-foreground">
+            {t.login.voltarLogin}
+          </Link>
+        </form>
+      )}
+    </AuthLayout>
   )
 }

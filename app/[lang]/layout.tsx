@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { hasLocale, intlLocale, locales, ogLocale, type Locale } from '@/i18n/config'
 import { getDictionary } from '@/i18n/get-dictionary'
 import { I18nProvider } from '@/i18n/I18nProvider'
+import '@fontsource-variable/dm-sans'
 import '../globals.css'
 
 const SITE_URL = 'https://escola.classecreator.com'
@@ -10,9 +11,7 @@ const SITE_URL = 'https://escola.classecreator.com'
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
-  themeColor: '#0a0a0a',
+  themeColor: '#0b0b0c',
 }
 
 export function generateStaticParams() {

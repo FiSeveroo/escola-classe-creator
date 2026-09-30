@@ -33,13 +33,13 @@ export function LanguageSwitcher({ className, compact = false }: { className?: s
       <DropdownMenuTrigger
         aria-label={t.comum.idioma}
         className={cn(
-          'flex items-center gap-2 rounded-lg px-3 py-2 font-mono text-xs tracking-widest text-muted-foreground transition-colors hover:text-foreground outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50',
+          'flex items-center gap-2 h-10 rounded-lg px-3 text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground hover:bg-cc-surface outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50',
           pending && 'opacity-50',
           className
         )}
       >
-        <GlobeIcon className="size-4 shrink-0" />
-        <span className={cn(compact && 'hidden lg:inline')}>{lang.toUpperCase()}</span>
+        <GlobeIcon className="size-5 shrink-0" />
+        <span className={cn(compact && 'hidden lg:inline')}>{compact ? localeNames[lang] : lang.toUpperCase()}</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start">
         <DropdownMenuRadioGroup value={lang} onValueChange={trocar}>

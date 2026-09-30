@@ -1,10 +1,12 @@
 'use client'
 
 import Link from 'next/link'
+import { CheckIcon, LockIcon } from 'lucide-react'
 import { useI18n } from '@/i18n/I18nProvider'
 import { fmt } from '@/i18n/format'
 import { cn } from '@/lib/utils'
 import { Progress } from '@/components/ui/progress'
+import { Eyebrow } from '@/components/brand/Brand'
 
 interface AulaItem {
   id: string
@@ -28,59 +30,50 @@ export default function TrilhaSidebar({ trilhaTitulo, trilhaId, aulas, aulaAtual
   const pct = aulas.length ? Math.round((totalConcluidas / aulas.length) * 100) : 0
 
   return (
-    <aside className="hidden lg:flex flex-col w-72 xl:w-80 shrink-0 h-screen sticky top-0 border-l overflow-y-auto bg-card">
-      <div className="p-4 border-b sticky top-0 z-10 bg-card">
-        <p className="font-mono text-xs tracking-widest mb-1 text-cc-orange">{t.trilha.trilha}</p>
-        <h3 className="font-display text-lg tracking-wider leading-tight mb-3">{trilhaTitulo.toUpperCase()}</h3>
-        <div className="flex justify-between items-center mb-1.5">
-          <span className="font-mono text-xs text-muted-foreground">
-            {fmt(t.comum.aulasFracao, { done: totalConcluidas, total: aulas.length })}
-          </span>
-          <span className="font-mono text-xs text-cc-green">{pct}%</span>
+    <aside className="hidden xl:flex flex-col w-80 shrink-0 h-screen sticky top-0 border-l border-cc-line bg-cc-surface overflow-y-auto">
+      <div className="sticky top-0 z-10 border-b border-cc-line bg-cc-surface p-5">
+        <Eyebrow>{t.trilha.trilha}</Eyebrow>
+        <Link href={href(`/trilha/${trilhaId}`)} className="mt-1 block font-display text-lg leading-tight text-cc-green hover:underline underline-offset-4">
+          {trilhaTitulo}
+        </Link>
+        <div className="mt-4 mb-2 flex justify-between text-xs text-muted-foreground">
+          <span>{fmt(t.comum.aulasFracao, { done: totalConcluidas, total: aulas.length })}</span>
+          <span className="font-semibold text-foreground">{pct}%</span>
         </div>
-        <Progress value={pct} className="h-1 bg-cc-gray2" />
+        <Progress value={pct} />
       </div>
 
-      <nav className="flex flex-col py-2">
+      <nav className="flex flex-col gap-1 p-3">
         {aulas.map((aula, i) => {
           const done = concluidas.has(aula.id)
           const isAtual = aula.id === aulaAtualId
           const prevDone = i === 0 || concluidas.has(aulas[i - 1].id)
           const locked = !prevDone && !done
-          const rotulo = `${String(i + 1).padStart(2, '0')}. ${aula.titulo}`
 
           const conteudo = (
             <>
               <span
                 className={cn(
-                  'size-5 rounded-full shrink-0 flex items-center justify-center text-xs border-2 transition-colors',
+                  'grid size-7 shrink-0 place-items-center rounded-full text-xs font-bold',
                   done
-                    ? 'border-cc-green bg-cc-green text-cc-bg'
+                    ? 'bg-cc-green text-primary-foreground'
                     : isAtual
-                      ? 'border-cc-purple text-transparent'
-                      : 'border-cc-gray3 text-transparent'
+                      ? 'bg-cc-purple text-white'
+                      : 'bg-cc-surface-2 text-muted-foreground'
                 )}
               >
-                {done ? '✓' : ''}
+                {done ? <CheckIcon className="size-3.5" strokeWidth={3} /> : locked ? <LockIcon className="size-3" /> : i + 1}
               </span>
-              <span
-                className={cn(
-                  'flex-1 min-w-0 text-xs leading-snug truncate',
-                  isAtual ? 'text-foreground font-medium' : done ? 'text-muted-foreground' : 'text-foreground'
-                )}
-              >
-                {rotulo}
+              <span className={cn('min-w-0 flex-1 text-sm leading-snug', isAtual ? 'font-semibold text-foreground' : 'text-muted-foreground')}>
+                {aula.titulo}
               </span>
             </>
           )
 
-          const classes = cn(
-            'flex items-center gap-3 px-4 py-3 text-left transition-colors border-l-2',
-            isAtual ? 'border-l-cc-green bg-cc-green/5' : 'border-l-transparent'
-          )
+          const classes = cn('flex items-center gap-3 rounded-lg px-3 py-2.5 text-left transition-colors', isAtual && 'bg-cc-purple/15')
 
           return locked ? (
-            <span key={aula.id} className={cn(classes, 'opacity-35 cursor-not-allowed')} aria-disabled>
+            <span key={aula.id} className={cn(classes, 'cursor-not-allowed opacity-50')} aria-disabled>
               {conteudo}
             </span>
           ) : (
@@ -88,7 +81,7 @@ export default function TrilhaSidebar({ trilhaTitulo, trilhaId, aulas, aulaAtual
               key={aula.id}
               href={href(`/aula/${aula.id}?trilha=${trilhaId}`)}
               aria-current={isAtual ? 'page' : undefined}
-              className={cn(classes, !isAtual && 'hover:bg-cc-gray2')}
+              className={cn(classes, !isAtual && 'hover:bg-cc-surface-2 hover:text-foreground')}
             >
               {conteudo}
             </Link>

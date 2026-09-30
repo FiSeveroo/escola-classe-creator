@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
+import { HomeIcon, InfoIcon, LogOutIcon, RouteIcon, UserIcon } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { stripLocale } from '@/i18n/config'
 import { useI18n } from '@/i18n/I18nProvider'
@@ -12,10 +13,10 @@ import { Logo } from '@/components/brand/Logo'
 import type { Perfil } from '@/types'
 
 const navItems = [
-  { key: 'inicio', href: '/dashboard', icon: '⌂' },
-  { key: 'trilhas', href: '/trilhas', icon: '◎', matchPrefix: '/trilha' },
-  { key: 'perfil', href: '/perfil', icon: '○' },
-  { key: 'sobre', href: '/sobre', icon: '◇' },
+  { key: 'inicio', href: '/dashboard', Icon: HomeIcon },
+  { key: 'trilhas', href: '/trilhas', Icon: RouteIcon, matchPrefix: ['/trilha', '/aula'] },
+  { key: 'perfil', href: '/perfil', Icon: UserIcon },
+  { key: 'sobre', href: '/sobre', Icon: InfoIcon },
 ] as const
 
 export default function Sidebar({ perfil }: { perfil: Perfil | null }) {
@@ -30,7 +31,7 @@ export default function Sidebar({ perfil }: { perfil: Perfil | null }) {
   }
 
   function isActive(item: (typeof navItems)[number]) {
-    if ('matchPrefix' in item) return pathname.startsWith(item.matchPrefix)
+    if ('matchPrefix' in item) return item.matchPrefix.some(p => pathname.startsWith(p))
     return pathname === item.href
   }
 
@@ -38,56 +39,68 @@ export default function Sidebar({ perfil }: { perfil: Perfil | null }) {
 
   return (
     <>
-      {/* DESKTOP */}
-      <aside className="hidden md:flex flex-col justify-between h-screen w-16 lg:w-52 shrink-0 sticky top-0 border-r border-cc-gray bg-cc-bg/85 backdrop-blur-sm">
-        <div>
-          <Link href={href('/dashboard')} className="block px-3 lg:px-5 py-5 border-b">
-            <Logo className="hidden lg:block text-lg" subtitle={t.comum.escola} />
-            <span className="font-display text-xl tracking-widest text-cc-green lg:hidden">C</span>
-          </Link>
+      {/* DESKTOP / TABLET */}
+      <aside className="hidden md:flex flex-col h-screen w-[72px] lg:w-60 shrink-0 sticky top-0 border-r border-cc-line bg-cc-bg">
+        <Link href={href('/dashboard')} className="flex items-center gap-2 px-4 lg:px-5 h-20 border-b border-cc-line">
+          <Logo className="h-9 lg:h-10" priority />
+          <span className="hidden lg:inline label-caps text-muted-foreground mt-3">{t.comum.escola}</span>
+        </Link>
 
-          <nav className="py-4 flex flex-col gap-1 px-2">
-            {navItems.map(item => {
-              const active = isActive(item)
-              return (
-                <Link
-                  key={item.key}
-                  href={href(item.href)}
-                  aria-current={active ? 'page' : undefined}
-                  className={cn(
-                    'flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors',
-                    active ? 'bg-cc-gray2 text-cc-green' : 'text-muted-foreground hover:text-foreground'
-                  )}
-                >
-                  <span className="text-lg w-5 text-center shrink-0">{item.icon}</span>
-                  <span className="font-mono text-xs tracking-widest hidden lg:block">{t.nav[item.key]}</span>
-                </Link>
-              )
-            })}
-          </nav>
-        </div>
+        <nav className="flex-1 py-5 px-3 flex flex-col gap-1">
+          {navItems.map(item => {
+            const active = isActive(item)
+            return (
+              <Link
+                key={item.key}
+                href={href(item.href)}
+                aria-current={active ? 'page' : undefined}
+                title={t.nav[item.key]}
+                className={cn(
+                  'group relative flex items-center gap-3 h-11 px-3 rounded-lg text-sm font-semibold transition-colors',
+                  'justify-center lg:justify-start',
+                  active ? 'bg-cc-green/10 text-cc-green' : 'text-muted-foreground hover:text-foreground hover:bg-cc-surface'
+                )}
+              >
+                {active && <span aria-hidden className="absolute -left-3 top-2 bottom-2 w-1 rounded-r-full bg-cc-green" />}
+                <item.Icon className="size-5 shrink-0" />
+                <span className="hidden lg:block capitalize">{t.nav[item.key].toLowerCase()}</span>
+              </Link>
+            )
+          })}
+        </nav>
 
-        <div className="p-2 border-t">
-          <LanguageSwitcher compact className="w-full justify-center lg:justify-start" />
-          <div className="flex items-center gap-3 px-3 py-2 mb-1">
-            <Avatar className="size-7">
+        <div className="p-3 border-t border-cc-line flex flex-col gap-1">
+          <LanguageSwitcher compact className="justify-center lg:justify-start" />
+          <Link
+            href={href('/perfil')}
+            className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-cc-surface transition-colors justify-center lg:justify-start"
+          >
+            <Avatar className="size-8">
               {perfil?.avatar_url && <AvatarImage src={perfil.avatar_url} alt={nome} />}
               <AvatarFallback>{iniciais(perfil?.nome)}</AvatarFallback>
             </Avatar>
-            <span className="font-mono text-xs hidden lg:block truncate text-muted-foreground">{nome}</span>
-          </div>
+            <span className="hidden lg:block text-sm font-medium truncate">{nome}</span>
+          </Link>
           <button
             onClick={logout}
-            className="flex items-center gap-3 px-3 py-2 rounded-lg w-full transition-colors text-muted-foreground hover:text-cc-orange"
+            title={t.nav.sair}
+            className="flex items-center gap-3 h-10 px-3 rounded-lg text-sm font-semibold text-muted-foreground transition-colors hover:text-cc-orange hover:bg-cc-orange/10 justify-center lg:justify-start"
           >
-            <span className="text-lg w-5 text-center shrink-0">→</span>
-            <span className="font-mono text-xs tracking-widest hidden lg:block">{t.nav.sair}</span>
+            <LogOutIcon className="size-5 shrink-0" />
+            <span className="hidden lg:block capitalize">{t.nav.sair.toLowerCase()}</span>
           </button>
         </div>
       </aside>
 
-      {/* MOBILE */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 flex items-center justify-around border-t bg-card pb-[env(safe-area-inset-bottom)]">
+      {/* MOBILE: barra superior com logo + barra inferior de navegação */}
+      <header className="md:hidden sticky top-0 z-40 flex items-center justify-between h-14 px-4 border-b border-cc-line bg-cc-bg/90 backdrop-blur">
+        <Link href={href('/dashboard')}>
+          <Logo className="h-8" priority />
+        </Link>
+        <LanguageSwitcher />
+      </header>
+
+      <nav className="md:hidden fixed bottom-0 inset-x-0 z-50 grid grid-cols-5 border-t border-cc-line bg-cc-bg/95 backdrop-blur pb-[env(safe-area-inset-bottom)]">
         {navItems.map(item => {
           const active = isActive(item)
           return (
@@ -96,18 +109,21 @@ export default function Sidebar({ perfil }: { perfil: Perfil | null }) {
               href={href(item.href)}
               aria-current={active ? 'page' : undefined}
               className={cn(
-                'flex flex-col items-center gap-1 py-3 px-2 flex-1',
+                'flex flex-col items-center gap-1 pt-2.5 pb-2 text-[10px] font-semibold uppercase tracking-wide',
                 active ? 'text-cc-green' : 'text-muted-foreground'
               )}
             >
-              <span className="text-xl">{item.icon}</span>
-              <span className="font-mono tracking-widest text-[9px]">{t.nav[item.key]}</span>
+              <item.Icon className="size-5" />
+              {t.nav[item.key]}
             </Link>
           )
         })}
-        <button onClick={logout} className="flex flex-col items-center gap-1 py-3 px-2 flex-1 text-muted-foreground">
-          <span className="text-xl">→</span>
-          <span className="font-mono tracking-widest text-[9px]">{t.nav.sair}</span>
+        <button
+          onClick={logout}
+          className="flex flex-col items-center gap-1 pt-2.5 pb-2 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground"
+        >
+          <LogOutIcon className="size-5" />
+          {t.nav.sair}
         </button>
       </nav>
     </>

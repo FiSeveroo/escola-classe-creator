@@ -8,12 +8,10 @@ import { createClient } from '@/lib/supabase/client'
 import { useI18n } from '@/i18n/I18nProvider'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
-import { Logo } from '@/components/brand/Logo'
-import { LanguageSwitcher } from '@/components/LanguageSwitcher'
+import { AuthLayout } from '@/components/auth/AuthLayout'
 import { TurnstileField, TURNSTILE_SITE_KEY } from '@/components/auth/TurnstileField'
 
 type Modo = 'login' | 'cadastro' | 'esqueci'
@@ -134,147 +132,139 @@ export default function LoginForm({ erroInicial }: { erroInicial: string }) {
         ? t.login.criarConta
         : t.login.enviarEmail
 
+  const titulo = modo === 'login' ? t.login.tituloEntrar : modo === 'cadastro' ? t.login.tituloCadastro : t.login.redefinirSenha
+  const texto = modo === 'login' ? t.login.textoEntrar : modo === 'cadastro' ? t.login.textoCadastro : t.login.redefinirInstrucao
+
   return (
-    <div className="relative min-h-screen flex flex-col items-center justify-center p-6">
-      <LanguageSwitcher className="absolute top-4 right-4" />
-      <Card className="w-full max-w-sm">
-        <CardContent className="p-8">
-          <Logo className="mb-6 text-[26px]" subtitle={t.login.subtitulo} />
+    <AuthLayout>
+      <header className="mb-8">
+        <h1 className="font-display text-3xl text-cc-green">{titulo}</h1>
+        <p className="mt-2 text-muted-foreground">{texto}</p>
+      </header>
 
-          {modo !== 'esqueci' ? (
-            <div className="flex rounded-lg overflow-hidden mb-6 border border-cc-gray3" role="tablist">
-              {(['login', 'cadastro'] as const).map(m => (
-                <button
-                  key={m}
-                  type="button"
-                  role="tab"
-                  aria-selected={modo === m}
-                  onClick={() => trocarModo(m)}
-                  className={cn(
-                    'flex-1 py-2 text-xs font-mono tracking-widest transition-colors',
-                    modo === m ? 'bg-secondary text-secondary-foreground' : 'text-muted-foreground hover:text-foreground'
-                  )}
-                >
-                  {m === 'login' ? t.login.entrar : t.login.cadastrar}
-                </button>
-              ))}
-            </div>
-          ) : (
-            <div className="mb-5">
-              <p className="font-mono text-xs tracking-widest mb-1 text-cc-orange">{t.login.redefinirSenha}</p>
-              <p className="text-xs text-muted-foreground">{t.login.redefinirInstrucao}</p>
-            </div>
-          )}
+      {modo !== 'esqueci' && (
+        <div className="grid grid-cols-2 p-1 mb-6 rounded-xl bg-cc-surface border border-cc-line" role="tablist">
+          {(['login', 'cadastro'] as const).map(m => (
+            <button
+              key={m}
+              type="button"
+              role="tab"
+              aria-selected={modo === m}
+              onClick={() => trocarModo(m)}
+              className={cn(
+                'h-10 rounded-lg text-sm font-semibold transition-colors',
+                modo === m ? 'bg-cc-purple text-white shadow-sm' : 'text-muted-foreground hover:text-foreground'
+              )}
+            >
+              {m === 'login' ? t.login.entrar : t.login.cadastrar}
+            </button>
+          ))}
+        </div>
+      )}
 
-          {modo !== 'esqueci' && (
-            <>
-              <Button
-                type="button"
-                onClick={handleGoogle}
-                className="w-full mb-4 bg-white text-[#333] border border-[#ddd] hover:bg-[#f5f5f5]"
-              >
-                <GoogleIcon />
-                {t.login.google}
-              </Button>
-              <div className="flex items-center gap-3 mb-4">
-                <Separator className="flex-1" />
-                <span className="font-mono text-xs text-muted-foreground">{t.login.ou}</span>
-                <Separator className="flex-1" />
-              </div>
-            </>
-          )}
-
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            {modo === 'cadastro' && (
-              <div className="grid gap-1.5">
-                <Label htmlFor="nome">{t.login.nome}</Label>
-                <Input
-                  id="nome"
-                  value={nome}
-                  onChange={e => setNome(e.target.value)}
-                  placeholder={t.login.nomePlaceholder}
-                  autoComplete="name"
-                  required
-                />
-              </div>
-            )}
-
-            <div className="grid gap-1.5">
-              <Label htmlFor="email">{t.login.email}</Label>
-              <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                placeholder={t.login.emailPlaceholder}
-                autoComplete="email"
-                required
-              />
-            </div>
-
-            {modo !== 'esqueci' && (
-              <div className="grid gap-1.5">
-                <Label htmlFor="senha">{t.login.senha}</Label>
-                <Input
-                  id="senha"
-                  type="password"
-                  value={senha}
-                  onChange={e => setSenha(e.target.value)}
-                  placeholder="••••••••"
-                  autoComplete={modo === 'login' ? 'current-password' : 'new-password'}
-                  required
-                  minLength={6}
-                />
-              </div>
-            )}
-
-            {!sucesso && <TurnstileField ref={turnstileRef} lang={lang} onToken={setCaptchaToken} />}
-
-            {erro && (
-              <p role="alert" className="font-mono text-xs text-center text-cc-orange">
-                {erro}
-              </p>
-            )}
-            {sucesso && (
-              <div role="status" className="rounded-lg p-3 text-xs text-center font-mono bg-[#0d2b1a] text-cc-green border border-[#1a3a28]">
-                {sucesso}
-              </div>
-            )}
-
-            {!sucesso && (
-              <Button type="submit" size="lg" font="display" disabled={loading} className="w-full text-xl">
-                {btnLabel}
-              </Button>
-            )}
-          </form>
-
-          <div className="mt-4 flex flex-col gap-2 text-center">
-            {modo === 'login' && (
-              <button type="button" onClick={() => trocarModo('esqueci')} className="font-mono text-xs text-muted-foreground hover:text-foreground">
-                {t.login.esqueci}
-              </button>
-            )}
-            {modo === 'esqueci' && (
-              <button type="button" onClick={() => trocarModo('login')} className="font-mono text-xs text-muted-foreground hover:text-foreground">
-                {t.login.voltarLogin}
-              </button>
-            )}
-            {modo !== 'esqueci' && <p className="text-xs text-muted-foreground">{t.login.gratuito}</p>}
-            {modo === 'cadastro' && (
-              <p className="text-[10px] mt-1 text-muted-foreground">
-                {t.login.aceiteAntes}{' '}
-                <Link href={href('/termos')} className="text-cc-purple hover:underline">
-                  {t.login.aceiteTermos}
-                </Link>{' '}
-                {t.login.aceiteE}{' '}
-                <Link href={href('/privacidade')} className="text-cc-purple hover:underline">
-                  {t.login.aceitePrivacidade}
-                </Link>
-              </p>
-            )}
+      {modo !== 'esqueci' && (
+        <>
+          <Button
+            type="button"
+            variant="outline"
+            size="lg"
+            onClick={handleGoogle}
+            className="w-full bg-white text-[#1f1f1f] border-white hover:bg-white/90 hover:border-white"
+          >
+            <GoogleIcon />
+            {t.login.google}
+          </Button>
+          <div className="flex items-center gap-3 my-5">
+            <Separator className="flex-1" />
+            <span className="label-caps text-muted-foreground">{t.login.ou}</span>
+            <Separator className="flex-1" />
           </div>
-        </CardContent>
-      </Card>
-    </div>
+        </>
+      )}
+
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        {modo === 'cadastro' && (
+          <div className="grid gap-2">
+            <Label htmlFor="nome">{t.login.nome}</Label>
+            <Input id="nome" value={nome} onChange={e => setNome(e.target.value)} placeholder={t.login.nomePlaceholder} autoComplete="name" required />
+          </div>
+        )}
+
+        <div className="grid gap-2">
+          <Label htmlFor="email">{t.login.email}</Label>
+          <Input
+            id="email"
+            type="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            placeholder={t.login.emailPlaceholder}
+            autoComplete="email"
+            required
+          />
+        </div>
+
+        {modo !== 'esqueci' && (
+          <div className="grid gap-2">
+            <div className="flex items-center justify-between">
+              <Label htmlFor="senha">{t.login.senha}</Label>
+              {modo === 'login' && (
+                <button type="button" onClick={() => trocarModo('esqueci')} className="text-sm text-muted-foreground hover:text-cc-green transition-colors">
+                  {t.login.esqueci}
+                </button>
+              )}
+            </div>
+            <Input
+              id="senha"
+              type="password"
+              value={senha}
+              onChange={e => setSenha(e.target.value)}
+              placeholder="••••••••"
+              autoComplete={modo === 'login' ? 'current-password' : 'new-password'}
+              required
+              minLength={6}
+            />
+          </div>
+        )}
+
+        {!sucesso && <TurnstileField ref={turnstileRef} lang={lang} onToken={setCaptchaToken} />}
+
+        {erro && (
+          <p role="alert" className="rounded-lg border border-cc-orange/40 bg-cc-orange/10 px-3 py-2.5 text-sm text-cc-orange">
+            {erro}
+          </p>
+        )}
+        {sucesso && (
+          <p role="status" className="rounded-lg border border-cc-green/40 bg-cc-green/10 px-3 py-2.5 text-sm text-cc-green">
+            {sucesso}
+          </p>
+        )}
+
+        {!sucesso && (
+          <Button type="submit" size="lg" font="display" disabled={loading} className="w-full mt-1">
+            {btnLabel}
+          </Button>
+        )}
+      </form>
+
+      <div className="mt-6 text-center text-sm">
+        {modo === 'esqueci' && (
+          <button type="button" onClick={() => trocarModo('login')} className="text-muted-foreground hover:text-foreground">
+            {t.login.voltarLogin}
+          </button>
+        )}
+        {modo === 'cadastro' && (
+          <p className="text-xs text-muted-foreground leading-relaxed">
+            {t.login.aceiteAntes}{' '}
+            <Link href={href('/termos')} className="text-cc-purple-text underline-offset-2 hover:underline">
+              {t.login.aceiteTermos}
+            </Link>{' '}
+            {t.login.aceiteE}{' '}
+            <Link href={href('/privacidade')} className="text-cc-purple-text underline-offset-2 hover:underline">
+              {t.login.aceitePrivacidade}
+            </Link>
+          </p>
+        )}
+      </div>
+    </AuthLayout>
   )
 }

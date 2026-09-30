@@ -1,7 +1,8 @@
 import Sidebar from './Sidebar'
+import { SectionTitle } from '@/components/brand/Brand'
 import type { Perfil } from '@/types'
 
-/** Layout das páginas logadas: sidebar à esquerda, conteúdo e (opcional) coluna à direita. */
+/** Layout das páginas logadas: menu à esquerda, conteúdo e (opcional) coluna à direita. */
 export function AppShell({
   perfil,
   children,
@@ -12,10 +13,10 @@ export function AppShell({
   aside?: React.ReactNode
 }) {
   return (
-    <div className="flex min-h-screen">
+    <div className="md:flex min-h-screen">
       <Sidebar perfil={perfil} />
       <div className="flex-1 flex min-w-0">
-        <div className="flex-1 min-w-0 overflow-y-auto pb-20 md:pb-0">{children}</div>
+        <main className="flex-1 min-w-0 pb-24 md:pb-0">{children}</main>
         {aside}
       </div>
     </div>
@@ -23,17 +24,18 @@ export function AppShell({
 }
 
 /** Contêiner padrão do conteúdo das páginas. */
-export function PageContainer({ children }: { children: React.ReactNode }) {
-  return <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 py-6">{children}</div>
+export function PageContainer({ children, className }: { children: React.ReactNode; className?: string }) {
+  return <div className={`max-w-6xl mx-auto px-4 sm:px-6 lg:px-10 py-6 lg:py-10 ${className ?? ''}`}>{children}</div>
 }
 
-/** Cabeçalho padrão: rótulo mono pequeno + título display. */
+/** Cabeçalho de página: rótulo + título verde (Gunterz). */
 export function PageHeader({ eyebrow, title, children }: { eyebrow: string; title: string; children?: React.ReactNode }) {
   return (
-    <div className="mb-6">
-      <p className="font-mono text-xs tracking-widest mb-1 text-muted-foreground">{eyebrow}</p>
-      <h1 className="font-display text-3xl tracking-widest text-foreground">{title}</h1>
+    <header className="mb-8">
+      <SectionTitle as="h1" eyebrow={eyebrow} className="mb-0">
+        {title}
+      </SectionTitle>
       {children}
-    </div>
+    </header>
   )
 }

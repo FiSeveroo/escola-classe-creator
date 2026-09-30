@@ -1,14 +1,16 @@
+import Image from 'next/image'
 import { cn } from '@/lib/utils'
 
-export function Logo({ className, subtitle }: { className?: string; subtitle?: string }) {
+/** Logo oficial (CLASSE CREATOR sobre a faixa roxa). A altura define o tamanho. */
+export function Logo({ className, priority }: { className?: string; priority?: boolean }) {
   return (
-    <div className={className}>
-      <span className="font-display tracking-widest text-cc-green">
-        CLASSE<span className="text-cc-white">CREATOR</span>
-      </span>
-      {subtitle && (
-        <p className={cn('font-mono text-xs tracking-widest mt-0.5 text-muted-foreground')}>{subtitle}</p>
-      )}
-    </div>
+    <Image
+      src="/brand/logo.webp"
+      alt="Classe Creator"
+      width={720}
+      height={348}
+      priority={priority}
+      className={cn('h-10 w-auto select-none', className)}
+    />
   )
 }

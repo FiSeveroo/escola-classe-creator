@@ -3,25 +3,35 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { ArrowRightIcon, CheckIcon, CompassIcon, ListChecksIcon, PinIcon, PlayIcon } from 'lucide-react'
 import { intlLocale } from '@/i18n/config'
 import { useI18n } from '@/i18n/I18nProvider'
 import { fmt } from '@/i18n/format'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog'
+import { BrandBlock, Eyebrow, SectionTitle } from '@/components/brand/Brand'
+import { PageContainer } from '@/components/layout/AppShell'
+import { TrilhaCard, TrilhaIcon } from '@/components/trilha/TrilhaCard'
 import type { Perfil } from '@/types'
 
-interface TrilhaRaw {
+export interface TrilhaRaw {
   id: string
   titulo: string
   descricao: string | null
   obrigatoria: boolean
   ordem: number
-  cor: string
-  ativa: boolean
-  trilha_aulas: { aula_id: string; ordem: number; compartilhada: boolean }[]
+  trilha_aulas: { aula_id: string; ordem: number; compartilhada: boolean; aulas: { titulo: string } | null }[]
+}
+
+export interface ProximaAula {
+  aulaId: string
+  aulaTitulo: string
+  trilhaId: string
+  trilhaTitulo: string
+  numero: number
+  total: number
 }
 
 interface MuralItem {
@@ -39,34 +49,35 @@ interface Props {
   perfil: Perfil | null
   mural: MuralItem[]
   primeiroAcesso: boolean
-  primeiraAulaId: string | null
+  proxima: ProximaAula | null
 }
 
-const ICONES_POPUP = ['⬡', '◎', '→', '✓']
+const ICONES_ONBOARDING = [CompassIcon, ListChecksIcon, ArrowRightIcon, CheckIcon]
 
-export default function DashboardClient({ trilhas, aulasConcluidas, perfil, mural, primeiroAcesso, primeiraAulaId }: Props) {
+export default function DashboardClient({ trilhas, aulasConcluidas, perfil, mural, primeiroAcesso, proxima }: Props) {
   const router = useRouter()
   const { lang, t, href } = useI18n()
   const concluidas = new Set(aulasConcluidas)
   const [showPopup, setShowPopup] = useState(primeiroAcesso)
   const [popupStep, setPopupStep] = useState(0)
 
-  const nucleo = trilhas.find(t => t.obrigatoria)
-  const especificas = trilhas.filter(t => !t.obrigatoria)
+  const nucleo = trilhas.find(tr => tr.obrigatoria)
+  const especificas = trilhas.filter(tr => !tr.obrigatoria)
 
   const nucleoTotal = nucleo?.trilha_aulas.length || 0
-  const nucleoConcluidas = nucleo?.trilha_aulas.filter(ta => concluidas.has(ta.aula_id)).length || 0
-  const nucleoCompleto = nucleoTotal > 0 && nucleoConcluidas === nucleoTotal
-  const nucleoPct = nucleoTotal > 0 ? Math.round((nucleoConcluidas / nucleoTotal) * 100) : 0
+  const nucleoFeitas = nucleo?.trilha_aulas.filter(ta => concluidas.has(ta.aula_id)).length || 0
+  const nucleoCompleto = nucleoTotal > 0 && nucleoFeitas === nucleoTotal
+  const nucleoPct = nucleoTotal ? Math.round((nucleoFeitas / nucleoTotal) * 100) : 0
 
-  const todasAulas = [...new Set(trilhas.flatMap(t => t.trilha_aulas.map(ta => ta.aula_id)))]
+  const todasAulas = [...new Set(trilhas.flatMap(tr => tr.trilha_aulas.map(ta => ta.aula_id)))]
   const totalGeral = todasAulas.length
-  const concluidasGeral = todasAulas.filter(id => concluidas.has(id)).length
-  const pctGeral = totalGeral > 0 ? Math.round((concluidasGeral / totalGeral) * 100) : 0
+  const feitasGeral = todasAulas.filter(id => concluidas.has(id)).length
+  const pctGeral = totalGeral ? Math.round((feitasGeral / totalGeral) * 100) : 0
 
   const nome = perfil?.nome?.split(' ')[0] || t.comum.criador
   const cards = t.dashboard.popup.cards
-  const card = cards[popupStep]
+  const OnboardingIcon = ICONES_ONBOARDING[popupStep]
+  const linkProxima = proxima ? href(`/aula/${proxima.aulaId}?trilha=${proxima.trilhaId}`) : null
 
   function formatarData(iso: string) {
     return new Date(iso).toLocaleDateString(intlLocale[lang], { day: '2-digit', month: 'short' })
@@ -74,241 +85,199 @@ export default function DashboardClient({ trilhas, aulasConcluidas, perfil, mura
 
   function comecar() {
     setShowPopup(false)
-    if (primeiraAulaId) router.push(href(`/aula/${primeiraAulaId}?trilha=nucleo`))
+    if (linkProxima) router.push(linkProxima)
   }
 
   return (
-    <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 py-6">
+    <PageContainer>
       {/* ONBOARDING — primeiro acesso */}
       <Dialog open={showPopup} onOpenChange={setShowPopup}>
-        <DialogContent className="p-0 gap-0 sm:max-w-md bg-[#111] border-cc-gray2" showCloseButton={false}>
-          <div className="p-5 border-b border-cc-gray">
-            <p className="font-mono text-xs tracking-widest mb-1 text-cc-green">{t.dashboard.popup.comoFunciona}</p>
-            <DialogTitle className="text-2xl">{t.dashboard.popup.titulo}</DialogTitle>
-          </div>
-          <div className="p-5">
-            <div className="flex gap-1.5 mb-5">
+        <DialogContent className="p-0 gap-0 overflow-hidden sm:max-w-md" showCloseButton={false}>
+          <BrandBlock className="rounded-none p-6">
+            <Eyebrow className="text-white/70">{t.dashboard.popup.comoFunciona}</Eyebrow>
+            <DialogTitle className="mt-1 text-2xl text-white">{t.dashboard.popup.titulo}</DialogTitle>
+            <div className="mt-5 flex gap-1.5">
               {cards.map((_, i) => (
-                <div key={i} className={cn('flex-1 h-1 rounded-full transition-all', i <= popupStep ? 'bg-cc-green' : 'bg-cc-gray2')} />
+                <div key={i} className={cn('h-1 flex-1 rounded-full transition-colors', i <= popupStep ? 'bg-cc-green' : 'bg-white/20')} />
               ))}
             </div>
-            <div className="rounded-xl p-4 mb-5 bg-cc-bg">
-              <div className="text-3xl mb-3">{ICONES_POPUP[popupStep]}</div>
-              <h3 className="font-display text-xl tracking-wider mb-2">{card.titulo.toUpperCase()}</h3>
-              <DialogDescription className="text-sm leading-relaxed text-muted-foreground">{card.texto}</DialogDescription>
-            </div>
-            <div className="flex gap-2">
+          </BrandBlock>
+          <div className="p-6">
+            <span className="grid size-12 place-items-center rounded-xl bg-cc-green/12 text-cc-green">
+              <OnboardingIcon className="size-6" />
+            </span>
+            <h3 className="mt-4 font-display text-xl text-cc-green">{cards[popupStep].titulo}</h3>
+            <DialogDescription className="mt-2 text-[15px] leading-relaxed">{cards[popupStep].texto}</DialogDescription>
+            <div className="mt-6 flex gap-2">
               {popupStep > 0 && (
-                <Button variant="outline" font="mono" className="flex-1" onClick={() => setPopupStep(s => s - 1)}>
+                <Button variant="outline" className="flex-1" onClick={() => setPopupStep(s => s - 1)}>
                   {t.dashboard.popup.anterior}
                 </Button>
               )}
               {popupStep < cards.length - 1 ? (
-                <Button variant="secondary" font="display" className="flex-1" onClick={() => setPopupStep(s => s + 1)}>
+                <Button className="flex-1" font="display" onClick={() => setPopupStep(s => s + 1)}>
                   {t.dashboard.popup.proximo}
                 </Button>
               ) : (
-                <Button font="display" className="flex-1" onClick={comecar}>
+                <Button variant="cta" font="display" className="flex-1" onClick={comecar}>
                   {t.dashboard.popup.comecar}
                 </Button>
               )}
             </div>
-            <button
-              onClick={() => setShowPopup(false)}
-              className="w-full mt-2 font-mono text-xs text-center py-1 text-muted-foreground hover:text-foreground"
-            >
+            <button onClick={() => setShowPopup(false)} className="mt-3 w-full text-sm text-muted-foreground hover:text-foreground">
               {t.dashboard.popup.pular}
             </button>
           </div>
         </DialogContent>
       </Dialog>
 
-      {/* HERO */}
-      <Card className="rounded-2xl p-6 mb-5 bg-white/[0.02] border-cc-gray">
-        <p className="font-mono text-xs tracking-widest mb-1 text-muted-foreground">{t.dashboard.bemVindo}</p>
-        <h1 className="font-display tracking-widest mb-1 text-cc-green text-[clamp(40px,10vw,64px)] leading-none break-words">
-          {nome.toUpperCase()}
-        </h1>
-        <p className="font-mono text-xs tracking-widest text-[#444]">{t.dashboard.slogan}</p>
-      </Card>
+      {/* HERO — bloco roxo com saudação, progresso e próxima aula */}
+      <BrandBlock className="p-6 sm:p-8 lg:p-10">
+        <div className="grid gap-8 lg:grid-cols-[1fr_minmax(0,380px)] lg:items-end">
+          <div>
+            <Eyebrow className="text-white/70">{t.dashboard.bemVindo}</Eyebrow>
+            <h1 className="mt-2 font-display text-4xl sm:text-5xl lg:text-6xl leading-[0.95] break-words">
+              {fmt(t.dashboard.ola, { nome })}
+            </h1>
+            <p className="mt-3 label-caps text-white/60">{t.dashboard.slogan}</p>
 
-      {/* PROGRESSO GERAL */}
-      <Card className="p-5 mb-5 flex-row items-center gap-5 bg-white/[0.02] border-cc-gray">
-        <div className="flex-1">
-          <p className="font-mono text-xs tracking-widest mb-2 text-muted-foreground">{t.dashboard.progressoGeral}</p>
-          <Progress value={pctGeral} className="h-2 mb-2" />
-          <p className="font-mono text-xs text-muted-foreground">
-            {fmt(t.dashboard.aulasConcluidasDe, { done: concluidasGeral, total: totalGeral })}
-          </p>
-        </div>
-        <p className="font-display text-cc-green text-[clamp(40px,10vw,64px)] leading-none">{pctGeral}%</p>
-      </Card>
-
-      {/* NÚCLEO + MURAL */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-5">
-        <div className="lg:col-span-2">
-          <p className="font-mono tracking-widest mb-3 text-cc-purple text-[clamp(10px,2vw,14px)]">{t.comum.nucleoObrigatorio}</p>
-          {nucleo && (
-            <Link
-              href={href(`/trilha/${nucleo.id}`)}
-              className={cn(
-                'block rounded-xl border overflow-hidden transition-colors bg-cc-purple/6 hover:border-cc-purple',
-                nucleoCompleto ? 'border-[#1a3a28]' : 'border-[#3a2f6e]'
-              )}
-            >
-              <div className={cn('h-1', nucleoCompleto ? 'bg-cc-green' : 'bg-cc-purple')} />
-              <div className="p-5">
-                <div className="flex justify-between items-start mb-2 gap-3">
-                  <div className="min-w-0">
-                    <p className={cn('font-mono text-xs tracking-widest mb-1', nucleoCompleto ? 'text-cc-green' : 'text-cc-purple')}>
-                      {t.dashboard.baseTodas}
-                    </p>
-                    <h2 className="font-display tracking-widest text-[clamp(28px,6vw,44px)] leading-tight">
-                      {nucleo.titulo.toUpperCase()}
-                    </h2>
-                  </div>
-                  <span className={cn('text-[44px] leading-none', nucleoCompleto ? 'text-cc-green' : 'text-cc-purple')}>
-                    {nucleoCompleto ? '✓' : '▶'}
-                  </span>
-                </div>
-                <p className="text-sm mb-4 text-[#999]">{nucleo.descricao}</p>
-                <div className="flex justify-between items-center mb-1.5">
-                  <span className="font-mono text-xs text-muted-foreground">
-                    {fmt(t.comum.aulasFracao, { done: nucleoConcluidas, total: nucleoTotal })}
-                  </span>
-                  <span className={cn('font-mono text-xs', nucleoCompleto ? 'text-cc-green' : 'text-cc-purple')}>{nucleoPct}%</span>
-                </div>
-                <Progress value={nucleoPct} indicatorClassName={nucleoCompleto ? 'bg-cc-green' : 'bg-cc-purple'} />
+            <div className="mt-8 max-w-md">
+              <div className="mb-2 flex items-baseline justify-between">
+                <span className="text-sm text-white/80">{fmt(t.dashboard.aulasConcluidasDe, { done: feitasGeral, total: totalGeral })}</span>
+                <span className="font-display text-2xl text-cc-green">{pctGeral}%</span>
               </div>
-            </Link>
-          )}
-        </div>
+              <Progress value={pctGeral} className="h-2 bg-black/30" aria-label={t.dashboard.progressoGeral} />
+            </div>
+          </div>
 
-        <div>
-          <p className="font-mono text-xs tracking-widest mb-3 text-cc-orange">{t.dashboard.mural}</p>
-          <div className="flex flex-col gap-2">
-            {mural.length === 0 ? (
-              <Card className="p-4 bg-white/[0.02] border-cc-gray">
-                <p className="font-mono text-xs text-[#555]">{t.dashboard.muralVazio}</p>
-              </Card>
+          <div className="rounded-xl bg-black/35 p-5 ring-1 ring-white/10 backdrop-blur-sm">
+            {proxima ? (
+              <>
+                <Eyebrow className="text-white/70">{concluidas.size > 0 ? t.dashboard.continuar : t.dashboard.comecarJornada}</Eyebrow>
+                <p className="mt-3 flex items-center gap-2 text-sm text-white/70">
+                  <TrilhaIcon id={proxima.trilhaId} className="size-4" />
+                  {proxima.trilhaTitulo} · {proxima.numero}/{proxima.total}
+                </p>
+                <p className="mt-1 text-lg font-semibold leading-snug">{proxima.aulaTitulo}</p>
+                <Button asChild variant="cta" size="lg" font="display" className="mt-4 w-full">
+                  <Link href={linkProxima!}>
+                    <PlayIcon className="fill-current" />
+                    {concluidas.size > 0 ? t.dashboard.ctaContinuar : t.dashboard.ctaComecar}
+                  </Link>
+                </Button>
+              </>
             ) : (
-              mural.map(item => (
-                <Card
-                  key={item.id}
-                  className={cn('overflow-hidden', item.fixado ? 'bg-cc-orange/5 border-[#2a1800]' : 'bg-white/[0.02] border-cc-gray')}
-                >
-                  {item.fixado && <div className="h-0.5 bg-cc-orange" />}
-                  <div className="p-4">
-                    <div className="flex items-start justify-between gap-2 mb-1">
-                      <h4 className="font-display text-base tracking-wider">
-                        {item.fixado && <span className="text-cc-orange">📌 </span>}
-                        {item.titulo}
-                      </h4>
-                      <span className="font-mono text-xs shrink-0 text-muted-foreground">{formatarData(item.criado_em)}</span>
-                    </div>
-                    <p className="text-xs leading-relaxed mb-2 text-[#999]">{item.texto}</p>
-                    <p className="font-mono text-[9px] text-cc-orange">— {item.autor}</p>
-                  </div>
-                </Card>
-              ))
+              <p className="flex items-start gap-3 text-white/85">
+                <CheckIcon className="mt-0.5 size-5 shrink-0 text-cc-green" />
+                {t.dashboard.tudoConcluido}
+              </p>
             )}
           </div>
         </div>
+      </BrandBlock>
+
+      {/* NÚCLEO + AVISOS */}
+      <div className="mt-10 grid gap-8 lg:grid-cols-3">
+        <section className="lg:col-span-2">
+          <SectionTitle eyebrow={t.dashboard.baseTodas}>{t.comum.nucleoObrigatorio}</SectionTitle>
+          {nucleo && (
+            <Link
+              href={href(`/trilha/${nucleo.id}`)}
+              className="group block rounded-2xl border border-cc-line bg-cc-surface p-6 transition-all hover:border-cc-green/60"
+            >
+              <div className="flex items-start gap-4">
+                <span
+                  className={cn(
+                    'grid size-12 shrink-0 place-items-center rounded-xl',
+                    nucleoCompleto ? 'bg-cc-green text-primary-foreground' : 'bg-cc-purple text-white'
+                  )}
+                >
+                  {nucleoCompleto ? <CheckIcon className="size-6" /> : <CompassIcon className="size-6" />}
+                </span>
+                <div className="min-w-0 flex-1">
+                  <h3 className="font-display text-2xl leading-tight">{nucleo.titulo}</h3>
+                  {nucleo.descricao && <p className="mt-1.5 text-muted-foreground leading-relaxed">{nucleo.descricao}</p>}
+                </div>
+                <ArrowRightIcon className="hidden sm:block size-5 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-cc-green" />
+              </div>
+
+              <ol className="mt-6 flex gap-1.5" aria-hidden>
+                {nucleo.trilha_aulas.map(ta => (
+                  <li key={ta.aula_id} className={cn('h-1.5 flex-1 rounded-full', concluidas.has(ta.aula_id) ? 'bg-cc-green' : 'bg-cc-surface-2')} />
+                ))}
+              </ol>
+              <div className="mt-2 flex justify-between text-xs text-muted-foreground">
+                <span>{fmt(t.comum.aulasFracao, { done: nucleoFeitas, total: nucleoTotal })}</span>
+                <span className={cn('font-semibold', nucleoCompleto ? 'text-cc-green' : 'text-foreground')}>{nucleoPct}%</span>
+              </div>
+            </Link>
+          )}
+        </section>
+
+        <section>
+          <SectionTitle>{t.dashboard.mural}</SectionTitle>
+          <div className="flex flex-col gap-3">
+            {mural.length === 0 ? (
+              <p className="rounded-2xl border border-dashed border-cc-line p-5 text-sm text-muted-foreground">{t.dashboard.muralVazio}</p>
+            ) : (
+              mural.map(item => (
+                <article
+                  key={item.id}
+                  className={cn(
+                    'rounded-2xl border p-4',
+                    item.fixado ? 'border-cc-orange/50 bg-cc-orange/[0.07]' : 'border-cc-line bg-cc-surface'
+                  )}
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    {item.fixado ? (
+                      <span className="label-caps flex items-center gap-1 text-cc-orange">
+                        <PinIcon className="size-3" /> {item.autor}
+                      </span>
+                    ) : (
+                      <span className="label-caps text-muted-foreground">{item.autor}</span>
+                    )}
+                    <time className="text-xs text-muted-foreground">{formatarData(item.criado_em)}</time>
+                  </div>
+                  <h4 className="mt-2 font-semibold leading-snug">{item.titulo}</h4>
+                  <p className="mt-1 text-sm text-muted-foreground leading-relaxed">{item.texto}</p>
+                </article>
+              ))
+            )}
+          </div>
+        </section>
       </div>
 
       {/* TRILHAS ESPECÍFICAS */}
-      <section id="trilhas-section">
-        <div className="flex items-baseline justify-between mb-4 gap-2">
-          <p className="font-mono tracking-widest text-muted-foreground text-[clamp(10px,2vw,14px)]">{t.comum.trilhasEspecificas}</p>
-          {!nucleoCompleto && <span className="font-mono text-sm text-[#999]">{t.comum.concluaNucleo}</span>}
-        </div>
-        <div className="grid grid-cols-2 gap-3">
-          {especificas.map((tr, i) => {
-            const total = tr.trilha_aulas.length
-            const done = tr.trilha_aulas.filter(ta => concluidas.has(ta.aula_id)).length
-            const desbloqueada = nucleoCompleto && total > 0
-            const emBreve = total === 0
-            const trConcluida = total > 0 && done === total
-            const pct = total > 0 ? Math.round((done / total) * 100) : 0
-
-            const conteudo = (
-              <>
-                {desbloqueada && <div className={cn('h-0.5', trConcluida ? 'bg-cc-green' : 'bg-cc-orange')} />}
-                <div className="p-4">
-                  <p
-                    className={cn(
-                      'font-mono mb-1 text-[9px] tracking-[2px]',
-                      desbloqueada ? (trConcluida ? 'text-cc-green' : 'text-cc-orange') : 'text-[#444]'
-                    )}
-                  >
-                    {fmt(t.dashboard.trilhaN, { n: String(i + 1).padStart(2, '0') })}
-                  </p>
-                  <h3
-                    className={cn(
-                      'font-display tracking-wider mb-1 leading-tight text-[clamp(16px,4vw,26px)]',
-                      desbloqueada ? 'text-foreground' : 'text-[#444]'
-                    )}
-                  >
-                    {tr.titulo.toUpperCase()}
-                  </h3>
-
-                  {desbloqueada && (
-                    <>
-                      <Progress
-                        value={pct}
-                        className="h-1 mb-1.5"
-                        indicatorClassName={trConcluida ? 'bg-cc-green' : 'bg-cc-orange'}
-                      />
-                      <div className="flex justify-between gap-1">
-                        <span className="font-mono text-[9px] text-muted-foreground">
-                          {fmt(t.comum.aulasFracao, { done, total })}
-                        </span>
-                        <span className={cn('font-mono text-[9px]', trConcluida ? 'text-cc-green' : 'text-cc-orange')}>
-                          {trConcluida ? `✓ ${t.dashboard.concluida}` : `▶ ${t.dashboard.disponivel}`}
-                        </span>
-                      </div>
-                    </>
-                  )}
-
-                  {emBreve && <span className="font-mono text-[9px] text-[#555]">{t.comum.emBreve}</span>}
-
-                  {!desbloqueada && !emBreve && (
-                    <div className="rounded-lg p-2 mt-2 bg-cc-purple/8 border border-[#2a1f4a]">
-                      <p className="font-mono mb-0.5 text-[8px] tracking-[1px] text-cc-purple">{t.dashboard.paraDesbloquear}</p>
-                      <p className="text-sm text-muted-foreground leading-snug">
-                        {t.dashboard.concluaO} <span className="text-cc-purple">{t.dashboard.nucleoObrigatorio}</span>
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </>
-            )
-
-            const base = cn(
-              'rounded-xl border overflow-hidden transition-colors',
-              trConcluida
-                ? 'bg-cc-green/6 border-[#1a3a28]'
-                : desbloqueada
-                  ? 'bg-cc-orange/6 border-[#2a1800]'
-                  : 'bg-white/[0.01] border-[#151515]'
-            )
-
-            return desbloqueada ? (
-              <Link
-                key={tr.id}
-                href={href(`/trilha/${tr.id}`)}
-                className={cn(base, trConcluida ? 'hover:border-cc-green' : 'hover:border-cc-orange')}
-              >
-                {conteudo}
+      <section className="mt-10">
+        <SectionTitle
+          eyebrow={!nucleoCompleto ? t.comum.concluaNucleo : undefined}
+          action={
+            <Button asChild variant="ghost" size="sm">
+              <Link href={href('/trilhas')}>
+                {t.dashboard.verTodas} <ArrowRightIcon />
               </Link>
-            ) : (
-              <div key={tr.id} className={cn(base, !emBreve && 'opacity-50')}>
-                {conteudo}
-              </div>
-            )
-          })}
+            </Button>
+          }
+        >
+          {t.comum.trilhasEspecificas}
+        </SectionTitle>
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          {especificas.map(tr => (
+            <TrilhaCard
+              key={tr.id}
+              trilha={{
+                id: tr.id,
+                titulo: tr.titulo,
+                descricao: tr.descricao,
+                total: tr.trilha_aulas.length,
+                done: tr.trilha_aulas.filter(ta => concluidas.has(ta.aula_id)).length,
+                desbloqueada: nucleoCompleto,
+              }}
+            />
+          ))}
         </div>
       </section>
-    </div>
+
+    </PageContainer>
   )
 }
