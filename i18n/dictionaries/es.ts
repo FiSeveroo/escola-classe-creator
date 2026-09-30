@@ -388,20 +388,22 @@ const es: Dictionary = {
     comecar: 'Empezar gratis',
     irParaAulas: 'Ir a mis clases',
     hero: {
-      eyebrow: 'Escuela Classe Creator · 100% gratuita',
-      titulo: 'Entiende el juego de las plataformas. De adentro hacia afuera.',
+      eyebrow: 'Escuela de Classe Creator · formación gratuita',
+      titulo: 'La industria te enseña a rendir.',
+      titulo2: 'La Escuela te enseña a entender.',
       texto:
-        'Una formación gratuita para que creadores, editores, diseñadores y gestores de comunidad entiendan cómo los algoritmos, la atención y los intereses comerciales deciden el alcance de su trabajo.',
+        'Formación gratuita sobre el ecosistema de las plataformas: cómo funcionan los algoritmos, cómo ganan dinero las plataformas y cómo encaja tu trabajo en todo eso.',
       cta: 'EMPEZAR GRATIS',
       ctaSecundario: 'Ver lo que vas a aprender',
-      provas: ['Sin costo, sin trampas', 'Certificado gratuito', 'A tu ritmo'],
+      provas: ['100% gratuita', 'Certificado sin costo', 'A tu ritmo'],
       previaRotulo: 'Primera ruta',
       previaMeta: '5 clases · Núcleo obligatorio',
     },
     manifesto: {
-      frase: 'Crear es trabajo.',
+      frase: 'No es un curso para hacerse viral.',
+      frase2: 'Es un lugar para pensar.',
       texto:
-        'Quien no entiende las reglas de las plataformas trabaja para quien sí las entiende. La escuela existe para devolver ese conocimiento a quien produce — sin peaje.',
+        'La Escuela es el frente de formación de Classe Creator: conocimiento gratuito sobre cómo funcionan de verdad las plataformas, para quien quiere entender la máquina antes de trabajar para ella.',
     },
     como: {
       eyebrow: 'Cómo funciona',
@@ -451,8 +453,9 @@ const es: Dictionary = {
     },
     paraQuem: {
       eyebrow: 'Para quién es',
-      titulo: 'Hecha para quien vive de crear',
-      itens: ['Creadores de contenido', 'Editores de video', 'Diseñadores', 'Guionistas', 'Gestores de comunidad', 'Quien está empezando'],
+      titulo: 'Para quien crea y para quien piensa las plataformas',
+      texto: 'Trabajadores culturales plataformizados y todas las personas que investigan y viven este universo.',
+      itens: ['Creadores de contenido', 'Editores', 'Guionistas', 'Diseñadores', 'Gestores de comunidad', 'Investigadores', 'Periodistas', 'Estudiantes'],
     },
     quem: {
       eyebrow: 'Quién la hace',
@@ -460,7 +463,7 @@ const es: Dictionary = {
       texto:
         'La escuela es creada por Filipe Severo — investigador, estratega de contenido y creador desde hace más de 10 años, con maestría en Comunicación por la PUCRS (Brasil) sobre el trabajo plataformizado en YouTube.',
       movimento:
-        'Forma parte de Classe Creator, un movimiento que reúne a quien crea para entender el sistema por dentro, y del Observatorio que mantiene Raio-X, una herramienta de auditoría algorítmica.',
+        'La Escuela es uno de los tres frentes de Classe Creator — investigación, formación y comunidad —, un espacio para quien quiere entender el sistema donde crea, no solo rendir dentro de él. La investigación viene del Observatorio, que mantiene Raio-X.',
     },
     faq: {
       eyebrow: 'Dudas',
@@ -477,10 +480,11 @@ const es: Dictionary = {
         },
         { p: '¿Cuánto tiempo lleva?', r: 'Vas a tu ritmo. Tu progreso se guarda y continúas donde lo dejaste.' },
         { p: '¿En qué idioma son las clases?', r: 'Las clases son en portugués. La plataforma puede usarse en portugués, inglés o español.' },
-        { p: '¿Necesito ser creador?', r: 'No. La escuela sirve tanto para quien está empezando como para quien ya trabaja con contenido.' },
+        { p: '¿Necesito ser creador?', r: 'No. La Escuela es para quien crea, edita, escribe, investiga o simplemente quiere entender mejor el sistema donde trabaja.' },
       ],
     },
     final: {
+      eyebrow: 'Classe solo existe contigo',
       titulo: 'Empieza ahora. Es gratis.',
       texto: 'Crea tu cuenta en menos de un minuto y empieza por el Núcleo.',
       cta: 'CREAR MI CUENTA',

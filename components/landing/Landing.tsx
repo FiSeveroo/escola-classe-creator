@@ -81,7 +81,9 @@ export function Landing({ lang, t, logado }: Props) {
             <div className="grid items-center gap-12 lg:grid-cols-[1.25fr_1fr] [&>*]:min-w-0">
               <div>
                 <Eyebrow className="text-white/75">{L.hero.eyebrow}</Eyebrow>
-                <h1 className="mt-4 font-display text-[1.875rem] leading-[0.95] break-words sm:text-5xl lg:text-6xl">{L.hero.titulo}</h1>
+                <h1 className="mt-4 font-display text-[1.875rem] leading-[0.95] break-words sm:text-5xl lg:text-[3.25rem]">
+                  {L.hero.titulo} <span className="block mt-2 text-cc-green">{L.hero.titulo2}</span>
+                </h1>
                 <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/85">{L.hero.texto}</p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
                   <CtaPrincipal />
@@ -148,7 +150,8 @@ export function Landing({ lang, t, logado }: Props) {
 
         {/* MANIFESTO */}
         <section className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 sm:py-28">
-          <p className="font-display text-[2.75rem] leading-none text-cc-green sm:text-7xl">{L.manifesto.frase}</p>
+          <p className="font-display text-[2.25rem] leading-[0.95] text-foreground sm:text-6xl">{L.manifesto.frase}</p>
+          <p className="mt-2 font-display text-[2.25rem] leading-[0.95] text-cc-green sm:text-6xl">{L.manifesto.frase2}</p>
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">{L.manifesto.texto}</p>
           <p className="mt-6 label-caps text-cc-purple-text">{t.sobre.slogan}</p>
         </section>
@@ -254,9 +257,10 @@ export function Landing({ lang, t, logado }: Props) {
 
         {/* PARA QUEM */}
         <section className="mx-auto mt-24 max-w-6xl px-4 sm:px-6">
-          <SectionTitle eyebrow={L.paraQuem.eyebrow} className="mb-6">
+          <SectionTitle eyebrow={L.paraQuem.eyebrow} className="mb-3">
             {L.paraQuem.titulo}
           </SectionTitle>
+          <p className="mb-6 max-w-2xl text-muted-foreground">{L.paraQuem.texto}</p>
           <ul className="flex flex-wrap gap-3">
             {L.paraQuem.itens.map(item => (
               <li key={item} className="flex items-center gap-2 rounded-full border border-cc-line bg-cc-surface px-4 py-2.5 font-semibold">
@@ -318,7 +322,8 @@ export function Landing({ lang, t, logado }: Props) {
         {/* CHAMADA FINAL */}
         <section className="mx-auto mt-24 max-w-6xl px-4 pb-20 sm:px-6">
           <BrandBlock className="px-6 py-14 text-center sm:px-10 sm:py-20">
-            <h2 className="font-display text-4xl leading-none sm:text-6xl">{L.final.titulo}</h2>
+            <Eyebrow className="text-white/75">{L.final.eyebrow}</Eyebrow>
+            <h2 className="mt-3 font-display text-4xl leading-none sm:text-6xl">{L.final.titulo}</h2>
             <p className="mx-auto mt-5 max-w-xl text-lg text-white/85">{L.final.texto}</p>
             <Button asChild variant="cta" size="lg" font="display" className="mt-8">
               <Link href={ctaHref}>

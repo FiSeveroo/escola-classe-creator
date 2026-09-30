@@ -388,20 +388,22 @@ const en: Dictionary = {
     comecar: 'Start for free',
     irParaAulas: 'Go to my lessons',
     hero: {
-      eyebrow: 'Classe Creator School · 100% free',
-      titulo: 'Understand how platforms really work. From the inside out.',
+      eyebrow: 'The Classe Creator School · free training',
+      titulo: 'The industry teaches you to perform.',
+      titulo2: 'The School teaches you to understand.',
       texto:
-        'Free training for creators, editors, designers and community managers to understand how algorithms, attention and business interests decide the reach of their work.',
+        'Free training on the platform ecosystem: how algorithms work, how platforms make money and how your work fits into all of it.',
       cta: 'START FOR FREE',
       ctaSecundario: "See what you'll learn",
-      provas: ['No cost, no catch', 'Free certificate', 'At your own pace'],
+      provas: ['100% free', 'Free certificate', 'At your own pace'],
       previaRotulo: 'First track',
       previaMeta: '5 lessons · Core track',
     },
     manifesto: {
-      frase: 'Creating is work.',
+      frase: "It's not a course to go viral.",
+      frase2: "It's a place to think.",
       texto:
-        "Whoever doesn't understand the rules of the platforms works for those who do. The school exists to give that knowledge back to the people who create — with no toll.",
+        "The School is Classe Creator's training front: free knowledge about how platforms really work, for people who want to understand the machine before working for it.",
     },
     como: {
       eyebrow: 'How it works',
@@ -451,8 +453,9 @@ const en: Dictionary = {
     },
     paraQuem: {
       eyebrow: "Who it's for",
-      titulo: 'Made for people who create for a living',
-      itens: ['Content creators', 'Video editors', 'Designers', 'Scriptwriters', 'Community managers', 'People just getting started'],
+      titulo: 'For those who create and those who think about platforms',
+      texto: 'Platformized cultural workers and everyone who researches and lives in this world.',
+      itens: ['Content creators', 'Editors', 'Scriptwriters', 'Designers', 'Community managers', 'Researchers', 'Journalists', 'Students'],
     },
     quem: {
       eyebrow: "Who's behind it",
@@ -460,7 +463,7 @@ const en: Dictionary = {
       texto:
         "The school is created by Filipe Severo — a researcher, content strategist and creator for over 10 years, with a master's degree in Communication from PUCRS (Brazil) on platformized labor on YouTube.",
       movimento:
-        'It is part of Classe Creator, a movement that brings together people who create to understand the system from the inside, and of the Observatory behind Raio-X, an algorithmic auditing tool.',
+        'The School is one of the three fronts of Classe Creator — research, training and community —, a space for people who want to understand the system they create in, not just perform inside it. The research comes from the Observatory, which runs Raio-X.',
     },
     faq: {
       eyebrow: 'FAQ',
@@ -477,10 +480,11 @@ const en: Dictionary = {
         },
         { p: 'How long does it take?', r: 'You go at your own pace. Your progress is saved and you pick up where you left off.' },
         { p: 'What language are the lessons in?', r: 'The lessons are in Portuguese. The platform can be used in Portuguese, English or Spanish.' },
-        { p: 'Do I need to be a creator already?', r: 'No. The school works both for people just starting out and for those already working with content.' },
+        { p: 'Do I need to be a creator already?', r: 'No. The School is for anyone who creates, edits, writes, researches or simply wants to better understand the system they work in.' },
       ],
     },
     final: {
+      eyebrow: 'Classe only exists with you',
       titulo: "Start now. It's free.",
       texto: 'Create your account in under a minute and start with the Core.',
       cta: 'CREATE MY ACCOUNT',

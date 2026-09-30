@@ -390,20 +390,22 @@ const pt = {
     comecar: 'Começar grátis',
     irParaAulas: 'Ir para minhas aulas',
     hero: {
-      eyebrow: 'Escola Classe Creator · 100% gratuita',
-      titulo: 'Entenda o jogo das plataformas. De dentro pra fora.',
+      eyebrow: 'Escola da Classe Creator · formação gratuita',
+      titulo: 'A indústria ensina você a performar.',
+      titulo2: 'A Escola ensina você a entender.',
       texto:
-        'Uma formação gratuita para criadores, editores, designers e gestores de comunidade entenderem como algoritmos, atenção e interesses comerciais decidem o alcance do seu trabalho.',
+        'Formação gratuita sobre o ecossistema das plataformas: como os algoritmos funcionam, como as plataformas ganham dinheiro e como o seu trabalho se encaixa nisso tudo.',
       cta: 'COMEÇAR GRÁTIS',
       ctaSecundario: 'Ver o que você vai aprender',
-      provas: ['Sem custo, sem pegadinha', 'Certificado gratuito', 'No seu ritmo'],
+      provas: ['100% gratuita', 'Certificado sem custo', 'No seu ritmo'],
       previaRotulo: 'Primeira trilha',
       previaMeta: '5 aulas · Núcleo obrigatório',
     },
     manifesto: {
-      frase: 'Criar é trabalho.',
+      frase: 'Não é curso pra viralizar.',
+      frase2: 'É lugar pra pensar.',
       texto:
-        'Quem não entende as regras das plataformas trabalha para quem entende. A escola existe para devolver esse conhecimento a quem produz — sem pedágio.',
+        'A Escola é a frente de formação da Classe Creator: conhecimento gratuito sobre como as plataformas funcionam de verdade, pra quem quer entender a máquina antes de trabalhar pra ela.',
     },
     como: {
       eyebrow: 'Como funciona',
@@ -453,8 +455,9 @@ const pt = {
     },
     paraQuem: {
       eyebrow: 'Para quem é',
-      titulo: 'Feita para quem vive de criar',
-      itens: ['Criadores de conteúdo', 'Editores de vídeo', 'Designers', 'Roteiristas', 'Gestores de comunidade', 'Quem está começando agora'],
+      titulo: 'Pra quem cria e pra quem pensa as plataformas',
+      texto: 'Trabalhadores culturais plataformizados e todo mundo que pesquisa e vive esse universo.',
+      itens: ['Criadores de conteúdo', 'Editores', 'Roteiristas', 'Designers', 'Gestores de comunidade', 'Pesquisadores', 'Jornalistas', 'Estudantes'],
     },
     quem: {
       eyebrow: 'Quem faz',
@@ -462,7 +465,7 @@ const pt = {
       texto:
         'A escola é criada por Filipe Severo — pesquisador, estrategista de conteúdo e criador há mais de 10 anos, com mestrado em Comunicação pela PUCRS sobre o trabalho plataformizado no YouTube.',
       movimento:
-        'Faz parte da Classe Creator, movimento que reúne quem cria para entender o sistema por dentro, e do Observatório que mantém o Raio-X, ferramenta de auditoria algorítmica.',
+        'A Escola é uma das três frentes da Classe Creator — pesquisa, formação e comunidade —, um espaço pra quem quer entender o sistema onde cria, não só performar dentro dele. A pesquisa vem do Observatório, que mantém o Raio-X.',
     },
     faq: {
       eyebrow: 'Dúvidas',
@@ -476,10 +479,11 @@ const pt = {
         { p: 'O certificado é reconhecido pelo MEC?', r: 'Não. É um certificado de conclusão de trilha formativa emitido pela Classe Creator.' },
         { p: 'Quanto tempo leva?', r: 'Você faz no seu ritmo. Seu progresso fica salvo e você continua de onde parou.' },
         { p: 'Em que idioma são as aulas?', r: 'As aulas são em português. A plataforma pode ser usada em português, inglês ou espanhol.' },
-        { p: 'Preciso já ser criador?', r: 'Não. A escola serve tanto para quem está começando quanto para quem já trabalha com conteúdo.' },
+        { p: 'Preciso já ser criador?', r: 'Não. A Escola é pra quem cria, edita, escreve, pesquisa ou simplesmente quer entender melhor o sistema onde trabalha.' },
       ],
     },
     final: {
+      eyebrow: 'A Classe só existe com você',
       titulo: 'Comece agora. É grátis.',
       texto: 'Crie sua conta em menos de um minuto e comece pelo Núcleo.',
       cta: 'CRIAR MINHA CONTA',
