@@ -53,7 +53,7 @@ export interface ProgressoAula {
   concluida_em: string | null
 }
 
-export interface Comentario {
+export interface ComentarioView {
   id: string
   aula_id: string
   usuario_id: string
@@ -61,8 +61,8 @@ export interface Comentario {
   pai_id: string | null
   likes: number
   criado_em: string
-  perfis: Perfil
-  user_liked?: boolean
+  autor: Perfil
+  user_liked: boolean
 }
 
 export interface TrilhaComProgresso extends Trilha {

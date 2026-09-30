@@ -1,6 +1,12 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import { CheckIcon, LockIcon } from 'lucide-react'
+import { useI18n } from '@/i18n/I18nProvider'
+import { fmt } from '@/i18n/format'
+import { cn } from '@/lib/utils'
+import { Progress } from '@/components/ui/progress'
+import { Eyebrow } from '@/components/brand/Brand'
 
 interface AulaItem {
   id: string
@@ -17,88 +23,71 @@ interface TrilhaSidebarProps {
 }
 
 export default function TrilhaSidebar({ trilhaTitulo, trilhaId, aulas, aulaAtualId, aulasConcluidas }: TrilhaSidebarProps) {
-  const router = useRouter()
+  const { t, href } = useI18n()
   const concluidas = new Set(aulasConcluidas)
 
   const totalConcluidas = aulas.filter(a => concluidas.has(a.id)).length
-  const pct = Math.round((totalConcluidas / aulas.length) * 100)
+  const pct = aulas.length ? Math.round((totalConcluidas / aulas.length) * 100) : 0
 
   return (
-    <aside
-      className="hidden lg:flex flex-col w-72 xl:w-80 flex-shrink-0 h-screen sticky top-0 border-l overflow-y-auto"
-      style={{ background: 'var(--cc-gray)', borderColor: 'var(--cc-gray2)' }}
-    >
-      {/* Header */}
-      <div className="p-4 border-b sticky top-0 z-10" style={{ background: 'var(--cc-gray)', borderColor: 'var(--cc-gray2)' }}>
-        <p className="font-mono text-xs tracking-widest mb-1" style={{ color: 'var(--cc-orange)' }}>TRILHA</p>
-        <h3 className="font-display text-lg tracking-wider leading-tight mb-3" style={{ color: 'var(--cc-white)' }}>
-          {trilhaTitulo.toUpperCase()}
-        </h3>
-        {/* Progresso */}
-        <div className="flex justify-between items-center mb-1.5">
-          <span className="font-mono text-xs" style={{ color: 'var(--cc-muted)' }}>
-            {totalConcluidas}/{aulas.length} aulas
-          </span>
-          <span className="font-mono text-xs" style={{ color: 'var(--cc-green)' }}>{pct}%</span>
+    <aside className="hidden xl:flex flex-col w-80 shrink-0 h-screen sticky top-0 border-l border-cc-line bg-cc-surface overflow-y-auto">
+      <div className="sticky top-0 z-10 border-b border-cc-line bg-cc-surface p-5">
+        <Eyebrow>{t.trilha.trilha}</Eyebrow>
+        <Link href={href(`/trilha/${trilhaId}`)} className="mt-1 block font-display text-lg leading-tight text-cc-green hover:underline underline-offset-4">
+          {trilhaTitulo}
+        </Link>
+        <div className="mt-4 mb-2 flex justify-between text-xs text-muted-foreground">
+          <span>{fmt(t.comum.aulasFracao, { done: totalConcluidas, total: aulas.length })}</span>
+          <span className="font-semibold text-foreground">{pct}%</span>
         </div>
-        <div className="h-1 rounded-full overflow-hidden" style={{ background: 'var(--cc-gray2)' }}>
-          <div
-            className="h-full rounded-full transition-all"
-            style={{ width: `${pct}%`, background: 'var(--cc-green)' }}
-          />
-        </div>
+        <Progress value={pct} />
       </div>
 
-      {/* Lista de aulas */}
-      <div className="flex flex-col py-2">
+      <nav className="flex flex-col gap-1 p-3">
         {aulas.map((aula, i) => {
           const done = concluidas.has(aula.id)
           const isAtual = aula.id === aulaAtualId
           const prevDone = i === 0 || concluidas.has(aulas[i - 1].id)
           const locked = !prevDone && !done
 
-          return (
-            <button
-              key={aula.id}
-              onClick={() => !locked && router.push(`/aula/${aula.id}?trilha=${trilhaId}`)}
-              className="flex items-center gap-3 px-4 py-3 text-left transition-colors border-l-2"
-              style={{
-                borderLeftColor: isAtual ? 'var(--cc-green)' : 'transparent',
-                background: isAtual ? 'rgba(0,232,122,0.05)' : 'transparent',
-                opacity: locked ? 0.35 : 1,
-                cursor: locked ? 'not-allowed' : 'pointer',
-              }}
-              onMouseEnter={e => { if (!locked && !isAtual) e.currentTarget.style.background = 'var(--cc-gray2)' }}
-              onMouseLeave={e => { if (!isAtual) e.currentTarget.style.background = 'transparent' }}
-            >
-              {/* Status circle */}
-              <div
-                className="w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center text-xs border-2 transition-colors"
-                style={{
-                  borderColor: done ? 'var(--cc-green)' : isAtual ? 'var(--cc-purple)' : 'var(--cc-gray3)',
-                  background: done ? 'var(--cc-green)' : 'transparent',
-                  color: done ? 'var(--cc-bg)' : 'transparent',
-                }}
+          const conteudo = (
+            <>
+              <span
+                className={cn(
+                  'grid size-7 shrink-0 place-items-center rounded-full text-xs font-bold',
+                  done
+                    ? 'bg-cc-green text-primary-foreground'
+                    : isAtual
+                      ? 'bg-cc-purple text-white'
+                      : 'bg-cc-surface-2 text-muted-foreground'
+                )}
               >
-                {done ? '✓' : ''}
-              </div>
+                {done ? <CheckIcon className="size-3.5" strokeWidth={3} /> : locked ? <LockIcon className="size-3" /> : i + 1}
+              </span>
+              <span className={cn('min-w-0 flex-1 text-sm leading-snug', isAtual ? 'font-semibold text-foreground' : 'text-muted-foreground')}>
+                {aula.titulo}
+              </span>
+            </>
+          )
 
-              {/* Título */}
-              <div className="flex-1 min-w-0">
-                <p
-                  className="text-xs leading-snug truncate"
-                  style={{
-                    color: isAtual ? 'var(--cc-white)' : done ? 'var(--cc-muted)' : 'var(--cc-white)',
-                    fontWeight: isAtual ? 500 : 400,
-                  }}
-                >
-                  {String(i + 1).padStart(2, '0')}. {aula.titulo}
-                </p>
-              </div>
-            </button>
+          const classes = cn('flex items-center gap-3 rounded-lg px-3 py-2.5 text-left transition-colors', isAtual && 'bg-cc-purple/15')
+
+          return locked ? (
+            <span key={aula.id} className={cn(classes, 'cursor-not-allowed opacity-50')} aria-disabled>
+              {conteudo}
+            </span>
+          ) : (
+            <Link
+              key={aula.id}
+              href={href(`/aula/${aula.id}?trilha=${trilhaId}`)}
+              aria-current={isAtual ? 'page' : undefined}
+              className={cn(classes, !isAtual && 'hover:bg-cc-surface-2 hover:text-foreground')}
+            >
+              {conteudo}
+            </Link>
           )
         })}
-      </div>
+      </nav>
     </aside>
   )
 }

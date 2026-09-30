@@ -1,9 +1,10 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
 
 /* ============================================================
-   FONTES LOCAIS — Classe Creator
+   FONTES — Gunterz Black (títulos) · DM Sans (corpo, via @fontsource no layout)
    ============================================================ */
 @font-face {
   font-family: 'Gunterz';
@@ -12,71 +13,137 @@
   font-style: normal;
   font-display: swap;
 }
-@font-face {
-  font-family: 'Gunterz';
-  src: url('/Gunterz-Bold.otf') format('opentype');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Gunterz';
-  src: url('/Gunterz-Regular.otf') format('opentype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'CookConthic';
-  src: url('/CookConthic.otf') format('opentype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Space Mono para labels/mono — continua do Google */
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
 
 /* ============================================================
-   VARIÁVEIS
+   DIRETRIZES VISUAIS — CLASSE CREATOR
+   Verde  #27D337 → títulos de seções principais e botões
+   Roxo   #560BF2 → blocos de seção amplos e títulos secundários
+   Laranja #D36C27 → CTAs de impacto e avisos importantes
+   O roxo puro tem pouco contraste como TEXTO sobre o fundo escuro;
+   para texto roxo pequeno use --cc-purple-text.
    ============================================================ */
 :root {
-  --cc-bg: #0a0a0a;
-  --cc-gray: #1a1a1a;
-  --cc-gray2: #222222;
-  --cc-gray3: #2a2a2a;
-  --cc-green: #00E87A;
-  --cc-purple: #7B2FFF;
-  --cc-orange: #FF5C1A;
-  --cc-white: #F5F0E8;
-  --cc-muted: #aaaaaa;
+  --cc-bg: #0b0b0c;
+  --cc-surface: #141416;
+  --cc-surface-2: #1c1c1f;
+  --cc-line: #28282c;
+  --cc-green: #27d337;
+  --cc-purple: #560bf2;
+  --cc-purple-text: #a07bff;
+  --cc-orange: #d36c27;
+  --cc-white: #f5f3ef;
+  --cc-muted: #a3a3ab;
+
+  --radius: 0.625rem;
+
+  --background: var(--cc-bg);
+  --foreground: var(--cc-white);
+  --card: var(--cc-surface);
+  --card-foreground: var(--cc-white);
+  --popover: var(--cc-surface-2);
+  --popover-foreground: var(--cc-white);
+  --primary: var(--cc-green);
+  --primary-foreground: #06140a;
+  --secondary: var(--cc-purple);
+  --secondary-foreground: #ffffff;
+  --muted: var(--cc-surface-2);
+  --muted-foreground: var(--cc-muted);
+  --accent: var(--cc-surface-2);
+  --accent-foreground: var(--cc-white);
+  --destructive: var(--cc-orange);
+  --destructive-foreground: #140a03;
+  --border: var(--cc-line);
+  --input: var(--cc-line);
+  --ring: var(--cc-green);
 }
 
-* { box-sizing: border-box; }
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
 
-html, body {
-  background-color: #0a0a0a;
-  color: var(--cc-white);
-  font-family: 'CookConthic', 'DM Sans', sans-serif;
-  font-size: 16px;
-  -webkit-font-smoothing: antialiased;
-  min-height: 100vh;
+  /* Cores da marca: bg-cc-green, text-cc-purple-text, border-cc-line... */
+  --color-cc-bg: var(--cc-bg);
+  --color-cc-surface: var(--cc-surface);
+  --color-cc-surface-2: var(--cc-surface-2);
+  --color-cc-line: var(--cc-line);
+  --color-cc-green: var(--cc-green);
+  --color-cc-purple: var(--cc-purple);
+  --color-cc-purple-text: var(--cc-purple-text);
+  --color-cc-orange: var(--cc-orange);
+  --color-cc-white: var(--cc-white);
+  --color-cc-muted: var(--cc-muted);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  --font-sans: 'DM Sans Variable', 'DM Sans', system-ui, sans-serif;
 }
 
-/* Gunterz para todos os títulos display */
-.font-display {
-  font-family: 'Gunterz', 'Bebas Neue', sans-serif;
-  letter-spacing: 0.05em;
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html,
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    min-height: 100vh;
+  }
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+  ::selection {
+    background: var(--cc-green);
+    color: #06140a;
+  }
+}
+
+/* Títulos: Gunterz Black, caixa alta. */
+@utility font-display {
+  font-family: 'Gunterz', 'Arial Black', sans-serif;
   font-weight: 900;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
-/* Space Mono para labels técnicos */
-.font-mono { font-family: 'Space Mono', monospace; }
+/* Rótulos pequenos (eyebrows, status): DM Sans em caixa alta espaçada. */
+@utility label-caps {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
 
-/* CookConthic como corpo */
-.font-body { font-family: 'CookConthic', sans-serif; }
+/* Textura oficial da marca como camada de fundo. Use em elementos com position:relative. */
+@utility bg-textura {
+  background-image: url('/brand/textura.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #111; }
-::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 2px; }
-::-webkit-scrollbar-thumb:hover { background: #444; }
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--cc-bg); }
+::-webkit-scrollbar-thumb { background: var(--cc-line); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #3a3a40; }
